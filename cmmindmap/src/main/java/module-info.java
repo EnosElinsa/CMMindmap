@@ -1,5 +1,6 @@
 module codeminer {
-    requires javafx.controls;
+    requires transitive javafx.graphics;
+    requires transitive javafx.controls;
     requires javafx.fxml;
 
     opens codeminer to javafx.fxml;
