@@ -31,7 +31,8 @@ public class PrimaryController {
         initializeNodesInFlowPane(flowPane);
     }
 
-    public void initializeExitButton(Node root, Button exitButton) {
+    public static void initializeExitButton(Node root, Button exitButton) {
+        String previousStyle = exitButton.getStyle();
         exitButton.setOnMouseEntered(event -> {
             exitButton.setStyle("-fx-background-color: #E53935");
         });
@@ -40,11 +41,11 @@ public class PrimaryController {
             stage.close();
         });
         exitButton.setOnMouseExited(event -> {
-            exitButton.setStyle("-fx-background-color: #1D1F20");
+            exitButton.setStyle(previousStyle);
         });
     }
     
-    public void makeStageDraggable(Node root, Alert alert) {
+    public static void makeStageDraggable(Node root, Alert alert) {
         double[] xOffset = {0}, yOffset = {0};
         root.setOnMousePressed(event -> {
             Stage stage = (Stage)root.getScene().getWindow();
@@ -71,16 +72,29 @@ public class PrimaryController {
 
     public void initializeNodesInFlowPane(FlowPane flowPane) {
         for (Node node : flowPane.getChildren()) {
-            Node nestedNode = ((VBox)node).getChildren().get(0);
-            String previousStyle = nestedNode.getStyle();
-            nestedNode.setOnMouseEntered(event -> {
-                nestedNode.setStyle("-fx-border-width: 10px");
-                nestedNode.setStyle("-fx-border-color: #3e4040");
-                nestedNode.setStyle("-fx-border-style: solid");
-                nestedNode.setStyle("-fx-background-color: #343638");
+            Node nestedNode1 = ((VBox)node).getChildren().get(0);
+            Node nestedNode2 = ((VBox)node).getChildren().get(1);
+            String previousStyle1 = nestedNode1.getStyle();
+            String previousStyle2 = nestedNode2.getStyle();
+            nestedNode1.setOnMouseEntered(event -> {
+                nestedNode1.setStyle("-fx-border-width: 6px");
+                nestedNode1.setStyle("-fx-border-color: #3e4040");
+
+                nestedNode2.setStyle("-fx-background-color: #3e4040");
             });
-            nestedNode.setOnMouseExited(event -> {
-                nestedNode.setStyle(previousStyle);
+            nestedNode1.setOnMouseClicked(event -> {
+                nestedNode1.setStyle("-fx-border-color: #215b90");
+                nestedNode2.setStyle("-fx-background-color: #215b90");
+
+                try {
+                    switchToSecondary();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            nestedNode1.setOnMouseExited(event -> {
+                nestedNode1.setStyle(previousStyle1);
+                nestedNode2.setStyle(previousStyle2);
             });
         }
     }

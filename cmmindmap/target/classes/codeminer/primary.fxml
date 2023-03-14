@@ -27,14 +27,17 @@
       </Label>
       <FlowPane fx:id="flowPane" hgap="20.0" layoutX="38.0" layoutY="72.0" prefHeight="389.0" prefWidth="672.0" vgap="20.0">
          <children>
-            <VBox prefHeight="134.0" prefWidth="168.0" spacing="5.0">
+            <VBox prefHeight="134.0" prefWidth="168.0" spacing="1.0">
                <children>
                   <Button mnemonicParsing="false" prefHeight="106.0" prefWidth="168.0" style="-fx-background-color: #343638;" text="+" textFill="#cccdce">
                      <font>
                         <Font size="40.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
                   </Button>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="168.0" text="New" textFill="WHITE">
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="40.0" text="New" textAlignment="CENTER" textFill="WHITE" translateX="60.0">
                      <font>
                         <Font name="Microsoft YaHei" size="13.0" />
                      </font>
