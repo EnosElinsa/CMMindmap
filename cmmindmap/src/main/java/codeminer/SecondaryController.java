@@ -3,13 +3,16 @@ package codeminer;
 import java.io.IOException;
 
 import codeminer.core.MNode;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TreeView;
-import javafx.scene.input.Mnemonic;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -54,10 +57,19 @@ public class SecondaryController {
     private Button addDescendantButton;
 
     @FXML
+    private Label addDescendantLabel;
+
+    @FXML
     private Button addSiblingButton;
 
     @FXML
+    private Label addSiblingLabel;
+
+    @FXML
     private Button removeButton;
+
+    @FXML
+    private Label removeLabel;
 
     @FXML
     private Button leftLayoutButton;;
@@ -75,6 +87,8 @@ public class SecondaryController {
     private static MNode selectedNode;
     /** 根节点 */
     private static MNode rootNode;
+    /**  */
+    private static BooleanProperty hasNodeBeenSelected = new SimpleBooleanProperty(true);
 
     @FXML
     private void switchToPrimary() throws IOException {
@@ -114,7 +128,36 @@ public class SecondaryController {
         menuButton.setOnMouseExited(event -> {
             menuButton.setStyle(previousStyle);
         });
-        
+
+        anchorPane.setOnMouseClicked(event -> {
+            if (selectedNode != null) {
+                selectedNode.setStyle(MNode.DEFAULT_STYLE);
+                selectedNode.isSelected().set(false);
+                hasNodeBeenSelected.set(false);
+                selectedNode = null;
+            }
+        });
+
+        hasNodeBeenSelected.addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (newValue) {
+                    addDescendantButton.setDisable(false);
+                    addSiblingButton.setDisable(false);
+                    removeButton.setDisable(false);
+                    addDescendantLabel.setDisable(false);
+                    addSiblingLabel.setDisable(false);
+                    removeLabel.setDisable(false);
+                } else {
+                    addDescendantButton.setDisable(true);
+                    addSiblingButton.setDisable(true);
+                    removeButton.setDisable(true);
+                    addDescendantLabel.setDisable(true);
+                    addSiblingLabel.setDisable(true);
+                    removeLabel.setDisable(true);
+                }
+            }
+        }); 
 
         addDescendantButton.setOnMouseEntered(event -> {
             addDescendantButton.setStyle(mouseEnteredStyle);
@@ -335,5 +378,9 @@ public class SecondaryController {
 
     public void setAnchorPane(AnchorPane anchorPane) {
         this.anchorPane = anchorPane;
+    }
+
+    public static BooleanProperty hasNodeBeenSelected() {
+        return hasNodeBeenSelected;
     }
 }
