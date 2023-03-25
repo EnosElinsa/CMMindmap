@@ -79,13 +79,13 @@ public class PrimaryController {
             nestedNode1.setOnMouseEntered(event -> {
                 nestedNode1.setStyle("-fx-border-width: 6px");
                 nestedNode1.setStyle("-fx-border-color: #3e4040");
-
                 nestedNode2.setStyle("-fx-background-color: #3e4040");
             });
             nestedNode1.setOnMouseClicked(event -> {
                 nestedNode1.setStyle("-fx-border-color: #215b90");
                 nestedNode2.setStyle("-fx-background-color: #215b90");
 
+                // Switch to the main menu
                 try {
                     switchToSecondary();
                 } catch (IOException e) {
