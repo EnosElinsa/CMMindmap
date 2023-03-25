@@ -36,12 +36,12 @@ public class MNode extends TextField {
     /** 节点的朝向向右 */
     public static final boolean RIGHT = true;
 
-    private static final String DEFAULT_STYLE  = "-fx-control-inner-background:#DCDBF2";
-    private static final String HOVERING_STYLE = "-fx-control-inner-background:#DCDBF2;"
+    public static final String DEFAULT_STYLE  = "-fx-control-inner-background:#DCDBF2";
+    public static final String HOVERING_STYLE = "-fx-control-inner-background:#DCDBF2;"
                                                + "-fx-border-color: #96DEFF;"
                                                + "-fx-border-radius: 2px;"
-                                               + "-fx-border-width: 2px";
-    private static final String SELECTED_STYLE = "-fx-control-inner-background:#DCDBF2;"
+                                               + "-fx-border-width: 3px";
+    public static final String SELECTED_STYLE = "-fx-control-inner-background:#DCDBF2;"
                                                + "-fx-border-color: #2EBDFF;"   
                                                + "-fx-border-radius: 2px;"
                                                + "-fx-border-width: 3px";
@@ -110,8 +110,11 @@ public class MNode extends TextField {
         super.setStyle(DEFAULT_STYLE);
 
         super.setOnMouseClicked(event -> {
-            SecondaryController.getSelectedNode().isSelected.set(false);
-            SecondaryController.getSelectedNode().setEditable(false);
+            if (SecondaryController.getSelectedNode() != null) {
+                SecondaryController.getSelectedNode().isSelected.set(false);
+                SecondaryController.getSelectedNode().setEditable(false);
+            }
+            SecondaryController.hasNodeBeenSelected().set(true);
             SecondaryController.setSelectedNode(this);
             SecondaryController.getSelectedNode().isSelected.set(true);
             if (event.getClickCount() == 2) {
@@ -241,7 +244,7 @@ public class MNode extends TextField {
         // 调整根节点的横坐标
         double leftMargin = anchorPane.getPrefWidth() / 2 - leftSubtreeWidth;
         if (leftMargin > 0) {
-            root.setLayoutX(anchorPane.getPrefWidth() / 2);
+            root.setLayoutX(anchorPane.getPrefWidth() / 2 - root.getTextFieldWidth());
         }
         if (leftSubtreeWidth > anchorPane.getPrefWidth() / 2) {
             root.setLayoutX(leftSubtreeWidth);

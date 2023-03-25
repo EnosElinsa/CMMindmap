@@ -68,7 +68,7 @@
                </graphic>
             </Button>
             <Pane prefHeight="53.0" prefWidth="406.0" HBox.hgrow="ALWAYS" />
-            <HBox alignment="CENTER" prefHeight="51.0" prefWidth="234.0" spacing="10.0">
+            <HBox alignment="CENTER" prefHeight="53.0" prefWidth="220.0" spacing="10.0">
                <children>
                   <VBox alignment="CENTER" prefHeight="51.0" prefWidth="80.0">
                      <children>
@@ -81,7 +81,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="111.0" style="&#10;" text="Add Descendant" textAlignment="CENTER" textFill="WHITE" wrapText="false">
+                        <Label fx:id="addDescendantLabel" alignment="CENTER" prefHeight="17.0" prefWidth="111.0" style="&#10;" text="Add Descendant" textAlignment="CENTER" textFill="WHITE" wrapText="false">
                            <font>
                               <Font name="Microsoft YaHei" size="10.0" fx:id="x11" />
                            </font>
@@ -91,7 +91,7 @@
                         <Insets bottom="3.0" />
                      </padding>
                   </VBox>
-                  <VBox alignment="CENTER" prefHeight="51.0" prefWidth="56.0">
+                  <VBox alignment="CENTER" prefHeight="51.0" prefWidth="56.0" spacing="2.0">
                      <children>
                         <Button fx:id="addSiblingButton" mnemonicParsing="false" prefHeight="31.0" prefWidth="24.0" style="-fx-background-color: #222425;">
                            <graphic>
@@ -102,7 +102,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="111.0" style="&#10;" text="Add Sibling" textAlignment="CENTER" textFill="WHITE" wrapText="false">
+                        <Label fx:id="addSiblingLabel" alignment="CENTER" prefHeight="17.0" prefWidth="111.0" style="&#10;" text="Add Sibling" textAlignment="CENTER" textFill="WHITE" wrapText="false">
                            <font>
                               <Font name="Microsoft YaHei" size="10.0" fx:id="x111" />
                            </font>
@@ -112,9 +112,9 @@
                         <Insets bottom="2.0" />
                      </padding>
                   </VBox>
-                  <VBox alignment="CENTER" prefHeight="51.0" prefWidth="52.0" spacing="2.0">
+                  <VBox alignment="CENTER" prefHeight="53.0" prefWidth="42.0" spacing="2.0">
                      <children>
-                        <Button fx:id="removeButton" mnemonicParsing="false" prefHeight="21.0" prefWidth="30.0" style="-fx-background-color: #222425;">
+                        <Button fx:id="removeButton" mnemonicParsing="false" prefHeight="29.0" prefWidth="31.0" style="-fx-background-color: #222425;">
                            <graphic>
                               <ImageView fitHeight="22.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -123,7 +123,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="111.0" style="&#10;" text="Remove" textAlignment="CENTER" textFill="WHITE" wrapText="false">
+                        <Label fx:id="removeLabel" alignment="CENTER" prefHeight="17.0" prefWidth="111.0" style="&#10;" text="Remove" textAlignment="CENTER" textFill="WHITE" wrapText="false">
                            <font>
                               <Font name="Microsoft YaHei" size="10.0" fx:id="x1111" />
                            </font>
