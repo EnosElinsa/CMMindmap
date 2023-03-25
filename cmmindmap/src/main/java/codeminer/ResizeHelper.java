@@ -1,105 +1,187 @@
 package codeminer;
 
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
-import javafx.geometry.Rectangle2D;
+import javafx.event.EventType;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+public class ResizeHelper {
 
-public class ResizeHelper extends Rectangle2D {
-
-    private Stage stage;
-    private double width;
-    private double height;
-    private double delta;
-
-    public ResizeHelper(Stage stage, double width, double height, double delta) {
-        super(stage.getX(), stage.getY(), width, height);
-        this.stage = stage;
-        this.width = width;
-        this.height = height;
-        this.delta = delta;
+    public static void addResizeListener(Stage stage) {
+        addResizeListener(stage, 1, 1, Double.MAX_VALUE, Double.MAX_VALUE);
     }
-    
-    public static void addResizeListener(Node node) {
 
-        //创建一个ResizeHelper对象，并获取其属性值
-        ResizeHelper resizeHelper = new ResizeHelper((Stage) node.getScene().getWindow(),
-                node.getScene().getWindow().getWidth(),
-                node.getScene().getWindow().getHeight(),
-                6);
-    
-        //给节点添加鼠标移动事件处理器
-        node.setOnMouseMoved((EventHandler<? super MouseEvent>) new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-    
-                //获取鼠标相对于窗口的位置和偏移量，并判断是否在边缘范围内
-                if (event.getX() > (resizeHelper.getWidth() - resizeHelper.getDelta())
-                        && event.getY() > (resizeHelper.getHeight() - resizeHelper.getDelta())) {
-                    //如果在右下角范围内，则设置鼠标样式为南东方向箭头（↘）
-                    node.setCursor(Cursor.SE_RESIZE);
-                } else if (event.getX() < resizeHelper.getDelta()
-                        && event.getY() < resizeHelper.getDelta()) {
-                    //如果在左上角范围内，则设置鼠标样式为北西方向箭头（↖）
-                    node.setCursor(Cursor.NW_RESIZE);
-                } else if (event.getX() < resizeHelper.getDelta()
-                        && event.getY() > (resizeHelper.getHeight() - resizeHelper.getDelta())) {
-                    //如果在左下角范围内，则设置鼠标样式为南西方向箭头（↙）
-                    node.setCursor(Cursor.SW_RESIZE);
-                } else if (event.getX() > (resizeHelper.getWidth() - resizeHelper.getDelta())
-                        && event.getY() < resizeHelper.getDelta()) {
-                    //如果在右上角范围内，则设置鼠标样式为北东方向箭头（↗）
-                    node.setCursor(Cursor.NE_RESIZE);
-                } else if (event.getX() < resizeHelper.getDelta()) {
-                    //如果在左边缘范围内，则设置鼠标样式为水平双向箭头（←→）
-                    node.setCursor(Cursor.W_RESIZE);
-                } else if (event.getX() > (resizeHelper.getWidth() - resizeHelper.getDelta())) {
-                    //如果在右边缘范围内，则设置鼠标样式为水平双向箭头（←→）
-                    node.setCursor(Cursor.E_RESIZE);
-                } else if (event.getY() < resizeHelper.getDelta()) {
-                    //如果在上边缘范围内，则设置鼠标样式为垂直双向箭头（↑↓）
-                    node.setCursor(Cursor.N_RESIZE);
-                } else if (event.getY() > (resizeHelper.getHeight()- resizeHelper.getDelta())) {
-                    //如果在下边缘范围内，则设置鼠标样式为垂直双向箭头（↑↓）
-                    node.setCursor(Cursor.S_RESIZE);
+    public static void addResizeListener(Stage stage, double minWidth, double minHeight, double maxWidth, double maxHeight) {
+        ResizeListener resizeListener = new ResizeListener(stage);
+        stage.getScene().addEventHandler(MouseEvent.MOUSE_MOVED, resizeListener);
+        stage.getScene().addEventHandler(MouseEvent.MOUSE_PRESSED, resizeListener);
+        stage.getScene().addEventHandler(MouseEvent.MOUSE_DRAGGED, resizeListener);
+        stage.getScene().addEventHandler(MouseEvent.MOUSE_EXITED, resizeListener);
+        stage.getScene().addEventHandler(MouseEvent.MOUSE_EXITED_TARGET, resizeListener);
+
+        resizeListener.setMinWidth(minWidth);
+        resizeListener.setMinHeight(minHeight);
+        resizeListener.setMaxWidth(maxWidth);
+        resizeListener.setMaxHeight(maxHeight);
+
+        ObservableList<Node> children = stage.getScene().getRoot().getChildrenUnmodifiable();
+        for (Node child : children) {
+            addListenerDeeply(child, resizeListener);
+        }
+    }
+
+    private static void addListenerDeeply(Node node, EventHandler<MouseEvent> listener) {
+        node.addEventHandler(MouseEvent.MOUSE_MOVED, listener);
+        node.addEventHandler(MouseEvent.MOUSE_PRESSED, listener);
+        node.addEventHandler(MouseEvent.MOUSE_DRAGGED, listener);
+        node.addEventHandler(MouseEvent.MOUSE_EXITED, listener);
+        node.addEventHandler(MouseEvent.MOUSE_EXITED_TARGET, listener);
+        if (node instanceof Parent) {
+            Parent parent = (Parent) node;
+            ObservableList<Node> children = parent.getChildrenUnmodifiable();
+            for (Node child : children) {
+                addListenerDeeply(child, listener);
+            }
+        }
+    }
+
+    static class ResizeListener implements EventHandler<MouseEvent> {
+        private Stage stage;
+        private Cursor cursorEvent = Cursor.DEFAULT;
+        private boolean resizing = true;
+        private int border = 4;
+        private double startX = 0;
+        private double startY = 0;
+        private double screenOffsetX = 0;
+        private double screenOffsetY = 0;
+
+        // Max and min sizes for controlled stage
+        private double minWidth;
+        private double maxWidth;
+        private double minHeight;
+        private double maxHeight;
+
+        public ResizeListener(Stage stage) {
+            this.stage = stage;
+        }
+
+        public void setMinWidth(double minWidth) {
+            this.minWidth = minWidth;
+        }
+
+        public void setMaxWidth(double maxWidth) {
+            this.maxWidth = maxWidth;
+        }
+
+        public void setMinHeight(double minHeight) {
+            this.minHeight = minHeight;
+        }
+
+        public void setMaxHeight(double maxHeight) {
+            this.maxHeight = maxHeight;
+        }
+
+        @Override
+        public void handle(MouseEvent mouseEvent) {
+            EventType<? extends MouseEvent> mouseEventType = mouseEvent.getEventType();
+            Scene scene = stage.getScene();
+
+            double mouseEventX = mouseEvent.getSceneX(),
+                    mouseEventY = mouseEvent.getSceneY(),
+                    sceneWidth = scene.getWidth(),
+                    sceneHeight = scene.getHeight();
+
+            if (MouseEvent.MOUSE_MOVED.equals(mouseEventType)) {
+                if (mouseEventX < border && mouseEventY < border) {
+                    cursorEvent = Cursor.NW_RESIZE;
+                } else if (mouseEventX < border && mouseEventY > sceneHeight - border) {
+                    cursorEvent = Cursor.SW_RESIZE;
+                } else if (mouseEventX > sceneWidth - border && mouseEventY < border) {
+                    cursorEvent = Cursor.NE_RESIZE;
+                } else if (mouseEventX > sceneWidth - border && mouseEventY > sceneHeight - border) {
+                    cursorEvent = Cursor.SE_RESIZE;
+                } else if (mouseEventX < border) {
+                    cursorEvent = Cursor.W_RESIZE;
+                } else if (mouseEventX > sceneWidth - border) {
+                    cursorEvent = Cursor.E_RESIZE;
+                } else if (mouseEventY < border) {
+                    cursorEvent = Cursor.N_RESIZE;
+                } else if (mouseEventY > sceneHeight - border) {
+                    cursorEvent = Cursor.S_RESIZE;
+                } else {
+                    cursorEvent = Cursor.DEFAULT;
+                }
+                scene.setCursor(cursorEvent);
+            } else if (MouseEvent.MOUSE_EXITED.equals(mouseEventType) || MouseEvent.MOUSE_EXITED_TARGET.equals(mouseEventType)) {
+                scene.setCursor(Cursor.DEFAULT);
+            } else if (MouseEvent.MOUSE_PRESSED.equals(mouseEventType)) {
+                startX = stage.getWidth() - mouseEventX;
+                startY = stage.getHeight() - mouseEventY;
+            } else if (MouseEvent.MOUSE_DRAGGED.equals(mouseEventType)) {
+                if (!Cursor.DEFAULT.equals(cursorEvent)) {
+                    resizing = true;
+                    if (!Cursor.W_RESIZE.equals(cursorEvent) && !Cursor.E_RESIZE.equals(cursorEvent)) {
+                        double minHeight = stage.getMinHeight() > (border * 2) ? stage.getMinHeight() : (border * 2);
+                        if (Cursor.NW_RESIZE.equals(cursorEvent) || Cursor.N_RESIZE.equals(cursorEvent)
+                                || Cursor.NE_RESIZE.equals(cursorEvent)) {
+                            if (stage.getHeight() > minHeight || mouseEventY < 0) {
+                                setStageHeight(stage.getY() - mouseEvent.getScreenY() + stage.getHeight());
+                                stage.setY(mouseEvent.getScreenY() );
+                            }
+                        } else {
+                            if (stage.getHeight() > minHeight || mouseEventY + startY - stage.getHeight() > 0) {
+                                setStageHeight(mouseEventY + startY);
+                            }
+                        }
+                    }
+
+                    if (!Cursor.N_RESIZE.equals(cursorEvent) && !Cursor.S_RESIZE.equals(cursorEvent)) {
+                        double minWidth = stage.getMinWidth() > (border * 2) ? stage.getMinWidth() : (border * 2);
+                        if (Cursor.NW_RESIZE.equals(cursorEvent) || Cursor.W_RESIZE.equals(cursorEvent)
+                                || Cursor.SW_RESIZE.equals(cursorEvent)) {
+                            if (stage.getWidth() > minWidth || mouseEventX < 0) {
+                                setStageWidth(stage.getX() - mouseEvent.getScreenX() + stage.getWidth());
+                                stage.setX(mouseEvent.getScreenX());
+                            }
+                        } else {
+                            if (stage.getWidth() > minWidth || mouseEventX + startX - stage.getWidth() > 0) {
+                                setStageWidth(mouseEventX + startX);
+                            }
+                        }
+                    }
+                    resizing = false;
                 }
             }
-        });
-        
-    }
 
-    public Stage getStage() {
-        return stage;
-    }
+            if (MouseEvent.MOUSE_PRESSED.equals(mouseEventType) && Cursor.DEFAULT.equals(cursorEvent)) {
+                resizing = false;
+                screenOffsetX = stage.getX() - mouseEvent.getScreenX();
+                screenOffsetY = stage.getY() - mouseEvent.getScreenY();
+            }
 
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
+            if (MouseEvent.MOUSE_DRAGGED.equals(mouseEventType) && Cursor.DEFAULT.equals(cursorEvent) && resizing == false) {
+                stage.setX(mouseEvent.getScreenX() + screenOffsetX);
+                stage.setY(mouseEvent.getScreenY() + screenOffsetY);
+            }
 
-    public double getWidth() {
-        return width;
-    }
+        }
 
-    public void setWidth(double width) {
-        this.width = width;
-    }
+        private void setStageWidth(double width) {
+            width = Math.min(width, maxWidth);
+            width = Math.max(width, minWidth);
+            stage.setWidth(width);
+        }
 
-    public double getHeight() {
-        return height;
-    }
+        private void setStageHeight(double height) {
+            height = Math.min(height, maxHeight);
+            height = Math.max(height, minHeight);
+            stage.setHeight(height);
+        }
 
-    public void setHeight(double height) {
-        this.height = height;
-    }
-
-    public double getDelta() {
-        return delta;
-    }
-
-    public void setDelta(double delta) {
-        this.delta = delta;
     }
 }
 

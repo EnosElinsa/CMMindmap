@@ -4,7 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -22,6 +22,9 @@ public class App extends Application {
         scene = new Scene(loadFXML("primary"));
         stage.setScene(scene);
         stage.initStyle(StageStyle.UNDECORATED);
+        stage.setTitle("CM MindMap");
+        stage.getIcons().add(new Image(App.class.getResourceAsStream("textures/cMmindmap.png")));
+        ResizeHelper.addResizeListener(stage);
         stage.show();
     }
 
