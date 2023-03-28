@@ -11,6 +11,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -73,8 +74,6 @@ public class MNode extends TextField {
     private boolean orientation;
     /** 一个节点是否为根节点（一个思维导图里默认只有一个根节点） */
     private boolean isRootNode;
-    /** 是否被父节点的边连接 */
-    private boolean isConnectedToParentNode;
     /** 是否被选中 */
     private BooleanProperty isSelected = new SimpleBooleanProperty(false);
     /** 一个节点的文本 */
@@ -215,46 +214,6 @@ public class MNode extends TextField {
     }
 
     /**
-     * 根据节点所在的面板尺寸和树的尺寸调整根节点在面板里的坐标，使其位于合适的位置
-     * @param root 根节点
-     */
-    private void updateRootPosition(MNode root) {
-        // 调整根节点的纵坐标
-        double topMargin = Math.min(root.getLayoutY() + PREF_HEIGHT / 2 - leftSubtreeHeight / 2,
-            root.getLayoutY() + PREF_HEIGHT / 2 - rightSubtreeHeight/ 2);
-        if (topMargin < 0) {
-            root.setLayoutY(root.getLayoutY() + Math.abs(topMargin));
-        }
-
-        topMargin = Math.min(anchorPane.getPrefHeight() / 2 + PREF_HEIGHT / 2 - leftSubtreeHeight / 2,
-            anchorPane.getPrefHeight() / 2 + PREF_HEIGHT / 2 - rightSubtreeHeight / 2);
-        if (topMargin > 0) {
-            root.setLayoutY(anchorPane.getPrefHeight() / 2);
-        }
-
-        topMargin = Math.max(leftSubtreeHeight / 2, rightSubtreeHeight / 2);
-        if (topMargin > anchorPane.getPrefHeight() / 2) {
-            root.setLayoutY(topMargin);
-        }
-
-        topMargin = Math.max(root.getLayoutY() + PREF_HEIGHT / 2 + leftSubtreeHeight / 2, 
-            root.getLayoutY() + PREF_HEIGHT / 2 + rightSubtreeHeight / 2);
-        anchorPane.setPrefHeight(Math.max(topMargin, anchorPane.getPrefHeight()));
-
-        // 调整根节点的横坐标
-        double leftMargin = anchorPane.getPrefWidth() / 2 - leftSubtreeWidth;
-        if (leftMargin > 0) {
-            root.setLayoutX(anchorPane.getPrefWidth() / 2 - root.getTextFieldWidth());
-        }
-        if (leftSubtreeWidth > anchorPane.getPrefWidth() / 2) {
-            root.setLayoutX(leftSubtreeWidth);
-        }
-
-        double rightMargin = root.getLayoutX() + root.getTextFieldWidth() + rightSubtreeWidth;
-        anchorPane.setPrefWidth(Math.max(rightMargin, anchorPane.getPrefWidth()));
-    }
-
-    /**
      * 根据父节点的位置和上边界来确定子节点在布局的位置
      * @param parentNode 父节点
      * @param childNode 子节点
@@ -320,13 +279,27 @@ public class MNode extends TextField {
         }
     }
 
+    private void updatePaneSizeAndRootNodePosition() {
+        double topMargin = Math.min(rootNode.getLayoutY() + PREF_HEIGHT / 2 - leftSubtreeHeight / 2,
+        rootNode.getLayoutY() + PREF_HEIGHT / 2 - rightSubtreeHeight/ 2);
+        if (topMargin < 0) {
+            anchorPane.setPrefHeight(anchorPane.getPrefHeight() + Math.abs(topMargin) + PREF_HEIGHT);
+        }
+        double leftMargin = rootNode.getLayoutX() - leftSubtreeWidth;
+        if (leftMargin < 0) {
+            anchorPane.setPrefWidth(anchorPane.getPrefWidth() + Math.abs(leftMargin) + PREF_WIDTH);
+        }
+        rootNode.setLayoutX(anchorPane.getPrefWidth() / 2 - PREF_WIDTH / 2);
+        rootNode.setLayoutY(anchorPane.getPrefHeight() / 2 - PREF_HEIGHT / 2);
+    }
+
     /**
      * 当树结构发生更改时，根据调整更新整个树的布局
      * @param root 根节点
      */
     public void update(MNode root) {
         updateSize(root);
-        updateRootPosition(root);
+        updatePaneSizeAndRootNodePosition();
         updateChildNodesPosition(root, LEFT);
         updateChildNodesPosition(root, RIGHT);
     }
@@ -374,6 +347,30 @@ public class MNode extends TextField {
     public void deleteNode(MNode node) {
         deleteNodeFromPane(node);
         deleteNodeFromList(node);
+    }
+
+    private void reloadUtil(MNode node, AnchorPane anchorPane) {
+        node.getParentNode().getTreeItem().getChildren().add(node.getTreeItem());
+        anchorPane.getChildren().add(node);
+        anchorPane.getChildren().add(node.getEdge());
+        for (MNode childNode : node.getChildNodes()) {
+            reloadUtil(childNode, anchorPane);
+        }
+    }
+
+    /**
+     * 当保存后再被打开的树结构需要重新把节点和边添加到画布中
+     * @param treeView
+     */
+    public void reload(TreeView<String> treeView) {
+        anchorPane.getChildren().add(rootNode);
+        treeView.setRoot(rootNode.getTreeItem());
+        for (MNode childNode : rightSubtree) {
+            reloadUtil(childNode, anchorPane);
+        }
+        for (MNode childNode : leftSubtree) {
+            reloadUtil(childNode, anchorPane);
+        }
     }
 
     public ArrayList<MNode> getChildNodes() {
@@ -482,14 +479,6 @@ public class MNode extends TextField {
 
     public BooleanProperty isSelected() {
         return isSelected;
-    }
-
-    public boolean isConnectedToParentNode() {
-        return isConnectedToParentNode;
-    }
-
-    public void setConnectedToParentNode(boolean isConnected) {
-        this.isConnectedToParentNode = isConnected;
     }
 
     public String getNodeText() {

@@ -11,6 +11,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
@@ -83,12 +85,17 @@ public class SecondaryController {
     @FXML
     private Label leftStatusLabel;
 
+    @FXML
+    private MenuButton zoomMenu;
+
     /** 被选中的节点 */
     private static MNode selectedNode;
     /** 根节点 */
     private static MNode rootNode;
-    /**  */
+    /** 是否有节点被选择 */
     private static BooleanProperty hasNodeBeenSelected = new SimpleBooleanProperty(true);
+
+    private static double currentScale = 1.0;
 
     @FXML
     private void switchToPrimary() throws IOException {
@@ -97,7 +104,7 @@ public class SecondaryController {
 
     public void initialize() {
         PrimaryController.makeStageDraggable(vBox, null);
-        initializeMenuButtons(vBox);
+        initializeButtons(vBox);
         initializeNodes();
     }
 
@@ -105,16 +112,24 @@ public class SecondaryController {
         rootNode = new MNode("Topic");
         rootNode.setRootNode(true);
         rootNode.isSelected().set(true);
-        rootNode.setLayoutX(anchorPane.getPrefWidth() / 2);
-        rootNode.setLayoutY(anchorPane.getPrefHeight() / 2);
+        rootNode.setLayoutX(anchorPane.getPrefWidth() / 2 - MNode.PREF_WIDTH / 2);
+        rootNode.setLayoutY(anchorPane.getPrefHeight() / 2 - MNode.PREF_HEIGHT / 2);
         selectedNode = rootNode;
         MNode.setAnchorPane(anchorPane);
         MNode.setRootNode(rootNode);
         anchorPane.getChildren().add(rootNode);
         treeView.setRoot(rootNode.getTreeItem());
+        
+        scrollPane2.setContent(anchorPane);
+        for (MenuItem item : zoomMenu.getItems()) {
+            item.setOnAction(event -> {
+                // double scale = Double.parseDouble(item.getText().replace("%", "")) / 100;
+                
+            });
+        }
     }
 
-    public void initializeMenuButtons(Node root) {
+    public void initializeButtons(Node root) {
         String previousStyle = "-fx-background-color: #222425";
         String mouseEnteredStyle = "-fx-background-color: #303132";
 
@@ -383,4 +398,14 @@ public class SecondaryController {
     public static BooleanProperty hasNodeBeenSelected() {
         return hasNodeBeenSelected;
     }
+
+    public static double getCurrentScale() {
+        return currentScale;
+    }
+
+    public static void setCurrentScale(double currentScale) {
+        SecondaryController.currentScale = currentScale;
+    }
+
+    
 }
