@@ -23,7 +23,7 @@ public class App extends Application {
         stage.setScene(scene);
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setTitle("CM MindMap");
-        stage.getIcons().add(new Image(App.class.getResourceAsStream("textures/cMmindmap.png")));
+        //stage.getIcons().add(new Image(App.class.getResourceAsStream("/src/main/resources/codeminer/textures/cMmindmap.png")));
         ResizeHelper.addResizeListener(stage);
         stage.show();
     }
