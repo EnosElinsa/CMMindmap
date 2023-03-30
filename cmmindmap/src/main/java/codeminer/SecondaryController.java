@@ -7,9 +7,9 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.PerspectiveCamera;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
@@ -93,6 +93,9 @@ public class SecondaryController {
     @FXML
     private MenuButton zoomMenu;
 
+    @FXML
+    private PerspectiveCamera perspectiveCamera;
+
     /**
      * 菜单栏选项
      */
@@ -136,13 +139,11 @@ public class SecondaryController {
      */
     private static BooleanProperty hasNodeBeenSelected = new SimpleBooleanProperty(true);
 
-    private static double currentScale = 1.0;
-
     @FXML
     private void switchToPrimary() throws IOException {
         App.setRoot("primary");
     }
-
+;
     public void initialize() {
         PrimaryController.makeStageDraggable(vBox, null);
         initializeButtons(vBox);
@@ -487,7 +488,7 @@ public class SecondaryController {
             button3.setStyle(previousStyle);
         });
     }
-
+    
     public static MNode getSelectedNode() {
         return selectedNode;
     }
@@ -514,15 +515,5 @@ public class SecondaryController {
 
     public static BooleanProperty hasNodeBeenSelected() {
         return hasNodeBeenSelected;
-    }
-
-    public static double getCurrentScale() {
-        return currentScale;
-    }
-
-    public static void setCurrentScale(double currentScale) {
-        SecondaryController.currentScale = currentScale;
-    }
-
-
+    }    
 }
