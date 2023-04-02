@@ -75,8 +75,6 @@ public class MNode extends TextField implements Serializable {
     private boolean orientation;
     /** 一个节点是否为根节点（一个思维导图里默认只有一个根节点） */
     private boolean isRootNode;
-    /** 是否被选中 */
-    private transient BooleanProperty isSelected = new SimpleBooleanProperty(false);
     /** 一个节点的文本 */
     private String nodeText;
     /** 子节点列表 */
@@ -85,6 +83,8 @@ public class MNode extends TextField implements Serializable {
     private MEdge edge = new MEdge();
     /** 父节点 */
     private MNode parentNode;
+    /** 是否被选中 */
+    private transient BooleanProperty isSelected = new SimpleBooleanProperty(false);
     /** 节点在大纲树视图里的视图 */
     private transient TreeItem<String> treeItem;
     

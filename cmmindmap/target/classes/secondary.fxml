@@ -56,7 +56,7 @@
   <children>
       <HBox fx:id="menuHBox" alignment="CENTER_LEFT" prefHeight="33.0" prefWidth="1212.0" VBox.vgrow="NEVER">
          <children>
-            <MenuButton mnemonicParsing="false" prefHeight="54.0" prefWidth="74.0" style="-fx-background-color: #222425;">
+            <MenuButton fx:id="menuButton" mnemonicParsing="false" prefHeight="53.0" prefWidth="42.0" style="-fx-background-color: #222425;">
               <items>
                 <MenuItem fx:id="newMenuItem" mnemonicParsing="false" text="New" />
                 <MenuItem fx:id="openMenuItem" mnemonicParsing="false" text="Open" />
@@ -79,22 +79,10 @@
                      </image>
                   </ImageView>
                </graphic>
+               <HBox.margin>
+                  <Insets left="8.0" />
+               </HBox.margin>
             </MenuButton>
-            <Button fx:id="menuButton" alignment="CENTER" mnemonicParsing="false" prefHeight="54.0" prefWidth="62.0" style="-fx-background-color: #222425;" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font size="9.0" />
-               </font>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-               <graphic>
-                  <ImageView fitHeight="26.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@codeminer/textures/menu.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
             <Pane prefHeight="53.0" prefWidth="406.0" HBox.hgrow="ALWAYS" />
             <HBox alignment="CENTER" prefHeight="53.0" prefWidth="220.0" spacing="10.0">
                <children>

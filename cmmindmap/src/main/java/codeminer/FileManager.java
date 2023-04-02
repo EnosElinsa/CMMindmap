@@ -21,7 +21,7 @@ public class FileManager {
      * 新建时加载文件
      */
     public static void newLoadOperatingFile() {
-        operatingFile=new File("src/main/resources/tempNewFile.xmind");
+        operatingFile = new File("src/main/resources/tempNewFile.xmind");
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(operatingFile))) {
             SecondaryController.setRootNode((MNode)ois.readObject());
             System.out.println("新建成功");
@@ -30,14 +30,13 @@ public class FileManager {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     /**
      * 打开时加载文件
      */
     public void openLoadOperatingFile() {
-        try(ObjectInputStream ois=new ObjectInputStream(new FileInputStream(operatingFile))){
+        try (ObjectInputStream ois=new ObjectInputStream(new FileInputStream(operatingFile))) {
             SecondaryController.setRootNode((MNode)ois.readObject());
             System.out.println("打开成功");
         }
@@ -52,7 +51,7 @@ public class FileManager {
      * 退出前保存文件
      */
     public static void saveOperatingFile() {
-        operatingFile=new File("src/main/resources/tempNewFile.xmind");
+        operatingFile = new File("src/main/resources/tempNewFile.xmind");
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(operatingFile))) {
             oos.writeObject(SecondaryController.getRootNode());
             System.out.println("保存成功");

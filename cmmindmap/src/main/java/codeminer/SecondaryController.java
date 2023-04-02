@@ -28,7 +28,7 @@ public class SecondaryController {
 
     @FXML
     private VBox vBox; // root
-
+    
     @FXML
     private AnchorPane anchorPane;
 
