@@ -1,0 +1,9 @@
+src/main/resources/tempNewFile.xmind
+D:\java\CMMindmap\cmmindmap\src\main\resources\recentFileQueue1.txt
+D:\java\CMMindmap\cmmindmap\src\main\resources\recentFileQueue2.txt
+D:\java\CMMindmap\cmmindmap\src\main\resources\recentFileQueue3.txt
+D:\java\CMMindmap\cmmindmap\src\main\resources\recentFileQueue4.txt
+D:\java\CMMindmap\cmmindmap\src\main\resources\recentFileQueue5.txt
+D:\java\CMMindmap\cmmindmap\src\main\resources\recentFileQueue6.txt
+D:\java\CMMindmap\cmmindmap\src\main\resources\recentFileQueue7.txt
+D:\java\CMMindmap\cmmindmap\src\main\resources\recentFileQueue8.txt

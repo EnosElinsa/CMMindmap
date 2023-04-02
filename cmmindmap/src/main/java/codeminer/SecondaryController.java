@@ -79,7 +79,6 @@ public class SecondaryController {
 
     @FXML
     private Button leftLayoutButton;
-    ;
 
     @FXML
     private Button rightLayoutButton;
@@ -143,7 +142,7 @@ public class SecondaryController {
     private void switchToPrimary() throws IOException {
         App.setRoot("primary");
     }
-;
+
     public void initialize() {
         PrimaryController.makeStageDraggable(vBox, null);
         initializeButtons(vBox);
@@ -195,6 +194,7 @@ public class SecondaryController {
         saveMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN));
         saveMenuItem.setOnAction(event -> {
             System.out.println("saveMenuItem clicked");
+            FileManager.saveOperatingFile();
         });
     }
 
@@ -488,7 +488,7 @@ public class SecondaryController {
             button3.setStyle(previousStyle);
         });
     }
-    
+
     public static MNode getSelectedNode() {
         return selectedNode;
     }
@@ -515,5 +515,5 @@ public class SecondaryController {
 
     public static BooleanProperty hasNodeBeenSelected() {
         return hasNodeBeenSelected;
-    }    
+    }
 }
