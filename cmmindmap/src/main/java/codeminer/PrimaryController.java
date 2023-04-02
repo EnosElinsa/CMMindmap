@@ -1,10 +1,8 @@
 package codeminer;
 
 import java.io.IOException;
-import java.util.zip.CheckedOutputStream;
 
 import javafx.fxml.FXML;
-import javafx.fxml.LoadException;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;

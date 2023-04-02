@@ -57,7 +57,7 @@ public class SecondaryController {
     private Button button3;
 
     @FXML
-    private Button menuButton;
+    private MenuButton menuButton;
 
     @FXML
     private Button addDescendantButton;
