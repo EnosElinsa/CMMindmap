@@ -86,16 +86,21 @@ public class MNode extends TextField implements Serializable {
     /** 是否被选中 */
     private transient BooleanProperty isSelected = new SimpleBooleanProperty(false);
     /** 节点在大纲树视图里的视图 */
-    private transient TreeItem<String> treeItem;
+    private TreeItemString treeItem;
     
-    public MNode(String nodeText) {
+    public MNode(String nodeText, boolean isRootNode) {
         super(nodeText);
         super.setPrefHeight(PREF_HEIGHT);
         super.setPrefWidth(PREF_WIDTH);
         this.nodeText = nodeText;
-        this.treeItem = new TreeItem<>(nodeText);
+        this.treeItem = new TreeItemString(nodeText);
         this.treeItem.setExpanded(true);
         initializeNode();
+        if (isRootNode) {
+            setRootNode(true);
+            rootNode = this;
+            isSelected.set(true);
+        }
     }
 
     /**
@@ -494,7 +499,7 @@ public class MNode extends TextField implements Serializable {
         return treeItem;
     }
 
-    public void setTreeItem(TreeItem<String> treeItem) {
+    public void setTreeItem(TreeItemString treeItem) {
         this.treeItem = treeItem;
     }
 

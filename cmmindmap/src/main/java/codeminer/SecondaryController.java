@@ -28,7 +28,7 @@ public class SecondaryController {
 
     @FXML
     private VBox vBox; // root
-    
+
     @FXML
     private AnchorPane anchorPane;
 
@@ -146,8 +146,18 @@ public class SecondaryController {
     public void initialize() {
         PrimaryController.makeStageDraggable(vBox, null);
         initializeButtons(vBox);
-        initializeNodes();
+        initializeRootNode();
         initializeMenuButton();
+    }
+
+    public void initializeRootNode() {
+        rootNode = new MNode("Topic", true);
+        selectedNode = rootNode;
+        rootNode.setLayoutX(anchorPane.getPrefWidth() / 2 - MNode.PREF_WIDTH / 2);
+        rootNode.setLayoutY(anchorPane.getPrefHeight() / 2 - MNode.PREF_HEIGHT / 2);
+        MNode.setAnchorPane(anchorPane);
+        anchorPane.getChildren().add(rootNode);
+        treeView.setRoot(rootNode.getTreeItem());
     }
 
     /**
@@ -226,27 +236,6 @@ public class SecondaryController {
         });
     }
 
-    private void initializeNodes() {
-        rootNode = new MNode("Topic");
-        rootNode.setRootNode(true);
-        rootNode.isSelected().set(true);
-        rootNode.setLayoutX(anchorPane.getPrefWidth() / 2 - MNode.PREF_WIDTH / 2);
-        rootNode.setLayoutY(anchorPane.getPrefHeight() / 2 - MNode.PREF_HEIGHT / 2);
-        selectedNode = rootNode;
-        MNode.setAnchorPane(anchorPane);
-        MNode.setRootNode(rootNode);
-        anchorPane.getChildren().add(rootNode);
-        treeView.setRoot(rootNode.getTreeItem());
-
-        scrollPane2.setContent(anchorPane);
-        for (MenuItem item : zoomMenu.getItems()) {
-            item.setOnAction(event -> {
-                // double scale = Double.parseDouble(item.getText().replace("%", "")) / 100;
-
-            });
-        }
-    }
-
     public void initializeButtons(Node root) {
         String previousStyle = "-fx-background-color: #222425";
         String mouseEnteredStyle = "-fx-background-color: #303132";
@@ -298,7 +287,7 @@ public class SecondaryController {
         addDescendantButton.setOnMouseClicked(event -> {
             addDescendantButton.setStyle(previousStyle);
 
-            MNode newNode = new MNode("Subtopic");
+            MNode newNode = new MNode("Subtopic", false);
             newNode.setParentNode(selectedNode);
             newNode.isSelected().set(true);
             selectedNode.isSelected().set(false);
@@ -336,7 +325,7 @@ public class SecondaryController {
                 leftStatusLabel.setText("Root node cannot add a sibling node");
                 return;
             }
-            MNode newNode = new MNode("Subtopic");
+            MNode newNode = new MNode("Subtopic", false);
             newNode.setParentNode(selectedNode.getParentNode());
             anchorPane.getChildren().add(newNode);
             anchorPane.getChildren().add(newNode.getEdge());
@@ -487,7 +476,15 @@ public class SecondaryController {
         button3.setOnMouseExited(event -> {
             button3.setStyle(previousStyle);
         });
+
+        for (MenuItem item : zoomMenu.getItems()) {
+            item.setOnAction(event -> {
+                // double scale = Double.parseDouble(item.getText().replace("%", "")) / 100;
+
+            });
+        }
     }
+
 
     public static MNode getSelectedNode() {
         return selectedNode;
