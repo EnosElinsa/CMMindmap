@@ -41,13 +41,16 @@ public class FileManager {
         operatingFile = fileChooser.showOpenDialog(new Stage());
         try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(operatingFile));
-            SecondaryController.setRootNode((MNode) ois.readObject());
+            MNode node = (MNode)ois.readObject();
+            System.out.println(node);
+            SecondaryController.setRootNode(node);
             MNode.setLeftSubtreeHeight(ois.readDouble());
             MNode.setLeftSubtreeWidth(ois.readDouble());
             MNode.setRightSubtreeHeight(ois.readDouble());
             MNode.setRightSubtreeWidth(ois.readDouble());
             MNode.setLeftSubtree((ArrayList<MNode>)ois.readObject());
             MNode.setRightSubtree((ArrayList<MNode>)ois.readObject());
+            ois.close();
             System.out.println("open successful");
         } catch (IOException e) {
             e.printStackTrace();
@@ -85,6 +88,8 @@ public class FileManager {
                 oos.writeDouble(MNode.getRightSubtreeWidth());
                 oos.writeObject(MNode.getLeftSubtree());
                 oos.writeObject(MNode.getRightSubtree());
+                oos.flush();
+                oos.close();
                 System.out.println("save as successful");
             } catch (IOException e) {
                 e.printStackTrace();

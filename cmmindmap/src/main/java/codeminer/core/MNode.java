@@ -11,8 +11,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -83,18 +81,16 @@ public class MNode extends TextField implements Serializable {
     private MEdge edge = new MEdge();
     /** 父节点 */
     private MNode parentNode;
-    /** 是否被选中 */
-    private transient BooleanProperty isSelected = new SimpleBooleanProperty(false);
     /** 节点在大纲树视图里的视图 */
     private TreeItemString treeItem;
+    /** 是否被选中 */
+    private transient BooleanProperty isSelected = new SimpleBooleanProperty(false);
     
     public MNode(String nodeText, boolean isRootNode) {
         super(nodeText);
         super.setPrefHeight(PREF_HEIGHT);
         super.setPrefWidth(PREF_WIDTH);
         this.nodeText = nodeText;
-        this.treeItem = new TreeItemString(nodeText);
-        this.treeItem.setExpanded(true);
         initializeNode();
         if (isRootNode) {
             setRootNode(true);
@@ -166,6 +162,9 @@ public class MNode extends TextField implements Serializable {
                 }
             }
         });
+
+        treeItem = new TreeItemString(nodeText);
+        treeItem.setExpanded(true);
     }
 
     /**
@@ -304,7 +303,6 @@ public class MNode extends TextField implements Serializable {
      * @param root 根节点
      */
     public void update(MNode root) {
-        System.out.println(leftSubtreeWidth);
         updateSize(root);
         updatePaneSizeAndRootNodePosition();
         updateChildNodesPosition(root, LEFT);
@@ -357,8 +355,9 @@ public class MNode extends TextField implements Serializable {
     }
 
     private static void reloadUtil(MNode node, AnchorPane anchorPane) {
-        node.getParentNode().getTreeItem().getChildren().add(node.getTreeItem());
         node.isSelected = new SimpleBooleanProperty(false);
+        node.initializeNode();
+        node.getParentNode().getTreeItem().getChildren().add(node.getTreeItem());
         anchorPane.getChildren().add(node);
         anchorPane.getChildren().add(node.getEdge());
         for (MNode childNode : node.getChildNodes()) {
@@ -370,16 +369,18 @@ public class MNode extends TextField implements Serializable {
      * 当保存后再被打开的树结构需要重新把节点和边添加到画布中
      * @param treeView
      */
-    public static void reload(TreeView<String> treeView) {
+    public void reload() {
+        anchorPane.getChildren().clear();
         anchorPane.getChildren().add(rootNode);
         rootNode.isSelected = new SimpleBooleanProperty(true);
-        treeView.setRoot(rootNode.getTreeItem());
+        rootNode.initializeNode();
         for (MNode childNode : rightSubtree) {
             reloadUtil(childNode, anchorPane);
         }
         for (MNode childNode : leftSubtree) {
             reloadUtil(childNode, anchorPane);
         }
+        update(rootNode);
     }
 
     public ArrayList<MNode> getChildNodes() {
@@ -498,7 +499,7 @@ public class MNode extends TextField implements Serializable {
         this.nodeText = nodeText;
     }
 
-    public TreeItem<String> getTreeItem() {
+    public TreeItemString getTreeItem() {
         return treeItem;
     }
 

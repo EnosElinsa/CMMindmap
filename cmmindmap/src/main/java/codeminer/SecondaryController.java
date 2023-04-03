@@ -144,27 +144,23 @@ public class SecondaryController {
         initializeButtons(vBox);
         initializeMenuButton();
         initializeRootNode();
-        //MNode.reload(treeView);
     }
 
     public void initializeRootNode() {
         if(FileManager.operatingFile == null) {
             rootNode = new MNode("Topic", true);
-            selectedNode = rootNode;
             rootNode.setLayoutX(anchorPane.getPrefWidth() / 2 - MNode.PREF_WIDTH / 2);
             rootNode.setLayoutY(anchorPane.getPrefHeight() / 2 - MNode.PREF_HEIGHT / 2);
             MNode.setAnchorPane(anchorPane);
             anchorPane.getChildren().add(rootNode);
-            treeView.setRoot(rootNode.getTreeItem());
             System.out.println(FileManager.operatingFile);
         } else {
-            selectedNode = rootNode;
-            treeView.setRoot(rootNode.getTreeItem());
-            System.out.println(MNode.getLeftSubtreeWidth());
-            MNode.setAnchorPane(anchorPane);
             MNode.setRootNode(rootNode);
-            MNode.reload(treeView);
+            MNode.setAnchorPane(anchorPane);
+            rootNode.reload();
         }
+        treeView.setRoot(rootNode.getTreeItem()); 
+        selectedNode = rootNode;
     }
 
     /**

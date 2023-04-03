@@ -11,4 +11,9 @@ public class TreeItemString extends TreeItem<String> implements Serializable {
     public TreeItemString(String text) {
         super(text);
     }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }
