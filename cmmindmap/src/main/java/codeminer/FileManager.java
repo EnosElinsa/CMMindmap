@@ -5,6 +5,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -38,10 +39,17 @@ public class FileManager {
         fileChooser.setTitle("Open a file");
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("mp file", "*.mp"));
         operatingFile = fileChooser.showOpenDialog(new Stage());
-        try (ObjectInputStream ois=new ObjectInputStream(new FileInputStream(operatingFile))) {
-            SecondaryController.setRootNode((MNode)ois.readObject());
+        try {
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(operatingFile));
+            SecondaryController.setRootNode((MNode) ois.readObject());
+            MNode.setLeftSubtreeHeight(ois.readDouble());
+            MNode.setLeftSubtreeWidth(ois.readDouble());
+            MNode.setRightSubtreeHeight(ois.readDouble());
+            MNode.setRightSubtreeWidth(ois.readDouble());
+            MNode.setLeftSubtree((ArrayList<MNode>)ois.readObject());
+            MNode.setRightSubtree((ArrayList<MNode>)ois.readObject());
             System.out.println("open successful");
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -68,9 +76,15 @@ public class FileManager {
         fileChooser.setTitle("Save As");
         operatingFile = fileChooser.showSaveDialog(new Stage());
         if (operatingFile != null) {
-            try  {
+            try {
                 ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(operatingFile));
                 oos.writeObject(SecondaryController.getRootNode());
+                oos.writeDouble(MNode.getLeftSubtreeHeight());
+                oos.writeDouble(MNode.getLeftSubtreeWidth());
+                oos.writeDouble(MNode.getRightSubtreeHeight());
+                oos.writeDouble(MNode.getRightSubtreeWidth());
+                oos.writeObject(MNode.getLeftSubtree());
+                oos.writeObject(MNode.getRightSubtree());
                 System.out.println("save as successful");
             } catch (IOException e) {
                 e.printStackTrace();
