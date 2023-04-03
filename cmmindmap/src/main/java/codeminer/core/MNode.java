@@ -304,6 +304,7 @@ public class MNode extends TextField implements Serializable {
      * @param root 根节点
      */
     public void update(MNode root) {
+        System.out.println(leftSubtreeWidth);
         updateSize(root);
         updatePaneSizeAndRootNodePosition();
         updateChildNodesPosition(root, LEFT);
@@ -357,6 +358,7 @@ public class MNode extends TextField implements Serializable {
 
     private static void reloadUtil(MNode node, AnchorPane anchorPane) {
         node.getParentNode().getTreeItem().getChildren().add(node.getTreeItem());
+        node.isSelected = new SimpleBooleanProperty(false);
         anchorPane.getChildren().add(node);
         anchorPane.getChildren().add(node.getEdge());
         for (MNode childNode : node.getChildNodes()) {
@@ -370,6 +372,7 @@ public class MNode extends TextField implements Serializable {
      */
     public static void reload(TreeView<String> treeView) {
         anchorPane.getChildren().add(rootNode);
+        rootNode.isSelected = new SimpleBooleanProperty(true);
         treeView.setRoot(rootNode.getTreeItem());
         for (MNode childNode : rightSubtree) {
             reloadUtil(childNode, anchorPane);
@@ -526,4 +529,6 @@ public class MNode extends TextField implements Serializable {
     public void setEdge(MEdge edge) {
         this.edge = edge;
     }
+
+
 }

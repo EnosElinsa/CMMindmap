@@ -41,8 +41,7 @@ public class FileManager {
         try (ObjectInputStream ois=new ObjectInputStream(new FileInputStream(operatingFile))) {
             SecondaryController.setRootNode((MNode)ois.readObject());
             System.out.println("open successful");
-        }
-        catch (IOException e){
+        } catch (IOException e){
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);

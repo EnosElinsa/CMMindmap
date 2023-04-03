@@ -9,7 +9,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.PerspectiveCamera;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
@@ -92,9 +91,6 @@ public class SecondaryController {
     @FXML
     private MenuButton zoomMenu;
 
-    @FXML
-    private PerspectiveCamera perspectiveCamera;
-
     /**
      * 菜单栏选项
      */
@@ -152,7 +148,7 @@ public class SecondaryController {
     }
 
     public void initializeRootNode() {
-        if(FileManager.operatingFile==null) {
+        if(FileManager.operatingFile == null) {
             rootNode = new MNode("Topic", true);
             selectedNode = rootNode;
             rootNode.setLayoutX(anchorPane.getPrefWidth() / 2 - MNode.PREF_WIDTH / 2);
@@ -161,12 +157,12 @@ public class SecondaryController {
             anchorPane.getChildren().add(rootNode);
             treeView.setRoot(rootNode.getTreeItem());
             System.out.println(FileManager.operatingFile);
-        }
-        else {
+        } else {
             selectedNode = rootNode;
-            MNode.setAnchorPane(anchorPane);
-            anchorPane.getChildren().add(rootNode);
             treeView.setRoot(rootNode.getTreeItem());
+            System.out.println(MNode.getLeftSubtreeWidth());
+            MNode.setAnchorPane(anchorPane);
+            MNode.setRootNode(rootNode);
             MNode.reload(treeView);
         }
     }
