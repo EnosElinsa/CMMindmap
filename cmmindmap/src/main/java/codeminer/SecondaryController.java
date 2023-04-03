@@ -117,13 +117,13 @@ public class SecondaryController {
     private MenuItem saveAsMenuItem;
 
     @FXML
-    private MenuItem exportAsJPGItem;
+    private MenuItem exportAsJPGMenuItem;
 
     @FXML
-    private MenuItem exportAsPNGItem;
+    private MenuItem exportAsPNGMenuItem;
 
     @FXML
-    private MenuItem exitItem;
+    private MenuItem exitMenuItem;
 
     /**
      * 被选中的节点
@@ -146,18 +146,29 @@ public class SecondaryController {
     public void initialize() {
         PrimaryController.makeStageDraggable(vBox, null);
         initializeButtons(vBox);
-        initializeRootNode();
         initializeMenuButton();
+        initializeRootNode();
+        //MNode.reload(treeView);
     }
 
     public void initializeRootNode() {
-        rootNode = new MNode("Topic", true);
-        selectedNode = rootNode;
-        rootNode.setLayoutX(anchorPane.getPrefWidth() / 2 - MNode.PREF_WIDTH / 2);
-        rootNode.setLayoutY(anchorPane.getPrefHeight() / 2 - MNode.PREF_HEIGHT / 2);
-        MNode.setAnchorPane(anchorPane);
-        anchorPane.getChildren().add(rootNode);
-        treeView.setRoot(rootNode.getTreeItem());
+        if(FileManager.operatingFile==null) {
+            rootNode = new MNode("Topic", true);
+            selectedNode = rootNode;
+            rootNode.setLayoutX(anchorPane.getPrefWidth() / 2 - MNode.PREF_WIDTH / 2);
+            rootNode.setLayoutY(anchorPane.getPrefHeight() / 2 - MNode.PREF_HEIGHT / 2);
+            MNode.setAnchorPane(anchorPane);
+            anchorPane.getChildren().add(rootNode);
+            treeView.setRoot(rootNode.getTreeItem());
+            System.out.println(FileManager.operatingFile);
+        }
+        else {
+            selectedNode = rootNode;
+            MNode.setAnchorPane(anchorPane);
+            anchorPane.getChildren().add(rootNode);
+            treeView.setRoot(rootNode.getTreeItem());
+            MNode.reload(treeView);
+        }
     }
 
     /**
@@ -170,26 +181,26 @@ public class SecondaryController {
         initializeRedoMenuItem();
         initializeSaveMenuItem();
         initializeSaveAsMenuItem();
-        initializeExportAsJPGItem();
-        initializeExportAsPNGItem();
-        initializeExitItem();
+        initializeExportAsJPGMenuItem();
+        initializeExportAsPNGMenuItem();
+        initializeExitMenuItem();
     }
 
-    private void initializeExitItem() {
-        exitItem.setOnAction(event -> {
-            System.out.println("exitItem clicked");
+    private void initializeExitMenuItem() {
+        exitMenuItem.setOnAction(event -> {
+            System.out.println("exitMenuItem clicked");
         });
     }
 
-    private void initializeExportAsPNGItem() {
-        exportAsPNGItem.setOnAction(event -> {
-            System.out.println("exportAsPNGItem clicked");
+    private void initializeExportAsPNGMenuItem() {
+        exportAsPNGMenuItem.setOnAction(event -> {
+            System.out.println("exportAsPNGMenuItem clicked");
         });
     }
 
-    private void initializeExportAsJPGItem() {
-        exportAsJPGItem.setOnAction(event -> {
-            System.out.println("exportAsPNGItem clicked");
+    private void initializeExportAsJPGMenuItem() {
+        exportAsJPGMenuItem.setOnAction(event -> {
+            System.out.println("exportAsJPGMenuItem clicked");
         });
     }
 
@@ -197,6 +208,7 @@ public class SecondaryController {
         saveAsMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.S, KeyCombination.ALT_DOWN, KeyCombination.CONTROL_DOWN));
         saveAsMenuItem.setOnAction(event -> {
             System.out.println("saveAsMenuItem clicked");
+            FileManager.saveAsOperatingFile();
         });
     }
 

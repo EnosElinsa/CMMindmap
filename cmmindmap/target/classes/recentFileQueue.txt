@@ -1,2 +1,0 @@
-src/main/resources/tempNewFile.xmind
-cmmindmap\src\main\resources\recentFileQueue.txt

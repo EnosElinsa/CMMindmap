@@ -355,7 +355,7 @@ public class MNode extends TextField implements Serializable {
         deleteNodeFromList(node);
     }
 
-    private void reloadUtil(MNode node, AnchorPane anchorPane) {
+    private static void reloadUtil(MNode node, AnchorPane anchorPane) {
         node.getParentNode().getTreeItem().getChildren().add(node.getTreeItem());
         anchorPane.getChildren().add(node);
         anchorPane.getChildren().add(node.getEdge());
@@ -368,7 +368,7 @@ public class MNode extends TextField implements Serializable {
      * 当保存后再被打开的树结构需要重新把节点和边添加到画布中
      * @param treeView
      */
-    public void reload(TreeView<String> treeView) {
+    public static void reload(TreeView<String> treeView) {
         anchorPane.getChildren().add(rootNode);
         treeView.setRoot(rootNode.getTreeItem());
         for (MNode childNode : rightSubtree) {

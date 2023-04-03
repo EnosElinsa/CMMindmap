@@ -1,5 +1,6 @@
 package codeminer;
 
+import java.io.File;
 import java.io.IOException;
 
 import javafx.fxml.FXML;
@@ -95,7 +96,7 @@ public class PrimaryController {
     private FlowPane flowPane;
 
     @FXML
-    private void switchToSecondary() throws IOException {
+    private static void switchToSecondary() throws IOException {
         App.setRoot("secondary");
     }
 
@@ -118,12 +119,13 @@ public class PrimaryController {
         browseButton.setOnMouseEntered(event -> {
             browseButton.setStyle("-fx-background-color: #00CDCD");
         });
-        //保存文件
         browseButton.setOnMouseClicked(event -> {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Open a file");
-            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("dt file", "*.xmind"));
-            FileManager.operatingFile = fileChooser.showOpenDialog(new Stage());
+            try {
+                FileManager.openLoadOperatingFile();
+                switchToSecondary();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
         browseButton.setOnMouseExited(event -> {
             browseButton.setStyle(previousStyle);
@@ -182,8 +184,8 @@ public class PrimaryController {
         newButton.setOnMouseEntered(event -> {
         });
         newButton.setOnMouseClicked(event -> {
-
             try {
+                FileManager.operatingFile=null;
                 switchToSecondary();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -203,13 +205,16 @@ public class PrimaryController {
         /*从本地加载最近文件队列*/
         FileManager.loadFileQueue();
         int recentFileQueueLength = FileManager.recentFileQueue.size();
+        File[] loadFileArray = FileManager.recentFileQueue.toArray(new File[recentFileQueueLength]);
         /*将最近文件按钮绑定文件并设置点击事件*/
         for (int i = 0; i < recentFileQueueLength&&i<11; i++) {
             recentFileButton[i].setOnMouseEntered(event -> {
             });
+            int finalI = i;
             recentFileButton[i].setOnMouseClicked(event -> {
                 try {
-                    FileManager.operatingFile=FileManager.recentFileQueue.peek();
+                    FileManager.operatingFile=loadFileArray[finalI];
+                    System.out.println(FileManager.operatingFile);
                     switchToSecondary();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -217,7 +222,7 @@ public class PrimaryController {
             });
             recentFileButton[i].setOnMouseExited(event -> {
             });
-            recentFileName[i].setText(FileManager.recentFileQueue.remove().getName());
+            recentFileName[i].setText(loadFileArray[finalI].getName());
         }
         for (int i = recentFileQueueLength; i < 11; i++) {
             recentFileButton[i].setVisible(false);

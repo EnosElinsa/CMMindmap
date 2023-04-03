@@ -67,10 +67,10 @@
                   <MenuItem fx:id="saveMenuItem" mnemonicParsing="false" text="Save" />
                   <MenuItem fx:id="saveAsMenuItem" mnemonicParsing="false" text="Save As" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem fx:id="exportAsJPGItem" mnemonicParsing="false" text="Export as JPG" />
-                  <MenuItem fx:id="exportAsPNGItem" mnemonicParsing="false" text="Export as PNG" />
+                  <MenuItem fx:id="exportAsJPGMenuItem" mnemonicParsing="false" text="Export as JPG" />
+                  <MenuItem fx:id="exportAsPNGMenuItem" mnemonicParsing="false" text="Export as PNG" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem fx:id="exitItem" mnemonicParsing="false" text="Exit" />
+                  <MenuItem fx:id="exitMenuItem" mnemonicParsing="false" text="Exit" />
               </items>
                <graphic>
                   <ImageView fitHeight="36.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" x="5.0">
