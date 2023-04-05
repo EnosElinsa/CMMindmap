@@ -120,6 +120,7 @@ public class PrimaryController {
         });
         browseButton.setOnMouseClicked(event -> {
             try {
+                FileManager.operatingFileChooser();
                 FileManager.openLoadOperatingFile();
                 switchToSecondary();
             } catch (IOException e) {
@@ -184,7 +185,7 @@ public class PrimaryController {
         });
         newButton.setOnMouseClicked(event -> {
             try {
-                FileManager.operatingFile=null;
+                FileManager.newLoadOperatingFile();
                 switchToSecondary();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -211,9 +212,13 @@ public class PrimaryController {
             });
             int finalI = i;
             recentFileButton[i].setOnMouseClicked(event -> {
+
+
+
+
                 try {
                     FileManager.operatingFile=loadFileArray[finalI];
-                    System.out.println(FileManager.operatingFile);
+                    FileManager.openLoadOperatingFile();
                     switchToSecondary();
                 } catch (IOException e) {
                     e.printStackTrace();
