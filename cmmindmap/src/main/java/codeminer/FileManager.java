@@ -2,6 +2,7 @@ package codeminer;
 
 import codeminer.core.MNode;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.*;
@@ -24,60 +25,77 @@ public class FileManager {
      * 新建时加载文件
      */
     public static void newLoadOperatingFile() {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(operatingFile))) {
-            System.out.println("new successful");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        FileManager.operatingFile = null;
+    }
+
+    /*选择文件*/
+    public static void operatingFileChooser(){
+        /*选择目标文件*/
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open a file");
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("mp file", "*.mp"));
+        Stage fileChooserStage = new Stage();
+        fileChooserStage.setAlwaysOnTop(true);
+        fileChooserStage.initModality(Modality.APPLICATION_MODAL);
+        operatingFile = fileChooser.showOpenDialog(fileChooserStage);
     }
 
     /**
      * 打开时加载文件
      */
     public static void openLoadOperatingFile() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open a file");
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("mp file", "*.mp"));
-        operatingFile = fileChooser.showOpenDialog(new Stage());
+        /*将文件中对象实例化和并读取MNode类信息*/
         try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(operatingFile));
-            MNode node = (MNode)ois.readObject();
+            MNode node = (MNode) ois.readObject();
             System.out.println(node);
             SecondaryController.setRootNode(node);
             MNode.setLeftSubtreeHeight(ois.readDouble());
             MNode.setLeftSubtreeWidth(ois.readDouble());
             MNode.setRightSubtreeHeight(ois.readDouble());
             MNode.setRightSubtreeWidth(ois.readDouble());
-            MNode.setLeftSubtree((ArrayList<MNode>)ois.readObject());
-            MNode.setRightSubtree((ArrayList<MNode>)ois.readObject());
+            MNode.setLeftSubtree((ArrayList<MNode>) ois.readObject());
+            MNode.setRightSubtree((ArrayList<MNode>) ois.readObject());
             ois.close();
-            System.out.println("open successful");
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+        saveFileQueue();
     }
 
     /**
      * 退出前保存文件
      */
-    public static void saveOperatingFile() {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(operatingFile))) {
-            oos.writeObject(SecondaryController.getRootNode());
-            System.out.println("save successful");
-        } catch (IOException e) {
-            e.printStackTrace();
+    public static boolean saveOperatingFile() {
+        /*将新建思维导图另存为*/
+        if (operatingFile == null) return saveAsOperatingFile();
+            /*将已有思维导图保存*/
+        else {
+            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(operatingFile))) {
+                oos.writeObject(SecondaryController.getRootNode());
+                System.out.println("save successful");
+                return true;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+        return false;
     }
 
     /**
      * 退出前另存为文件
      */
-    public static void saveAsOperatingFile() {
+    public static boolean saveAsOperatingFile() {
+        /*选择目标文件*/
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save As");
+        fileChooser.setInitialFileName(MNode.getRootNode().getNodeText());
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("mindmap files (*.txt)", "*.mp");
+        fileChooser.getExtensionFilters().add(extFilter);
         operatingFile = fileChooser.showSaveDialog(new Stage());
+        /*将实例化对象和MNode类信息存入文件*/
         if (operatingFile != null) {
             try {
                 ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(operatingFile));
@@ -91,12 +109,14 @@ public class FileManager {
                 oos.flush();
                 oos.close();
                 System.out.println("save as successful");
+                saveFileQueue();
+                return true;
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        return false;
     }
-
 
     /**
      * 打开程序时，加载最近文件队列
@@ -107,10 +127,11 @@ public class FileManager {
              BufferedReader br = new BufferedReader(reader)) {
             String line;
             while ((line = br.readLine()) != null) {
-                recentFileQueue.add(new File(line));
+                if (new File(line).exists())
+                    recentFileQueue.add(new File(line));
             }
         } catch (IOException e) {
-            System.err.format("IOException: %s%n", e);
+            e.printStackTrace();
         }
     }
 
@@ -119,7 +140,7 @@ public class FileManager {
      */
     public static void saveFileQueue() {
         String fileName = "src/main/resources/recentFileQueue.txt";
-        if (recentFileQueue.contains(operatingFile))
+        if (!recentFileQueue.contains(operatingFile))
             try (FileWriter writer = new FileWriter(fileName);
                  BufferedWriter bw = new BufferedWriter(writer)) {
                 bw.write(operatingFile.toString() + "\n");
@@ -128,9 +149,7 @@ public class FileManager {
                     else bw.write(recentFileQueue.remove().toString() + "\n");
                 }
             } catch (IOException e) {
-                System.err.format("IOException: %s%n", e);
+                e.printStackTrace();
             }
     }
-
-
 }

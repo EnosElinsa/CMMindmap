@@ -1,6 +1,7 @@
 package codeminer;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import codeminer.core.MNode;
 import javafx.beans.property.BooleanProperty;
@@ -9,12 +10,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -139,6 +135,11 @@ public class SecondaryController {
         App.setRoot("primary");
     }
 
+    private static void switchToInquiry() throws IOException {
+        App.setRoot("inquiry");
+
+    }
+
     public void initialize() {
         PrimaryController.makeStageDraggable(vBox, null);
         initializeButtons(vBox);
@@ -147,7 +148,7 @@ public class SecondaryController {
     }
 
     public void initializeRootNode() {
-        if(FileManager.operatingFile == null) {
+        if (FileManager.operatingFile == null) {
             rootNode = new MNode("Topic", true);
             rootNode.setLayoutX(anchorPane.getPrefWidth() / 2 - MNode.PREF_WIDTH / 2);
             rootNode.setLayoutY(anchorPane.getPrefHeight() / 2 - MNode.PREF_HEIGHT / 2);
@@ -159,7 +160,7 @@ public class SecondaryController {
             MNode.setAnchorPane(anchorPane);
             rootNode.reload();
         }
-        treeView.setRoot(rootNode.getTreeItem()); 
+        treeView.setRoot(rootNode.getTreeItem());
         selectedNode = rootNode;
     }
 
@@ -167,76 +168,79 @@ public class SecondaryController {
      * 初始化菜单栏
      */
     private void initializeMenuButton() {
-        initializeNewMenuItem();
-        initializeOpenMenuItem();
-        initializeUndoMenuItem();
-        initializeRedoMenuItem();
-        initializeSaveMenuItem();
-        initializeSaveAsMenuItem();
-        initializeExportAsJPGMenuItem();
-        initializeExportAsPNGMenuItem();
-        initializeExitMenuItem();
-    }
-
-    private void initializeExitMenuItem() {
-        exitMenuItem.setOnAction(event -> {
-            System.out.println("exitMenuItem clicked");
+        newMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN));
+        newMenuItem.setOnAction(event -> {
+            FileManager.newLoadOperatingFile();
+            System.out.println("newMenuItem clicked");
         });
-    }
 
-    private void initializeExportAsPNGMenuItem() {
-        exportAsPNGMenuItem.setOnAction(event -> {
-            System.out.println("exportAsPNGMenuItem clicked");
+        openMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN));
+        openMenuItem.setOnAction(event -> {
+            FileManager.operatingFileChooser();
+            FileManager.openLoadOperatingFile();
+            rootNode.reload();
+            System.out.println("openMenuItem clicked");
         });
-    }
 
-    private void initializeExportAsJPGMenuItem() {
-        exportAsJPGMenuItem.setOnAction(event -> {
-            System.out.println("exportAsJPGMenuItem clicked");
+        undoMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_DOWN));
+        undoMenuItem.setOnAction(event -> {
+            System.out.println("undoMenuItem clicked");
         });
-    }
 
-    private void initializeSaveAsMenuItem() {
-        saveAsMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.S, KeyCombination.ALT_DOWN, KeyCombination.CONTROL_DOWN));
-        saveAsMenuItem.setOnAction(event -> {
-            System.out.println("saveAsMenuItem clicked");
-            FileManager.saveAsOperatingFile();
+        redoMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.Z, KeyCombination.SHIFT_DOWN, KeyCombination.CONTROL_DOWN));
+        redoMenuItem.setOnAction(event -> {
+            System.out.println("redoMenuItem clicked");
         });
-    }
 
-    private void initializeSaveMenuItem() {
         saveMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN));
         saveMenuItem.setOnAction(event -> {
             System.out.println("saveMenuItem clicked");
             FileManager.saveOperatingFile();
         });
-    }
 
-    private void initializeRedoMenuItem() {
-        redoMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.Z, KeyCombination.SHIFT_DOWN, KeyCombination.CONTROL_DOWN));
-        redoMenuItem.setOnAction(event -> {
-            System.out.println("redoMenuItem clicked");
+        saveAsMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.S, KeyCombination.ALT_DOWN, KeyCombination.CONTROL_DOWN));
+        saveAsMenuItem.setOnAction(event -> {
+            System.out.println("saveAsMenuItem clicked");
+            FileManager.saveAsOperatingFile();
         });
-    }
 
-    private void initializeUndoMenuItem() {
-        undoMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_DOWN));
-        undoMenuItem.setOnAction(event -> {
-            System.out.println("undoMenuItem clicked");
+        exportAsJPGMenuItem.setOnAction(event -> {
+            System.out.println("exportAsJPGMenuItem clicked");
         });
-    }
 
-    private void initializeOpenMenuItem() {
-        openMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN));
-        openMenuItem.setOnAction(event -> {
-            System.out.println("openMenuItem clicked");
+        exportAsPNGMenuItem.setOnAction(event -> {
+            System.out.println("exportAsPNGMenuItem clicked");
         });
-    }
 
-    private void initializeNewMenuItem() {
-        newMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN));
-        newMenuItem.setOnAction(event -> {
-            System.out.println("newMenuItem clicked");
+        exitMenuItem.setOnAction(event -> {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Inquiry");
+            alert.setHeaderText("Do you want to save the changes you made in the mindmap?");
+            alert.setContentText("Your changes will be lost if you don't save them.");
+
+            ButtonType buttonType1 = new ButtonType("Save");
+            ButtonType buttonType2 = new ButtonType("Do Not Save");
+            ButtonType buttonType3 = new ButtonType("Cancel");
+            ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+            alert.getButtonTypes().setAll(buttonType1, buttonType2, buttonTypeCancel);
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == buttonType1) {
+                if (FileManager.operatingFile == null)
+                    FileManager.saveAsOperatingFile();
+                else {
+                    FileManager.saveOperatingFile();
+                }
+                Stage stage = (Stage) rootNode.getScene().getWindow();
+                stage.close();
+            } else if (result.get() == buttonType2) {
+                Stage stage = (Stage) rootNode.getScene().getWindow();
+                stage.close();
+            } else if (result.get() == buttonType3) {
+
+            }
+            System.out.println("exitMenuItem clicked");
         });
     }
 
@@ -474,8 +478,29 @@ public class SecondaryController {
             button3.setStyle("-fx-background-color: #E53935");
         });
         button3.setOnMouseClicked(event -> {
-            Stage stage = (Stage) root.getScene().getWindow();
-            stage.close();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Inquiry");
+            alert.setHeaderText("Do you want to save the changes you made in the mindmap?");
+            alert.setContentText("Your changes will be lost if you don't save them.");
+
+            ButtonType buttonType1 = new ButtonType("Save");
+            ButtonType buttonType2 = new ButtonType("Do Not Save");
+            ButtonType buttonType3 = new ButtonType("Cancel");
+            ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+            alert.getButtonTypes().setAll(buttonType1, buttonType2, buttonTypeCancel);
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == buttonType1) {
+                if(FileManager.saveOperatingFile())
+                {Stage stage = (Stage) root.getScene().getWindow();
+                stage.close();}
+            } else if (result.get() == buttonType2) {
+                Stage stage = (Stage) root.getScene().getWindow();
+                stage.close();
+            } else if (result.get() == buttonType3) {
+
+            }
         });
         button3.setOnMouseExited(event -> {
             button3.setStyle(previousStyle);
