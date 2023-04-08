@@ -28,8 +28,13 @@ public class FileManager {
         FileManager.operatingFile = null;
     }
 
+<<<<<<< HEAD
     /** 选择文件（打开） */
     public static void operatingFileChooser1() {
+=======
+    /** 选择文件 */
+    public static void operatingFileChooser() {
+>>>>>>> main
         /*选择目标文件*/
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open a file");
@@ -87,6 +92,10 @@ public class FileManager {
             /*将已有思维导图保存*/
         else {
             try {
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
                 ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(operatingFile));
                 oos.writeObject(SecondaryController.getRootNode());
                 oos.writeDouble(MNode.getLeftSubtreeHeight());
@@ -112,7 +121,11 @@ public class FileManager {
      */
     public static boolean saveAsOperatingFile() {
         /*选择目标文件*/
+<<<<<<< HEAD
         operatingFileChooser2();
+=======
+        operatingFileChooser();
+>>>>>>> main
         /*将实例化对象和MNode类信息存入文件*/
         if (operatingFile != null) {
             try {
