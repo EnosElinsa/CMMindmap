@@ -20,6 +20,7 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -42,9 +43,6 @@ public class SecondaryController {
 
     @FXML
     private ScrollPane scrollPane2;
-
-    @FXML
-    private ScrollPane scrollPane3;
 
     @FXML
     private TreeView<String> treeView;
@@ -530,10 +528,29 @@ public class SecondaryController {
 
         for (MenuItem item : zoomMenu.getItems()) {
             item.setOnAction(event -> {
-                // double scale = Double.parseDouble(item.getText().replace("%", "")) / 100;
-
+                double scale = Double.parseDouble(item.getText().replace("%", "")) / 100;
+                anchorPane.setScaleX(scale);
+                anchorPane.setScaleY(scale);
+                zoomMenu.setText(Integer.toString((int)(scale * 100)) + "%");
+                scrollPane2.setHvalue(0.5);
+                scrollPane2.setVvalue(0.5);
             });
         }
+
+        anchorPane.setOnScroll((ScrollEvent event) -> {
+            double zoomFactor = 1.1;
+            if (event.isControlDown()) { // ctrl key is pressed
+                if (event.getDeltaY() < 0) { // scroll down
+                    zoomFactor = 0.95;
+                }
+                double scale = anchorPane.getScaleX() * zoomFactor;
+                anchorPane.setScaleX(scale);
+                anchorPane.setScaleY(scale);
+                zoomMenu.setText(Integer.toString((int)(scale * 100)) + "%");
+                event.consume();
+            }
+            
+        });
     }
 
 

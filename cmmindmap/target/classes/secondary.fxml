@@ -243,7 +243,7 @@
          </children>
       </HBox>
       <Line endX="1125.0" startX="-100.0" stroke="#434545" />
-    <SplitPane dividerPositions="0.15, 0.83" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #222425;" VBox.vgrow="ALWAYS">
+    <SplitPane dividerPositions="0.15" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #222425;" VBox.vgrow="ALWAYS">
       <items>
             <ScrollPane fx:id="scrollPane1" fitToHeight="true" fitToWidth="true" prefHeight="735.0" prefWidth="256.0">
                <content>
@@ -252,14 +252,9 @@
             </ScrollPane>
         <ScrollPane fx:id="scrollPane2" fitToHeight="true" fitToWidth="true" hvalue="0.5" pannable="true" vvalue="0.5">
           <content>
-            <AnchorPane id="Content" fx:id="anchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="2160.0" prefWidth="3840.0" style="-fx-background-color: #ffffff;" />
+            <AnchorPane id="Content" fx:id="anchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="4320.0" prefWidth="7680.0" style="-fx-background-color: #ffffff;" />
           </content>
         </ScrollPane>
-            <ScrollPane fx:id="scrollPane3" fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0">
-               <content>
-                  <VBox prefHeight="736.0" prefWidth="242.0" style="-fx-background-color: #222425;" />
-               </content>
-            </ScrollPane>
       </items>
     </SplitPane>
       <Line endX="1125.0" opacity="0.86" startX="-100.0" stroke="#434545" />
