@@ -182,7 +182,7 @@ public class SecondaryController {
 
         openMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN));
         openMenuItem.setOnAction(event -> {
-            FileManager.operatingFileChooser();
+            FileManager.operatingFileChooser1();
             FileManager.openLoadOperatingFile();
             rootNode.reload();
             System.out.println("openMenuItem clicked");

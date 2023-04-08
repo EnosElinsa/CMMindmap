@@ -28,8 +28,8 @@ public class FileManager {
         FileManager.operatingFile = null;
     }
 
-    /** 选择文件 */
-    public static void operatingFileChooser() {
+    /** 选择文件（打开） */
+    public static void operatingFileChooser1() {
         /*选择目标文件*/
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open a file");
@@ -39,6 +39,19 @@ public class FileManager {
         fileChooserStage.initModality(Modality.APPLICATION_MODAL);
         operatingFile = fileChooser.showOpenDialog(fileChooserStage);
     }
+
+    /** 选择文件（保存） */
+    public static void operatingFileChooser2(){
+        /*选择目标文件夹*/
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save a file");
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("mp file", "*.mp"));
+        Stage fileChooserStage = new Stage();
+        fileChooserStage.setAlwaysOnTop(true);
+        fileChooserStage.initModality(Modality.APPLICATION_MODAL);
+        operatingFile = fileChooser.showSaveDialog(fileChooserStage);
+    }
+
 
     /**
      * 打开时加载文件
@@ -74,7 +87,6 @@ public class FileManager {
             /*将已有思维导图保存*/
         else {
             try {
-
                 ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(operatingFile));
                 oos.writeObject(SecondaryController.getRootNode());
                 oos.writeDouble(MNode.getLeftSubtreeHeight());
@@ -100,7 +112,7 @@ public class FileManager {
      */
     public static boolean saveAsOperatingFile() {
         /*选择目标文件*/
-        operatingFileChooser();
+        operatingFileChooser2();
         /*将实例化对象和MNode类信息存入文件*/
         if (operatingFile != null) {
             try {
