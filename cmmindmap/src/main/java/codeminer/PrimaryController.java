@@ -125,6 +125,8 @@ public class PrimaryController {
                 switchToSecondary();
             } catch (IOException e) {
                 e.printStackTrace();
+            }catch (NullPointerException e){
+                System.out.println("未选择");
             }
         });
         browseButton.setOnMouseExited(event -> {

@@ -1,7 +1,9 @@
 package codeminer;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
+import javax.imageio.ImageIO;
 
 import codeminer.core.MNode;
 import javafx.beans.property.BooleanProperty;
@@ -9,8 +11,11 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.*;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -171,6 +176,7 @@ public class SecondaryController {
         newMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN));
         newMenuItem.setOnAction(event -> {
             FileManager.newLoadOperatingFile();
+            rootNode.reload();
             System.out.println("newMenuItem clicked");
         });
 
@@ -205,6 +211,16 @@ public class SecondaryController {
         });
 
         exportAsJPGMenuItem.setOnAction(event -> {
+            // 创建一个 SnapshotParameters 对象，并设置需要截取的区域
+            SnapshotParameters params = new SnapshotParameters();
+            params.setViewport(new Rectangle2D(0, 0, anchorPane.getWidth(), anchorPane.getHeight()));
+
+            // 创建一个 WritableImage 对象，并将 AnchorPane 转换成图片
+            WritableImage image = anchorPane.snapshot(params, null);
+
+            // 将图片保存到本地文件
+            File file = new File("image.png");
+
             System.out.println("exportAsJPGMenuItem clicked");
         });
 
@@ -492,9 +508,10 @@ public class SecondaryController {
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == buttonType1) {
-                if(FileManager.saveOperatingFile())
-                {Stage stage = (Stage) root.getScene().getWindow();
-                stage.close();}
+                if (FileManager.saveOperatingFile()) {
+                    Stage stage = (Stage) root.getScene().getWindow();
+                    stage.close();
+                }
             } else if (result.get() == buttonType2) {
                 Stage stage = (Stage) root.getScene().getWindow();
                 stage.close();
