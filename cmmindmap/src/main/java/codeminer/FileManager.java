@@ -40,6 +40,17 @@ public class FileManager {
         operatingFile = fileChooser.showOpenDialog(fileChooserStage);
     }
 
+    public static void operatingFileChooser2() {
+        /*选择目标文件*/
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open a file");
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("mp file", "*.mp"));
+        Stage fileChooserStage = new Stage();
+        fileChooserStage.setAlwaysOnTop(true);
+        fileChooserStage.initModality(Modality.APPLICATION_MODAL);
+        operatingFile = fileChooser.showSaveDialog(fileChooserStage);
+    }
+
     /**
      * 打开时加载文件
      */
@@ -71,10 +82,9 @@ public class FileManager {
     public static boolean saveOperatingFile() {
         /*将新建思维导图另存为*/
         if (operatingFile == null) return saveAsOperatingFile();
-            /*将已有思维导图保存*/
+        /*将已有思维导图保存*/
         else {
             try {
-
                 ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(operatingFile));
                 oos.writeObject(SecondaryController.getRootNode());
                 oos.writeDouble(MNode.getLeftSubtreeHeight());
@@ -100,7 +110,7 @@ public class FileManager {
      */
     public static boolean saveAsOperatingFile() {
         /*选择目标文件*/
-        operatingFileChooser();
+        operatingFileChooser2();
         /*将实例化对象和MNode类信息存入文件*/
         if (operatingFile != null) {
             try {
@@ -128,7 +138,7 @@ public class FileManager {
      * 打开程序时，加载最近文件队列
      */
     public static void loadFileQueue() {
-        String fileName = "src/main/resources/recentFileQueue";
+        String fileName = "cmmindmap/src/main/resources/recentFileQueue";
         try (FileReader reader = new FileReader(fileName);
              BufferedReader br = new BufferedReader(reader)) {
             String line;
@@ -145,7 +155,7 @@ public class FileManager {
      * 关闭程序时，保存最近文件队列
      */
     public static void saveFileQueue() {
-        String fileName = "src/main/resources/recentFileQueue";
+        String fileName = "cmmindmap/src/main/resources/recentFileQueue";
         if (!recentFileQueue.contains(operatingFile))
             try (FileWriter writer = new FileWriter(fileName);
                  BufferedWriter bw = new BufferedWriter(writer)) {
