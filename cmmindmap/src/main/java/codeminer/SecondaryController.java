@@ -26,7 +26,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-
 public class SecondaryController {
 
     @FXML
@@ -158,13 +157,16 @@ public class SecondaryController {
             rootNode.setLayoutY(anchorPane.getPrefHeight() / 2 - MNode.PREF_HEIGHT / 2);
             MNode.setAnchorPane(anchorPane);
             anchorPane.getChildren().add(rootNode);
-            System.out.println(FileManager.operatingFile);
         } else {
             MNode.setRootNode(rootNode);
             MNode.setAnchorPane(anchorPane);
             rootNode.reload();
         }
+        if (treeView.getRoot() != null) {
+            treeView.getRoot().getChildren().clear();
+        }
         treeView.setRoot(rootNode.getTreeItem());
+        treeView.getRoot().setExpanded(true);
         selectedNode = rootNode;
     }
 
@@ -175,7 +177,15 @@ public class SecondaryController {
         newMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN));
         newMenuItem.setOnAction(event -> {
             FileManager.newLoadOperatingFile();
-            rootNode.reload();
+            MNode.getRightSubtree().clear();
+            MNode.getLeftSubtree().clear();
+            anchorPane.getChildren().clear();
+            rootNode = new MNode("Topic", true);
+            rootNode.setLayoutX(anchorPane.getPrefWidth() / 2 - MNode.PREF_WIDTH / 2);
+            rootNode.setLayoutY(anchorPane.getPrefHeight() / 2 - MNode.PREF_HEIGHT / 2);
+            anchorPane.getChildren().add(rootNode);
+            treeView.setRoot(rootNode.getTreeItem());
+            selectedNode = rootNode;
             System.out.println("newMenuItem clicked");
         });
 
@@ -184,6 +194,9 @@ public class SecondaryController {
             FileManager.operatingFileChooser();
             FileManager.openLoadOperatingFile();
             rootNode.reload();
+            treeView.getRoot().getChildren().clear();
+            treeView.setRoot(rootNode.getTreeItem());
+            treeView.getRoot().setExpanded(true);           
             System.out.println("openMenuItem clicked");
         });
 
