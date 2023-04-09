@@ -3,6 +3,7 @@ package codeminer;
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
+
 import javax.imageio.ImageIO;
 
 import codeminer.core.MNode;
@@ -10,8 +11,8 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.*;
@@ -19,10 +20,12 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
 
 public class SecondaryController {
 
@@ -40,9 +43,6 @@ public class SecondaryController {
 
     @FXML
     private ScrollPane scrollPane2;
-
-    @FXML
-    private ScrollPane scrollPane3;
 
     @FXML
     private TreeView<String> treeView;
@@ -142,7 +142,6 @@ public class SecondaryController {
 
     private static void switchToInquiry() throws IOException {
         App.setRoot("inquiry");
-
     }
 
     public void initialize() {
@@ -215,20 +214,24 @@ public class SecondaryController {
         });
 
         exportAsJPGMenuItem.setOnAction(event -> {
-            // 创建一个 SnapshotParameters 对象，并设置需要截取的区域
-            SnapshotParameters params = new SnapshotParameters();
-            params.setViewport(new Rectangle2D(0, 0, anchorPane.getWidth(), anchorPane.getHeight()));
-
-            // 创建一个 WritableImage 对象，并将 AnchorPane 转换成图片
-            WritableImage image = anchorPane.snapshot(params, null);
-
-            // 将图片保存到本地文件
-            File file = new File("image.png");
-
+            WritableImage image = anchorPane.snapshot(new SnapshotParameters(), null);
+            File file = new File("panel.png");
+            try {
+                ImageIO.write(SwingFXUtils.fromFXImage(image, null), "jpg", file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }           
             System.out.println("exportAsJPGMenuItem clicked");
         });
 
         exportAsPNGMenuItem.setOnAction(event -> {
+            WritableImage image = anchorPane.snapshot(new SnapshotParameters(), null);
+            File file = new File("panel.png");
+            try {
+                ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }         
             System.out.println("exportAsPNGMenuItem clicked");
         });
 
@@ -529,10 +532,29 @@ public class SecondaryController {
 
         for (MenuItem item : zoomMenu.getItems()) {
             item.setOnAction(event -> {
-                // double scale = Double.parseDouble(item.getText().replace("%", "")) / 100;
-
+                double scale = Double.parseDouble(item.getText().replace("%", "")) / 100;
+                anchorPane.setScaleX(scale);
+                anchorPane.setScaleY(scale);
+                zoomMenu.setText(Integer.toString((int)(scale * 100)) + "%");
+                scrollPane2.setHvalue(0.5);
+                scrollPane2.setVvalue(0.5);
             });
         }
+
+        anchorPane.setOnScroll((ScrollEvent event) -> {
+            double zoomFactor = 1.1;
+            if (event.isControlDown()) { // ctrl key is pressed
+                if (event.getDeltaY() < 0) { // scroll down
+                    zoomFactor = 0.95;
+                }
+                double scale = anchorPane.getScaleX() * zoomFactor;
+                anchorPane.setScaleX(scale);
+                anchorPane.setScaleY(scale);
+                zoomMenu.setText(Integer.toString((int)(scale * 100)) + "%");
+                event.consume();
+            }
+            
+        });
     }
 
 

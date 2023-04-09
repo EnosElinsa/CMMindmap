@@ -45,11 +45,18 @@ public class FileManager {
         operatingFile = fileChooser.showOpenDialog(fileChooserStage);
     }
 
+<<<<<<< HEAD
     /** 选择文件（保存） */
     public static void operatingFileChooser2(){
         /*选择目标文件夹*/
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save a file");
+=======
+    public static void operatingFileChooser2() {
+        /*选择目标文件*/
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open a file");
+>>>>>>> main
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("mp file", "*.mp"));
         Stage fileChooserStage = new Stage();
         fileChooserStage.setAlwaysOnTop(true);
@@ -57,7 +64,10 @@ public class FileManager {
         operatingFile = fileChooser.showSaveDialog(fileChooserStage);
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
     /**
      * 打开时加载文件
      */
@@ -89,12 +99,15 @@ public class FileManager {
     public static boolean saveOperatingFile() {
         /*将新建思维导图另存为*/
         if (operatingFile == null) return saveAsOperatingFile();
-            /*将已有思维导图保存*/
+        /*将已有思维导图保存*/
         else {
             try {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
+>>>>>>> main
+=======
 >>>>>>> main
                 ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(operatingFile));
                 oos.writeObject(SecondaryController.getRootNode());
@@ -122,9 +135,13 @@ public class FileManager {
     public static boolean saveAsOperatingFile() {
         /*选择目标文件*/
 <<<<<<< HEAD
+<<<<<<< HEAD
         operatingFileChooser2();
 =======
         operatingFileChooser();
+>>>>>>> main
+=======
+        operatingFileChooser2();
 >>>>>>> main
         /*将实例化对象和MNode类信息存入文件*/
         if (operatingFile != null) {
@@ -153,7 +170,7 @@ public class FileManager {
      * 打开程序时，加载最近文件队列
      */
     public static void loadFileQueue() {
-        String fileName = "src/main/resources/recentFileQueue";
+        String fileName = "cmmindmap/src/main/resources/recentFileQueue";
         try (FileReader reader = new FileReader(fileName);
              BufferedReader br = new BufferedReader(reader)) {
             String line;
@@ -170,7 +187,7 @@ public class FileManager {
      * 关闭程序时，保存最近文件队列
      */
     public static void saveFileQueue() {
-        String fileName = "src/main/resources/recentFileQueue";
+        String fileName = "cmmindmap/src/main/resources/recentFileQueue";
         if (!recentFileQueue.contains(operatingFile))
             try (FileWriter writer = new FileWriter(fileName);
                  BufferedWriter bw = new BufferedWriter(writer)) {
