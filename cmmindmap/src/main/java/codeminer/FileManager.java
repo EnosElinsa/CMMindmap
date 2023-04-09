@@ -57,6 +57,7 @@ public class FileManager {
      */
     public static void openLoadOperatingFile() {
         /*将文件中对象实例化和并读取MNode类信息*/
+        if (operatingFile == null) return;
         try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(operatingFile));
             MNode node = (MNode) ois.readObject();

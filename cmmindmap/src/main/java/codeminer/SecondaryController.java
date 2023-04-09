@@ -139,10 +139,6 @@ public class SecondaryController {
         App.setRoot("primary");
     }
 
-    private static void switchToInquiry() throws IOException {
-        App.setRoot("inquiry");
-    }
-
     public void initialize() {
         PrimaryController.makeStageDraggable(vBox, null);
         initializeButtons(vBox);
