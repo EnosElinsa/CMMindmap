@@ -120,11 +120,7 @@ public class PrimaryController {
         });
         browseButton.setOnMouseClicked(event -> {
             try {
-<<<<<<< HEAD
                 FileManager.operatingFileChooser1();
-=======
-                FileManager.operatingFileChooser();
->>>>>>> main
                 FileManager.openLoadOperatingFile();
                 switchToSecondary();
             } catch (IOException e) {

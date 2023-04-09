@@ -24,6 +24,8 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
@@ -114,10 +116,7 @@ public class SecondaryController {
     private MenuItem saveAsMenuItem;
 
     @FXML
-    private MenuItem exportAsJPGMenuItem;
-
-    @FXML
-    private MenuItem exportAsPNGMenuItem;
+    private MenuItem exportAsMenuItem;
 
     @FXML
     private MenuItem exitMenuItem;
@@ -181,11 +180,9 @@ public class SecondaryController {
 
         openMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN));
         openMenuItem.setOnAction(event -> {
-<<<<<<< HEAD
+
             FileManager.operatingFileChooser1();
-=======
-            FileManager.operatingFileChooser();
->>>>>>> main
+
             FileManager.openLoadOperatingFile();
             rootNode.reload();
             System.out.println("openMenuItem clicked");
@@ -213,26 +210,11 @@ public class SecondaryController {
             FileManager.saveAsOperatingFile();
         });
 
-        exportAsJPGMenuItem.setOnAction(event -> {
+        exportAsMenuItem.setOnAction(event -> {
             WritableImage image = anchorPane.snapshot(new SnapshotParameters(), null);
-            File file = new File("panel.png");
-            try {
-                ImageIO.write(SwingFXUtils.fromFXImage(image, null), "jpg", file);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }           
-            System.out.println("exportAsJPGMenuItem clicked");
-        });
+            FileManager.saveOutputFile(image);
 
-        exportAsPNGMenuItem.setOnAction(event -> {
-            WritableImage image = anchorPane.snapshot(new SnapshotParameters(), null);
-            File file = new File("panel.png");
-            try {
-                ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }         
-            System.out.println("exportAsPNGMenuItem clicked");
+            System.out.println("exportAsJPGMenuItem clicked");
         });
 
         exitMenuItem.setOnAction(event -> {
@@ -556,7 +538,6 @@ public class SecondaryController {
             
         });
     }
-
 
     public static MNode getSelectedNode() {
         return selectedNode;

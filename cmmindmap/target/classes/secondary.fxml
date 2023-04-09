@@ -66,8 +66,7 @@
                   <MenuItem fx:id="saveMenuItem" mnemonicParsing="false" text="Save" />
                   <MenuItem fx:id="saveAsMenuItem" mnemonicParsing="false" text="Save As" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem fx:id="exportAsJPGMenuItem" mnemonicParsing="false" text="Export as JPG" />
-                  <MenuItem fx:id="exportAsPNGMenuItem" mnemonicParsing="false" text="Export as PNG" />
+                  <MenuItem fx:id="exportAsMenuItem" mnemonicParsing="false" text="Export As" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem fx:id="exitMenuItem" mnemonicParsing="false" text="Exit" />
               </items>

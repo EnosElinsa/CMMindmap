@@ -1,10 +1,17 @@
 package codeminer;
 
 import codeminer.core.MNode;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -21,20 +28,12 @@ public class FileManager {
      */
     public static Queue<File> recentFileQueue = new LinkedList<>();
 
-    /**
-     * 新建时加载文件
-     */
-    public static void newLoadOperatingFile() {
-        FileManager.operatingFile = null;
-    }
+    /** 将要导出图片的文件 */
+    public static File outputFile;
 
-<<<<<<< HEAD
+
     /** 选择文件（打开） */
     public static void operatingFileChooser1() {
-=======
-    /** 选择文件 */
-    public static void operatingFileChooser() {
->>>>>>> main
         /*选择目标文件*/
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open a file");
@@ -45,18 +44,11 @@ public class FileManager {
         operatingFile = fileChooser.showOpenDialog(fileChooserStage);
     }
 
-<<<<<<< HEAD
     /** 选择文件（保存） */
     public static void operatingFileChooser2(){
         /*选择目标文件夹*/
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save a file");
-=======
-    public static void operatingFileChooser2() {
-        /*选择目标文件*/
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open a file");
->>>>>>> main
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("mp file", "*.mp"));
         Stage fileChooserStage = new Stage();
         fileChooserStage.setAlwaysOnTop(true);
@@ -64,10 +56,25 @@ public class FileManager {
         operatingFile = fileChooser.showSaveDialog(fileChooserStage);
     }
 
-<<<<<<< HEAD
+    /** 选择文件（导出） */
+    public static void outPutFileChooser(){
+        /*选择目标文件夹*/
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Output a file");
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("jpg file", "*.jpg"),new FileChooser.ExtensionFilter("png file", "*.png"));
+        Stage fileChooserStage = new Stage();
+        fileChooserStage.setAlwaysOnTop(true);
+        fileChooserStage.initModality(Modality.APPLICATION_MODAL);
+        outputFile=fileChooser.showSaveDialog(fileChooserStage);
+    }
 
-=======
->>>>>>> main
+    /**
+     * 新建时加载文件
+     */
+    public static void newLoadOperatingFile() {
+        FileManager.operatingFile = null;
+    }
+
     /**
      * 打开时加载文件
      */
@@ -102,13 +109,7 @@ public class FileManager {
         /*将已有思维导图保存*/
         else {
             try {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 
->>>>>>> main
-=======
->>>>>>> main
                 ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(operatingFile));
                 oos.writeObject(SecondaryController.getRootNode());
                 oos.writeDouble(MNode.getLeftSubtreeHeight());
@@ -134,15 +135,7 @@ public class FileManager {
      */
     public static boolean saveAsOperatingFile() {
         /*选择目标文件*/
-<<<<<<< HEAD
-<<<<<<< HEAD
         operatingFileChooser2();
-=======
-        operatingFileChooser();
->>>>>>> main
-=======
-        operatingFileChooser2();
->>>>>>> main
         /*将实例化对象和MNode类信息存入文件*/
         if (operatingFile != null) {
             try {
@@ -199,5 +192,19 @@ public class FileManager {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+    }
+
+    /** 导出图片 */
+    public static void saveOutputFile(WritableImage image) {
+        java.awt.image.BufferedImage bufferedImage = SwingFXUtils.fromFXImage(image, null);
+        outPutFileChooser();
+        System.out.println(outputFile);
+        File file = new File(outputFile.getPath());
+        try {
+            ImageIO.write(bufferedImage, "png", file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
