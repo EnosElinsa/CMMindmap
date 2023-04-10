@@ -45,6 +45,7 @@ public class MNode extends TextField implements Serializable {
                                                + "-fx-border-color: #2EBDFF;"   
                                                + "-fx-border-radius: 2px;"
                                                + "-fx-border-width: 3px";
+
     /** 根节点的属性（因为设计中只有一个根节点，所以把根节点的属性设置为类的属性，且一个根节点 有且只有 一个左子树和一个右子树） */
     /** 根节点的引用 */
     private static MNode rootNode;
@@ -162,8 +163,8 @@ public class MNode extends TextField implements Serializable {
                 }
             }
         });
-
-        treeItem = new TreeItemString(nodeText);
+        System.out.println(super.getText());
+        treeItem = new TreeItemString(super.getText());
         treeItem.setExpanded(true);
     }
 
@@ -350,6 +351,7 @@ public class MNode extends TextField implements Serializable {
      * @param node 要删除的节点
      */
     public void deleteNode(MNode node) {
+        if (node.isRootNode()) return;
         deleteNodeFromPane(node);
         deleteNodeFromList(node);
     }

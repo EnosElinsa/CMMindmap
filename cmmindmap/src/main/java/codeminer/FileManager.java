@@ -48,7 +48,12 @@ public class FileManager {
     public static void operatingFileChooser2(){
         /*选择目标文件夹*/
         FileChooser fileChooser = new FileChooser();
+<<<<<<< HEAD
         fileChooser.setTitle("Save a file");
+=======
+        fileChooser.setTitle("Select a directory");
+        fileChooser.setInitialFileName(SecondaryController.getRootNode().getText());
+>>>>>>> main
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("mp file", "*.mp"));
         Stage fileChooserStage = new Stage();
         fileChooserStage.setAlwaysOnTop(true);
@@ -80,11 +85,13 @@ public class FileManager {
      */
     public static void openLoadOperatingFile() {
         /*将文件中对象实例化和并读取MNode类信息*/
+        if (operatingFile == null) return;
         try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(operatingFile));
             MNode node = (MNode) ois.readObject();
             System.out.println(node);
             SecondaryController.setRootNode(node);
+            MNode.setRootNode(node);
             MNode.setLeftSubtreeHeight(ois.readDouble());
             MNode.setLeftSubtreeWidth(ois.readDouble());
             MNode.setRightSubtreeHeight(ois.readDouble());
@@ -183,7 +190,7 @@ public class FileManager {
         String fileName = "cmmindmap/src/main/resources/recentFileQueue";
         if (!recentFileQueue.contains(operatingFile))
             try (FileWriter writer = new FileWriter(fileName);
-                 BufferedWriter bw = new BufferedWriter(writer)) {
+                BufferedWriter bw = new BufferedWriter(writer)) {
                 bw.write(operatingFile.toString() + "\n");
                 while (!recentFileQueue.isEmpty()) {
                     if (recentFileQueue.peek() == operatingFile) recentFileQueue.remove();
