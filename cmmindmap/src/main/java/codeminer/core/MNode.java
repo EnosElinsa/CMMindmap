@@ -308,6 +308,8 @@ public class MNode extends TextField implements Serializable {
         updatePaneSizeAndRootNodePosition();
         updateChildNodesPosition(root, LEFT);
         updateChildNodesPosition(root, RIGHT);
+        SecondaryController.setModified(true);
+        SecondaryController.setSaved(false);
     }
 
     /**

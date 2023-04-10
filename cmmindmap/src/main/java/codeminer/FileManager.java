@@ -44,7 +44,8 @@ public class FileManager {
     public static void operatingFileChooser2(){
         /*选择目标文件夹*/
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Save a file");
+        fileChooser.setTitle("Select a directory to save the file");
+        fileChooser.setInitialFileName(SecondaryController.getRootNode().getText());
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("mp file", "*.mp"));
         Stage fileChooserStage = new Stage();
         fileChooserStage.setAlwaysOnTop(true);
@@ -57,7 +58,8 @@ public class FileManager {
         /*选择目标文件夹*/
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Output a file");
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("jpg file", "*.jpg"),new FileChooser.ExtensionFilter("png file", "*.png"));
+        fileChooser.setInitialFileName(SecondaryController.getRootNode().getText());
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("jpg file", "*.jpg"), new FileChooser.ExtensionFilter("png file", "*.png"));
         Stage fileChooserStage = new Stage();
         fileChooserStage.setAlwaysOnTop(true);
         fileChooserStage.initModality(Modality.APPLICATION_MODAL);
@@ -107,7 +109,6 @@ public class FileManager {
         /*将已有思维导图保存*/
         else {
             try {
-
                 ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(operatingFile));
                 oos.writeObject(SecondaryController.getRootNode());
                 oos.writeDouble(MNode.getLeftSubtreeHeight());

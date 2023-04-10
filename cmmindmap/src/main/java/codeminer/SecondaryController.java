@@ -1,8 +1,9 @@
 package codeminer;
 
-import java.io.IOException;
-import java.util.Optional;
 import codeminer.core.MNode;
+
+import java.util.Optional;
+import java.io.IOException;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
@@ -117,14 +118,19 @@ public class SecondaryController {
      * 被选中的节点
      */
     private static MNode selectedNode;
+
     /**
      * 根节点
      */
     private static MNode rootNode;
+
     /**
      * 是否有节点被选择
      */
     private static BooleanProperty hasNodeBeenSelected = new SimpleBooleanProperty(true);
+
+    private static boolean isModified = false;
+    private static boolean isSaved = true;
 
     @FXML
     private void switchToPrimary() throws IOException {
@@ -149,106 +155,16 @@ public class SecondaryController {
             MNode.setRootNode(rootNode);
             MNode.setAnchorPane(anchorPane);
             rootNode.reload();
+            isModified = false;
+            isSaved = true;
         }
+
         if (treeView.getRoot() != null) {
             treeView.getRoot().getChildren().clear();
         }
         treeView.setRoot(rootNode.getTreeItem());
         treeView.getRoot().setExpanded(true);
         selectedNode = rootNode;
-    }
-
-    /**
-     * 初始化菜单栏
-     */
-    private void initializeMenuButton() {
-        newMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN));
-        newMenuItem.setOnAction(event -> {
-            FileManager.newLoadOperatingFile();
-            MNode.getRightSubtree().clear();
-            MNode.getLeftSubtree().clear();
-            anchorPane.getChildren().clear();
-            rootNode = new MNode("Topic", true);
-            rootNode.setLayoutX(anchorPane.getPrefWidth() / 2 - MNode.PREF_WIDTH / 2);
-            rootNode.setLayoutY(anchorPane.getPrefHeight() / 2 - MNode.PREF_HEIGHT / 2);
-            anchorPane.getChildren().add(rootNode);
-            treeView.setRoot(rootNode.getTreeItem());
-            selectedNode = rootNode;
-            System.out.println("newMenuItem clicked");
-        });
-
-        openMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN));
-        openMenuItem.setOnAction(event -> {
-
-            FileManager.operatingFileChooser1();
-
-            FileManager.openLoadOperatingFile();
-            rootNode.reload();
-            treeView.getRoot().getChildren().clear();
-            treeView.setRoot(rootNode.getTreeItem());
-            treeView.getRoot().setExpanded(true);           
-            System.out.println("openMenuItem clicked");
-        });
-
-        undoMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_DOWN));
-        undoMenuItem.setOnAction(event -> {
-            System.out.println("undoMenuItem clicked");
-        });
-
-        redoMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.Z, KeyCombination.SHIFT_DOWN, KeyCombination.CONTROL_DOWN));
-        redoMenuItem.setOnAction(event -> {
-            System.out.println("redoMenuItem clicked");
-        });
-
-        saveMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN));
-        saveMenuItem.setOnAction(event -> {
-            System.out.println("saveMenuItem clicked");
-            FileManager.saveOperatingFile();
-        });
-
-        saveAsMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.S, KeyCombination.ALT_DOWN, KeyCombination.CONTROL_DOWN));
-        saveAsMenuItem.setOnAction(event -> {
-            System.out.println("saveAsMenuItem clicked");
-            FileManager.saveAsOperatingFile();
-        });
-
-        exportAsMenuItem.setOnAction(event -> {
-            WritableImage image = anchorPane.snapshot(new SnapshotParameters(), null);
-            FileManager.saveOutputFile(image);
-
-            System.out.println("exportAsJPGMenuItem clicked");
-        });
-
-        exitMenuItem.setOnAction(event -> {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Inquiry");
-            alert.setHeaderText("Do you want to save the changes you made in the mindmap?");
-            alert.setContentText("Your changes will be lost if you don't save them.");
-
-            ButtonType buttonType1 = new ButtonType("Save");
-            ButtonType buttonType2 = new ButtonType("Do Not Save");
-            ButtonType buttonType3 = new ButtonType("Cancel");
-            ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-
-            alert.getButtonTypes().setAll(buttonType1, buttonType2, buttonTypeCancel);
-
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == buttonType1) {
-                if (FileManager.operatingFile == null)
-                    FileManager.saveAsOperatingFile();
-                else {
-                    FileManager.saveOperatingFile();
-                }
-                Stage stage = (Stage) rootNode.getScene().getWindow();
-                stage.close();
-            } else if (result.get() == buttonType2) {
-                Stage stage = (Stage) rootNode.getScene().getWindow();
-                stage.close();
-            } else if (result.get() == buttonType3) {
-
-            }
-            System.out.println("exitMenuItem clicked");
-        });
     }
 
     public void initializeButtons(Node root) {
@@ -324,6 +240,7 @@ public class SecondaryController {
             }
             selectedNode = newNode;
             rootNode.update(rootNode);
+
         });
         addDescendantButton.setOnMouseExited(event -> {
             addDescendantButton.setStyle(previousStyle);
@@ -485,41 +402,24 @@ public class SecondaryController {
             button3.setStyle("-fx-background-color: #E53935");
         });
         button3.setOnMouseClicked(event -> {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Inquiry");
-            alert.setHeaderText("Do you want to save the changes you made in the mindmap?");
-            alert.setContentText("Your changes will be lost if you don't save them.");
-
-            ButtonType buttonType1 = new ButtonType("Save");
-            ButtonType buttonType2 = new ButtonType("Do Not Save");
-            ButtonType buttonType3 = new ButtonType("Cancel");
-            ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-
-            alert.getButtonTypes().setAll(buttonType1, buttonType2, buttonTypeCancel);
-
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == buttonType1) {
-                if (FileManager.saveOperatingFile()) {
-                    Stage stage = (Stage) root.getScene().getWindow();
-                    stage.close();
-                }
-            } else if (result.get() == buttonType2) {
+            if (isModified && !isSaved) {
+                popSaveAlert(root);
+            } else {
                 Stage stage = (Stage) root.getScene().getWindow();
                 stage.close();
-            } else if (result.get() == buttonType3) {
-
-            }
+            } 
         });
         button3.setOnMouseExited(event -> {
             button3.setStyle(previousStyle);
         });
+
 
         for (MenuItem item : zoomMenu.getItems()) {
             item.setOnAction(event -> {
                 double scale = Double.parseDouble(item.getText().replace("%", "")) / 100;
                 anchorPane.setScaleX(scale);
                 anchorPane.setScaleY(scale);
-                zoomMenu.setText(Integer.toString((int)(scale * 100)) + "%");
+                zoomMenu.setText(item.getText());
                 scrollPane2.setHvalue(0.5);
                 scrollPane2.setVvalue(0.5);
             });
@@ -537,8 +437,116 @@ public class SecondaryController {
                 zoomMenu.setText(Integer.toString((int)(scale * 100)) + "%");
                 event.consume();
             }
-            
         });
+    }
+
+    
+    /**
+     * 初始化菜单栏
+     */
+    private void initializeMenuButton() {
+        newMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN));
+        newMenuItem.setOnAction(event -> {
+            if (isModified && !isSaved) {
+                FileManager.saveOperatingFile();
+                isSaved = true;
+                isModified = false;
+            }
+            FileManager.newLoadOperatingFile();
+            MNode.getRightSubtree().clear();
+            MNode.getLeftSubtree().clear();
+            anchorPane.getChildren().clear();
+            rootNode = new MNode("Topic", true);
+            rootNode.setLayoutX(anchorPane.getPrefWidth() / 2 - MNode.PREF_WIDTH / 2);
+            rootNode.setLayoutY(anchorPane.getPrefHeight() / 2 - MNode.PREF_HEIGHT / 2);
+            anchorPane.getChildren().add(rootNode);
+            treeView.setRoot(rootNode.getTreeItem());
+            selectedNode = rootNode;
+            System.out.println("newMenuItem clicked");
+        });
+
+        openMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN));
+        openMenuItem.setOnAction(event -> {
+            if (isModified && !isSaved) {
+                FileManager.saveOperatingFile();
+                isSaved = true;
+                isModified = false;
+            }
+            FileManager.operatingFileChooser1();
+            FileManager.openLoadOperatingFile();
+            rootNode.reload();
+            treeView.getRoot().getChildren().clear();
+            treeView.setRoot(rootNode.getTreeItem());
+            treeView.getRoot().setExpanded(true);           
+            System.out.println("openMenuItem clicked");
+        });
+
+        undoMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_DOWN));
+        undoMenuItem.setOnAction(event -> {
+            System.out.println("undoMenuItem clicked");
+        });
+
+        redoMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.Z, KeyCombination.SHIFT_DOWN, KeyCombination.CONTROL_DOWN));
+        redoMenuItem.setOnAction(event -> {
+            System.out.println("redoMenuItem clicked");
+        });
+
+        saveMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN));
+        saveMenuItem.setOnAction(event -> {
+            System.out.println("saveMenuItem clicked");
+            isSaved = true;
+            FileManager.saveOperatingFile();
+        });
+
+        saveAsMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.S, KeyCombination.ALT_DOWN, KeyCombination.CONTROL_DOWN));
+        saveAsMenuItem.setOnAction(event -> {
+            System.out.println("saveAsMenuItem clicked");
+            isSaved = true;
+            FileManager.saveAsOperatingFile();
+        });
+
+        exportAsMenuItem.setOnAction(event -> {
+            WritableImage image = anchorPane.snapshot(new SnapshotParameters(), null);
+            FileManager.saveOutputFile(image);
+            System.out.println("exportAsJPGMenuItem clicked");
+        });
+
+        exitMenuItem.setOnAction(event -> {
+            if (isModified && !isSaved) {
+                popSaveAlert(vBox);
+            } else {
+                Stage stage = (Stage) rootNode.getScene().getWindow();
+                stage.close();
+            }
+            System.out.println("exitMenuItem clicked");
+        });
+    }
+
+    private void popSaveAlert(Node root) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Inquiry");
+        alert.setHeaderText("Do you want to save the changes you made in the mindmap?");
+        alert.setContentText("Your changes will be lost if you don't save them.");
+    
+        ButtonType buttonType1 = new ButtonType("Save");
+        ButtonType buttonType2 = new ButtonType("Do Not Save");
+        ButtonType buttonType3 = new ButtonType("Cancel");
+        ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+    
+        alert.getButtonTypes().setAll(buttonType1, buttonType2, buttonTypeCancel);
+    
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == buttonType1) {
+            if (FileManager.saveOperatingFile()) {
+                Stage stage = (Stage) root.getScene().getWindow();
+                stage.close();
+            }
+        } else if (result.get() == buttonType2) {
+            Stage stage = (Stage) root.getScene().getWindow();
+            stage.close();
+        } else if (result.get() == buttonType3) {
+            
+        }
     }
 
     public static MNode getSelectedNode() {
@@ -567,5 +575,21 @@ public class SecondaryController {
 
     public static BooleanProperty hasNodeBeenSelected() {
         return hasNodeBeenSelected;
+    }
+
+    public static boolean isModified() {
+        return isModified;
+    }
+
+    public static void setModified(boolean isModified) {
+        SecondaryController.isModified = isModified;
+    }
+
+    public static boolean isSaved() {
+        return isSaved;
+    }
+
+    public static void setSaved(boolean isSaved) {
+        SecondaryController.isSaved = isSaved;
     }
 }
