@@ -2,16 +2,12 @@ package codeminer;
 
 import codeminer.core.MNode;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -48,12 +44,7 @@ public class FileManager {
     public static void operatingFileChooser2(){
         /*选择目标文件夹*/
         FileChooser fileChooser = new FileChooser();
-<<<<<<< HEAD
         fileChooser.setTitle("Save a file");
-=======
-        fileChooser.setTitle("Select a directory");
-        fileChooser.setInitialFileName(SecondaryController.getRootNode().getText());
->>>>>>> main
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("mp file", "*.mp"));
         Stage fileChooserStage = new Stage();
         fileChooserStage.setAlwaysOnTop(true);
