@@ -8,6 +8,9 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
@@ -23,70 +26,73 @@ public class PrimaryController {
     private Button newButton;
 
     @FXML
-    private Button recentFileButtonEight;
+    private Button recentFileButton1;
+    @FXML
+    private Button recentFileButton2;
+    @FXML
+    private Button recentFileButton3;
+    @FXML
+    private Button recentFileButton4;
+    @FXML
+    private Button recentFileButton5;
+    @FXML
+    private Button recentFileButton6;
+    @FXML
+    private Button recentFileButton7;
+    @FXML
+    private Button recentFileButton8;
+    @FXML
+    private Button recentFileButton9;
+    @FXML
+    private Button recentFileButton10;
+    @FXML
+    private Button recentFileButton11;
 
     @FXML
-    private Button recentFileButtonEleven;
+    private Label recentFileName1;
+    @FXML
+    private Label recentFileName2;
+    @FXML
+    private Label recentFileName3;
+    @FXML
+    private Label recentFileName4;
+    @FXML
+    private Label recentFileName5;
+    @FXML
+    private Label recentFileName6;
+    @FXML
+    private Label recentFileName7;
+    @FXML
+    private Label recentFileName8;
+    @FXML
+    private Label recentFileName9;
+    @FXML
+    private Label recentFileName10;
+    @FXML
+    private Label recentFileName11;
 
     @FXML
-    private Button recentFileButtonFive;
-
+    private ImageView recentFileButtonImage1;
     @FXML
-    private Button recentFileButtonFour;
-
+    private ImageView recentFileButtonImage2;
     @FXML
-    private Button recentFileButtonNine;
-
+    private ImageView recentFileButtonImage3;
     @FXML
-    private Button recentFileButtonOne;
-
+    private ImageView recentFileButtonImage4;
     @FXML
-    private Button recentFileButtonSeven;
-
+    private ImageView recentFileButtonImage5;
     @FXML
-    private Button recentFileButtonSix;
-
+    private ImageView recentFileButtonImage6;
     @FXML
-    private Button recentFileButtonTen;
-
+    private ImageView recentFileButtonImage7;
     @FXML
-    private Button recentFileButtonThree;
-
+    private ImageView recentFileButtonImage8;
     @FXML
-    private Button recentFileButtonTwo;
-
+    private ImageView recentFileButtonImage9;
     @FXML
-    private Label recentFileNameEight;
-
+    private ImageView recentFileButtonImage10;
     @FXML
-    private Label recentFileNameTwo;
-
-    @FXML
-    private Label recentFileNameEleven;
-
-    @FXML
-    private Label recentFileNameFive;
-
-    @FXML
-    private Label recentFileNameFour;
-
-    @FXML
-    private Label recentFileNameNine;
-
-    @FXML
-    private Label recentFileNameTen;
-
-    @FXML
-    private Label recentFileNameOne;
-
-    @FXML
-    private Label recentFileNameSeven;
-
-    @FXML
-    private Label recentFileNameSix;
-
-    @FXML
-    private Label recentFileNameThree;
+    private ImageView recentFileButtonImage11;
 
     @FXML
     private AnchorPane anchorPane;
@@ -125,7 +131,7 @@ public class PrimaryController {
                 switchToSecondary();
             } catch (IOException e) {
                 e.printStackTrace();
-            }catch (NullPointerException e){
+            } catch (NullPointerException e) {
                 System.out.println("未选择");
             }
         });
@@ -201,25 +207,60 @@ public class PrimaryController {
      * 初始化11个最近文件按钮
      */
     private void initializeRecentFile() {
-        /*两个数组分别存放11个最近文件按钮和名称*/
-        Button[] recentFileButton = new Button[]{recentFileButtonOne, recentFileButtonTwo, recentFileButtonThree, recentFileButtonFour, recentFileButtonFive, recentFileButtonSix, recentFileButtonSeven, recentFileButtonEight, recentFileButtonNine, recentFileButtonTen, recentFileButtonEleven};
-        Label[] recentFileName = new Label[]{recentFileNameOne, recentFileNameTwo, recentFileNameThree, recentFileNameFour, recentFileNameFive, recentFileNameSix, recentFileNameSeven, recentFileNameEight, recentFileNameNine, recentFileNameTen, recentFileNameEleven};
+        /*以下三个数组分别存放11个最近文件按钮、名称、按钮缩略图*/
+        Button[] recentFileButton = new Button[]{
+                recentFileButton1,
+                recentFileButton2,
+                recentFileButton3,
+                recentFileButton4,
+                recentFileButton5,
+                recentFileButton6,
+                recentFileButton7,
+                recentFileButton8,
+                recentFileButton9,
+                recentFileButton10,
+                recentFileButton11};
+        Label[] recentFileName = new Label[]{
+                recentFileName1,
+                recentFileName2,
+                recentFileName3,
+                recentFileName4,
+                recentFileName5,
+                recentFileName6,
+                recentFileName7,
+                recentFileName8,
+                recentFileName9,
+                recentFileName10,
+                recentFileName11};
+        ImageView[] recentFileButtonImage = new ImageView[]{
+                recentFileButtonImage1,
+                recentFileButtonImage2,
+                recentFileButtonImage3,
+                recentFileButtonImage4,
+                recentFileButtonImage5,
+                recentFileButtonImage6,
+                recentFileButtonImage7,
+                recentFileButtonImage8,
+                recentFileButtonImage9,
+                recentFileButtonImage10,
+                recentFileButtonImage11
+        };
+
         /*从本地加载最近文件队列*/
-        FileManager.loadFileQueue();
+        FileManager.loadRecentFileQueue();
         int recentFileQueueLength = FileManager.recentFileQueue.size();
         File[] loadFileArray = FileManager.recentFileQueue.toArray(new File[recentFileQueueLength]);
+        Image[] loadFileImageArray = FileManager.recentFileImageQueue.toArray(new Image[recentFileQueueLength]);
+
         /*将最近文件按钮绑定文件并设置点击事件*/
-        for (int i = 0; i < recentFileQueueLength&&i<11; i++) {
+        for (int i = 0; i < recentFileQueueLength && i < 11; i++) {
+            recentFileButtonImage[i].setImage(loadFileImageArray[i]);
             recentFileButton[i].setOnMouseEntered(event -> {
             });
             int finalI = i;
             recentFileButton[i].setOnMouseClicked(event -> {
-
-
-
-
                 try {
-                    FileManager.operatingFile=loadFileArray[finalI];
+                    FileManager.operatingFile = loadFileArray[finalI];
                     FileManager.openLoadOperatingFile();
                     switchToSecondary();
                 } catch (IOException e) {
@@ -230,11 +271,15 @@ public class PrimaryController {
             });
             recentFileName[i].setText(loadFileArray[finalI].getName());
         }
+
+        /*将未使用的组件设置为不可用不可见*/
         for (int i = recentFileQueueLength; i < 11; i++) {
             recentFileButton[i].setVisible(false);
             recentFileButton[i].setDisable(true);
             recentFileName[i].setVisible(false);
             recentFileName[i].setDisable(false);
+            recentFileButtonImage[i].setVisible(false);
+            recentFileButtonImage[i].setDisable(false);
         }
     }
 }

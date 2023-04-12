@@ -4,6 +4,7 @@ import codeminer.core.MNode;
 
 import java.util.Optional;
 import java.io.IOException;
+
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
@@ -92,25 +93,18 @@ public class SecondaryController {
      */
     @FXML
     private MenuItem newMenuItem;
-
     @FXML
     private MenuItem openMenuItem;
-
     @FXML
     private MenuItem undoMenuItem;
-
     @FXML
     private MenuItem redoMenuItem;
-
     @FXML
     private MenuItem saveMenuItem;
-
     @FXML
     private MenuItem saveAsMenuItem;
-
     @FXML
     private MenuItem exportAsMenuItem;
-
     @FXML
     private MenuItem exitMenuItem;
 
@@ -407,7 +401,7 @@ public class SecondaryController {
             } else {
                 Stage stage = (Stage) root.getScene().getWindow();
                 stage.close();
-            } 
+            }
         });
         button3.setOnMouseExited(event -> {
             button3.setStyle(previousStyle);
@@ -434,13 +428,13 @@ public class SecondaryController {
                 double scale = anchorPane.getScaleX() * zoomFactor;
                 anchorPane.setScaleX(scale);
                 anchorPane.setScaleY(scale);
-                zoomMenu.setText(Integer.toString((int)(scale * 100)) + "%");
+                zoomMenu.setText(Integer.toString((int) (scale * 100)) + "%");
                 event.consume();
             }
         });
     }
 
-    
+
     /**
      * 初始化菜单栏
      */
@@ -448,7 +442,7 @@ public class SecondaryController {
         newMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN));
         newMenuItem.setOnAction(event -> {
             if (isModified && !isSaved) {
-                FileManager.saveOperatingFile();
+                FileManager.saveOperatingFile(anchorPane.snapshot(new SnapshotParameters(), null));
                 isSaved = true;
                 isModified = false;
             }
@@ -468,7 +462,7 @@ public class SecondaryController {
         openMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN));
         openMenuItem.setOnAction(event -> {
             if (isModified && !isSaved) {
-                FileManager.saveOperatingFile();
+                FileManager.saveOperatingFile(anchorPane.snapshot(new SnapshotParameters(), null));
                 isSaved = true;
                 isModified = false;
             }
@@ -477,7 +471,7 @@ public class SecondaryController {
             rootNode.reload();
             treeView.getRoot().getChildren().clear();
             treeView.setRoot(rootNode.getTreeItem());
-            treeView.getRoot().setExpanded(true);           
+            treeView.getRoot().setExpanded(true);
             System.out.println("openMenuItem clicked");
         });
 
@@ -495,20 +489,21 @@ public class SecondaryController {
         saveMenuItem.setOnAction(event -> {
             System.out.println("saveMenuItem clicked");
             isSaved = true;
-            FileManager.saveOperatingFile();
+            FileManager.saveOperatingFile(anchorPane.snapshot(new SnapshotParameters(), null));
         });
 
         saveAsMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.S, KeyCombination.ALT_DOWN, KeyCombination.CONTROL_DOWN));
         saveAsMenuItem.setOnAction(event -> {
             System.out.println("saveAsMenuItem clicked");
             isSaved = true;
-            FileManager.saveAsOperatingFile();
+            FileManager.saveAsOperatingFile(anchorPane.snapshot(new SnapshotParameters(), null));
         });
 
         exportAsMenuItem.setOnAction(event -> {
             WritableImage image = anchorPane.snapshot(new SnapshotParameters(), null);
+            FileManager.outPutFileChooser();
             FileManager.saveOutputFile(image);
-            System.out.println("exportAsJPGMenuItem clicked");
+            System.out.println("exportAsMenuItem clicked");
         });
 
         exitMenuItem.setOnAction(event -> {
@@ -527,17 +522,17 @@ public class SecondaryController {
         alert.setTitle("Inquiry");
         alert.setHeaderText("Do you want to save the changes you made in the mindmap?");
         alert.setContentText("Your changes will be lost if you don't save them.");
-    
+
         ButtonType buttonType1 = new ButtonType("Save");
         ButtonType buttonType2 = new ButtonType("Do Not Save");
         ButtonType buttonType3 = new ButtonType("Cancel");
         ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-    
+
         alert.getButtonTypes().setAll(buttonType1, buttonType2, buttonTypeCancel);
-    
+
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == buttonType1) {
-            if (FileManager.saveOperatingFile()) {
+            if (FileManager.saveOperatingFile(anchorPane.snapshot(new SnapshotParameters(), null))) {
                 Stage stage = (Stage) root.getScene().getWindow();
                 stage.close();
             }
@@ -545,7 +540,7 @@ public class SecondaryController {
             Stage stage = (Stage) root.getScene().getWindow();
             stage.close();
         } else if (result.get() == buttonType3) {
-            
+
         }
     }
 
@@ -592,4 +587,5 @@ public class SecondaryController {
     public static void setSaved(boolean isSaved) {
         SecondaryController.isSaved = isSaved;
     }
+
 }

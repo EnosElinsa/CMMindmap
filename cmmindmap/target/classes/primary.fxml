@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -61,15 +62,22 @@
             </VBox>
             <VBox prefHeight="134.0" prefWidth="168.0" spacing="1.0">
                <children>
-                  <Button fx:id="recentFileButtonOne" mnemonicParsing="false" prefHeight="106.0" prefWidth="168.0" style="-fx-background-color: #343638;" text="+" textFill="#cccdce">
+                  <Button fx:id="recentFileButton1" mnemonicParsing="false" prefHeight="106.0" prefWidth="168.0" style="-fx-background-color: #343638;" textFill="#cccdce">
                      <font>
                         <Font size="40.0" />
                      </font>
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
+                     <graphic>
+                        <ImageView fx:id="recentFileButtonImage1" fitHeight="70.0" fitWidth="77.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0">
+                           <viewport>
+                              <Rectangle2D />
+                           </viewport>
+                        </ImageView>
+                     </graphic>
                   </Button>
-                  <Label fx:id="recentFileNameOne" alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="164.0" text="New" textAlignment="CENTER" textFill="WHITE">
+                  <Label fx:id="recentFileName1" alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="164.0" text="New" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="Microsoft YaHei" size="13.0" />
                      </font>
@@ -81,15 +89,22 @@
             </VBox>
             <VBox prefHeight="134.0" prefWidth="168.0" spacing="1.0">
                <children>
-                  <Button fx:id="recentFileButtonTwo" mnemonicParsing="false" prefHeight="106.0" prefWidth="168.0" style="-fx-background-color: #343638;" text="+" textFill="#cccdce">
+                  <Button fx:id="recentFileButton2" mnemonicParsing="false" prefHeight="106.0" prefWidth="168.0" style="-fx-background-color: #343638;" textFill="#cccdce">
                      <font>
                         <Font size="40.0" />
                      </font>
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
+                     <graphic>
+                        <ImageView fx:id="recentFileButtonImage2" fitHeight="53.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0">
+                           <viewport>
+                              <Rectangle2D />
+                           </viewport>
+                        </ImageView>
+                     </graphic>
                   </Button>
-                  <Label fx:id="recentFileNameTwo" alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="159.0" text="New" textAlignment="CENTER" textFill="WHITE">
+                  <Label fx:id="recentFileName2" alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="159.0" text="New" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="Microsoft YaHei" size="13.0" />
                      </font>
@@ -101,15 +116,22 @@
             </VBox>
             <VBox prefHeight="134.0" prefWidth="168.0" spacing="1.0">
                <children>
-                  <Button fx:id="recentFileButtonThree" mnemonicParsing="false" prefHeight="106.0" prefWidth="168.0" style="-fx-background-color: #343638;" text="+" textFill="#cccdce">
+                  <Button fx:id="recentFileButton3" mnemonicParsing="false" prefHeight="106.0" prefWidth="168.0" style="-fx-background-color: #343638;" textFill="#cccdce">
                      <font>
                         <Font size="40.0" />
                      </font>
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
+                     <graphic>
+                        <ImageView fx:id="recentFileButtonImage3" fitHeight="53.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0">
+                           <viewport>
+                              <Rectangle2D />
+                           </viewport>
+                        </ImageView>
+                     </graphic>
                   </Button>
-                  <Label fx:id="recentFileNameThree" alignment="CENTER" contentDisplay="CENTER" prefHeight="19.0" prefWidth="177.0" text="New" textAlignment="CENTER" textFill="WHITE">
+                  <Label fx:id="recentFileName3" alignment="CENTER" contentDisplay="CENTER" prefHeight="19.0" prefWidth="177.0" text="New" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="Microsoft YaHei" size="13.0" />
                      </font>
@@ -121,15 +143,22 @@
             </VBox>
             <VBox prefHeight="134.0" prefWidth="168.0" spacing="1.0">
                <children>
-                  <Button fx:id="recentFileButtonFour" mnemonicParsing="false" prefHeight="106.0" prefWidth="168.0" style="-fx-background-color: #343638;" text="+" textFill="#cccdce">
+                  <Button fx:id="recentFileButton4" mnemonicParsing="false" prefHeight="106.0" prefWidth="168.0" style="-fx-background-color: #343638;" textFill="#cccdce">
                      <font>
                         <Font size="40.0" />
                      </font>
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
+                     <graphic>
+                        <ImageView fx:id="recentFileButtonImage4" fitHeight="53.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0">
+                           <viewport>
+                              <Rectangle2D />
+                           </viewport>
+                        </ImageView>
+                     </graphic>
                   </Button>
-                  <Label fx:id="recentFileNameFour" alignment="CENTER" contentDisplay="CENTER" prefHeight="19.0" prefWidth="169.0" text="New" textAlignment="CENTER" textFill="WHITE">
+                  <Label fx:id="recentFileName4" alignment="CENTER" contentDisplay="CENTER" prefHeight="19.0" prefWidth="169.0" text="New" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="Microsoft YaHei" size="13.0" />
                      </font>
@@ -141,15 +170,22 @@
             </VBox>
             <VBox prefHeight="134.0" prefWidth="168.0" spacing="1.0">
                <children>
-                  <Button fx:id="recentFileButtonFive" mnemonicParsing="false" prefHeight="106.0" prefWidth="168.0" style="-fx-background-color: #343638;" text="+" textFill="#cccdce">
+                  <Button fx:id="recentFileButton5" mnemonicParsing="false" prefHeight="106.0" prefWidth="168.0" style="-fx-background-color: #343638;" textFill="#cccdce">
                      <font>
                         <Font size="40.0" />
                      </font>
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
+                     <graphic>
+                        <ImageView fx:id="recentFileButtonImage5" fitHeight="53.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0">
+                           <viewport>
+                              <Rectangle2D />
+                           </viewport>
+                        </ImageView>
+                     </graphic>
                   </Button>
-                  <Label fx:id="recentFileNameFive" alignment="CENTER" contentDisplay="CENTER" prefHeight="19.0" prefWidth="279.0" text="New" textAlignment="CENTER" textFill="WHITE">
+                  <Label fx:id="recentFileName5" alignment="CENTER" contentDisplay="CENTER" prefHeight="19.0" prefWidth="279.0" text="New" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="Microsoft YaHei" size="13.0" />
                      </font>
@@ -161,15 +197,22 @@
             </VBox>
             <VBox prefHeight="134.0" prefWidth="168.0" spacing="1.0">
                <children>
-                  <Button fx:id="recentFileButtonSix" mnemonicParsing="false" prefHeight="106.0" prefWidth="168.0" style="-fx-background-color: #343638;" text="+" textFill="#cccdce">
+                  <Button fx:id="recentFileButton6" mnemonicParsing="false" prefHeight="106.0" prefWidth="168.0" style="-fx-background-color: #343638;" textFill="#cccdce">
                      <font>
                         <Font size="40.0" />
                      </font>
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
+                     <graphic>
+                        <ImageView fx:id="recentFileButtonImage6" fitHeight="53.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0">
+                           <viewport>
+                              <Rectangle2D />
+                           </viewport>
+                        </ImageView>
+                     </graphic>
                   </Button>
-                  <Label fx:id="recentFileNameSix" alignment="CENTER" contentDisplay="CENTER" prefHeight="19.0" prefWidth="178.0" text="New" textAlignment="CENTER" textFill="WHITE">
+                  <Label fx:id="recentFileName6" alignment="CENTER" contentDisplay="CENTER" prefHeight="19.0" prefWidth="178.0" text="New" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="Microsoft YaHei" size="13.0" />
                      </font>
@@ -181,15 +224,22 @@
             </VBox>
             <VBox prefHeight="134.0" prefWidth="168.0" spacing="1.0">
                <children>
-                  <Button fx:id="recentFileButtonSeven" mnemonicParsing="false" prefHeight="106.0" prefWidth="168.0" style="-fx-background-color: #343638;" text="+" textFill="#cccdce">
+                  <Button fx:id="recentFileButton7" mnemonicParsing="false" prefHeight="106.0" prefWidth="168.0" style="-fx-background-color: #343638;" textFill="#cccdce">
                      <font>
                         <Font size="40.0" />
                      </font>
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
+                     <graphic>
+                        <ImageView fx:id="recentFileButtonImage7" fitHeight="53.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0">
+                           <viewport>
+                              <Rectangle2D />
+                           </viewport>
+                        </ImageView>
+                     </graphic>
                   </Button>
-                  <Label fx:id="recentFileNameSeven" alignment="CENTER" contentDisplay="CENTER" prefHeight="15.0" prefWidth="156.0" text="New" textAlignment="CENTER" textFill="WHITE">
+                  <Label fx:id="recentFileName7" alignment="CENTER" contentDisplay="CENTER" prefHeight="15.0" prefWidth="156.0" text="New" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="Microsoft YaHei" size="13.0" />
                      </font>
@@ -201,15 +251,22 @@
             </VBox>
             <VBox prefHeight="134.0" prefWidth="168.0" spacing="1.0">
                <children>
-                  <Button fx:id="recentFileButtonEight" mnemonicParsing="false" prefHeight="106.0" prefWidth="168.0" style="-fx-background-color: #343638;" text="+" textFill="#cccdce">
+                  <Button fx:id="recentFileButton8" mnemonicParsing="false" prefHeight="106.0" prefWidth="168.0" style="-fx-background-color: #343638;" textFill="#cccdce">
                      <font>
                         <Font size="40.0" />
                      </font>
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
+                     <graphic>
+                        <ImageView fx:id="recentFileButtonImage8" fitHeight="53.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0">
+                           <viewport>
+                              <Rectangle2D />
+                           </viewport>
+                        </ImageView>
+                     </graphic>
                   </Button>
-                  <Label fx:id="recentFileNameEight" alignment="CENTER" contentDisplay="CENTER" prefHeight="19.0" prefWidth="166.0" text="New" textAlignment="CENTER" textFill="WHITE">
+                  <Label fx:id="recentFileName8" alignment="CENTER" contentDisplay="CENTER" prefHeight="19.0" prefWidth="166.0" text="New" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="Microsoft YaHei" size="13.0" />
                      </font>
@@ -221,15 +278,22 @@
             </VBox>
             <VBox prefHeight="134.0" prefWidth="168.0" spacing="1.0">
                <children>
-                  <Button fx:id="recentFileButtonNine" mnemonicParsing="false" prefHeight="106.0" prefWidth="168.0" style="-fx-background-color: #343638;" text="+" textFill="#cccdce">
+                  <Button fx:id="recentFileButton9" mnemonicParsing="false" prefHeight="106.0" prefWidth="168.0" style="-fx-background-color: #343638;" textFill="#cccdce">
                      <font>
                         <Font size="40.0" />
                      </font>
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
+                     <graphic>
+                        <ImageView fx:id="recentFileButtonImage9" fitHeight="53.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0">
+                           <viewport>
+                              <Rectangle2D />
+                           </viewport>
+                        </ImageView>
+                     </graphic>
                   </Button>
-                  <Label fx:id="recentFileNameNine" alignment="CENTER" contentDisplay="CENTER" prefHeight="19.0" prefWidth="160.0" text="New" textAlignment="CENTER" textFill="WHITE">
+                  <Label fx:id="recentFileName9" alignment="CENTER" contentDisplay="CENTER" prefHeight="19.0" prefWidth="160.0" text="New" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="Microsoft YaHei" size="13.0" />
                      </font>
@@ -241,15 +305,22 @@
             </VBox>
             <VBox prefHeight="134.0" prefWidth="168.0" spacing="1.0">
                <children>
-                  <Button fx:id="recentFileButtonTen" mnemonicParsing="false" prefHeight="106.0" prefWidth="168.0" style="-fx-background-color: #343638;" text="+" textFill="#cccdce">
+                  <Button fx:id="recentFileButton10" mnemonicParsing="false" prefHeight="106.0" prefWidth="168.0" style="-fx-background-color: #343638;" textFill="#cccdce">
                      <font>
                         <Font size="40.0" />
                      </font>
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
+                     <graphic>
+                        <ImageView fx:id="recentFileButtonImage10" fitHeight="53.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0">
+                           <viewport>
+                              <Rectangle2D />
+                           </viewport>
+                        </ImageView>
+                     </graphic>
                   </Button>
-                  <Label fx:id="recentFileNameTen" alignment="CENTER" contentDisplay="CENTER" prefHeight="19.0" prefWidth="170.0" text="New" textAlignment="CENTER" textFill="WHITE">
+                  <Label fx:id="recentFileName10" alignment="CENTER" contentDisplay="CENTER" prefHeight="19.0" prefWidth="170.0" text="New" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="Microsoft YaHei" size="13.0" />
                      </font>
@@ -261,15 +332,22 @@
             </VBox>
             <VBox prefHeight="134.0" prefWidth="168.0" spacing="1.0">
                <children>
-                  <Button fx:id="recentFileButtonEleven" mnemonicParsing="false" prefHeight="106.0" prefWidth="168.0" style="-fx-background-color: #343638;" text="+" textFill="#cccdce">
+                  <Button fx:id="recentFileButton11" mnemonicParsing="false" prefHeight="106.0" prefWidth="168.0" style="-fx-background-color: #343638;" textFill="#cccdce">
                      <font>
                         <Font size="40.0" />
                      </font>
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
+                     <graphic>
+                        <ImageView fx:id="recentFileButtonImage11" fitHeight="53.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0">
+                           <viewport>
+                              <Rectangle2D />
+                           </viewport>
+                        </ImageView>
+                     </graphic>
                   </Button>
-                  <Label fx:id="recentFileNameEleven" alignment="CENTER" contentDisplay="CENTER" prefHeight="19.0" prefWidth="162.0" text="New" textAlignment="CENTER" textFill="WHITE">
+                  <Label fx:id="recentFileName11" alignment="CENTER" contentDisplay="CENTER" prefHeight="19.0" prefWidth="162.0" text="New" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="Microsoft YaHei" size="13.0" />
                      </font>
