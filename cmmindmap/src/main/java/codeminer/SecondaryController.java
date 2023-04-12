@@ -3,6 +3,7 @@ package codeminer;
 import codeminer.core.MNode;
 
 import java.util.Optional;
+import java.util.Stack;
 import java.io.IOException;
 
 import javafx.beans.property.BooleanProperty;

@@ -35,6 +35,7 @@ public class MNode extends TextField implements Serializable {
     public static final boolean LEFT  = false;
     /** 节点的朝向向右 */
     public static final boolean RIGHT = true;
+    public static final double PANE_RATIO = 1.83;
 
     public static final String DEFAULT_STYLE  = "-fx-control-inner-background:#DCDBF2";
     public static final String HOVERING_STYLE = "-fx-control-inner-background:#DCDBF2;"
@@ -290,10 +291,12 @@ public class MNode extends TextField implements Serializable {
         rootNode.getLayoutY() + PREF_HEIGHT / 2 - rightSubtreeHeight/ 2);
         if (topMargin < 0) {
             anchorPane.setPrefHeight(anchorPane.getPrefHeight() + Math.abs(topMargin) + PREF_HEIGHT);
+            anchorPane.setPrefWidth(anchorPane.getPrefHeight() * PANE_RATIO);
         }
         double leftMargin = rootNode.getLayoutX() - leftSubtreeWidth;
         if (leftMargin < 0) {
             anchorPane.setPrefWidth(anchorPane.getPrefWidth() + Math.abs(leftMargin) + PREF_WIDTH);
+            anchorPane.setPrefHeight(anchorPane.getPrefWidth() / PANE_RATIO);
         }
         rootNode.setLayoutX(anchorPane.getPrefWidth() / 2 - PREF_WIDTH / 2);
         rootNode.setLayoutY(anchorPane.getPrefHeight() / 2 - PREF_HEIGHT / 2);
@@ -346,6 +349,7 @@ public class MNode extends TextField implements Serializable {
             node.getParentNode().getChildNodes().remove(node);
             node.getParentNode().getTreeItem().getChildren().remove(node.getTreeItem());
         }
+    
     }
 
     /**

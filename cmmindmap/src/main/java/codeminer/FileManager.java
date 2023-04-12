@@ -177,7 +177,7 @@ public class FileManager {
      * 打开程序时，加载最近文件队列
      */
     public static void loadRecentFileQueue() {
-        String fileName = "src/main/resources/recentFileQueue";
+        String fileName = "cmmindmap/src/main/resources/recentFileQueue";
         try (FileReader reader = new FileReader(fileName);
              BufferedReader br = new BufferedReader(reader)) {
             String line1;
@@ -185,12 +185,12 @@ public class FileManager {
                 if (new File(line1).exists()) {
                     recentFileQueue.add(new File(line1));
 
-                    String line2 = new String("src/main/resources/recentFileImage/" + recentFileQueue.peek().getName() + ".png");
+                    String line2 = new String("cmmindmap/src/main/resources/recentFileImage/" + recentFileQueue.peek().getName() + ".png");
                     if (new File(line2).exists()) {
                         Image image = new Image("file:"+line2);
                         recentFileImageQueue.add(image);
                     } else {
-                        Image image = new Image("file:src/main/resources/recentFileImage/ImageLosted.png");
+                        Image image = new Image("file:cmmindmap/src/main/resources/recentFileImage/ImageLosted.png");
                         recentFileImageQueue.add(image);
                     }
                 }
@@ -204,7 +204,7 @@ public class FileManager {
      * 关闭程序时，保存最近文件队列
      */
     public static void saveRecentFileQueue(WritableImage image) {
-        String fileName = "src/main/resources/recentFileQueue";
+        String fileName = "cmmindmap/src/main/resources/recentFileQueue";
         if (!recentFileQueue.contains(operatingFile))
             try (FileWriter writer = new FileWriter(fileName);
                  BufferedWriter bw = new BufferedWriter(writer)) {

@@ -249,9 +249,9 @@
                   <TreeView fx:id="treeView" editable="true" prefHeight="735.0" prefWidth="234.0" />
                </content>
             </ScrollPane>
-        <ScrollPane fx:id="scrollPane2" fitToHeight="true" fitToWidth="true" hvalue="0.5" pannable="true" vvalue="0.5">
+        <ScrollPane fx:id="scrollPane2" fitToHeight="true" fitToWidth="true" hvalue="0.5" pannable="true" style="-fx-background-color: #ffffff;" vvalue="0.5">
           <content>
-            <AnchorPane id="Content" fx:id="anchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #ffffff;" />
+            <AnchorPane id="Content" fx:id="anchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="864.0" prefWidth="1584.0" style="-fx-background-color: #ffffff;" />
           </content>
         </ScrollPane>
       </items>
