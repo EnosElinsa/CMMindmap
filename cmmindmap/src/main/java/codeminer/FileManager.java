@@ -177,20 +177,22 @@ public class FileManager {
      * 打开程序时，加载最近文件队列
      */
     public static void loadRecentFileQueue() {
-        String fileName = "cmmindmap/src/main/resources/recentFileQueue";
+        //String fileName = "cmmindmap/src/main/resources/recentFileQueue";
+        String fileName = "src/main/resources/codeminer/recentFileQueue";
         try (FileReader reader = new FileReader(fileName);
              BufferedReader br = new BufferedReader(reader)) {
             String line1;
             while ((line1 = br.readLine()) != null) {
                 if (new File(line1).exists()) {
                     recentFileQueue.add(new File(line1));
-
-                    String line2 = new String("cmmindmap/src/main/resources/recentFileImage/" + recentFileQueue.peek().getName() + ".png");
-                    if (new File(line2).exists()) {
-                        Image image = new Image("file:"+line2);
+                    //String line2 = new String("cmmindmap/src/main/resources/codeminer/recentFileImagee/" + recentFileQueue.peek().getName() + ".png");
+                    String line2 = new String("src/main/resources/codeminer/recentFileImagee/" + recentFileQueue.peek().getName() + ".png");
+                    System.out.println(line2);
+                    try {
+                        Image image = new Image(new FileInputStream(line2));
                         recentFileImageQueue.add(image);
-                    } else {
-                        Image image = new Image("file:cmmindmap/src/main/resources/recentFileImage/ImageLosted.png");
+                    } catch (FileNotFoundException e) {
+                        Image image = null;
                         recentFileImageQueue.add(image);
                     }
                 }
@@ -204,7 +206,8 @@ public class FileManager {
      * 关闭程序时，保存最近文件队列
      */
     public static void saveRecentFileQueue(WritableImage image) {
-        String fileName = "cmmindmap/src/main/resources/recentFileQueue";
+        //String fileName = "cmmindmap/src/main/resources/recentFileQueue";
+        String fileName = "src/main/resources/codeminer/recentFileQueue";
         if (!recentFileQueue.contains(operatingFile))
             try (FileWriter writer = new FileWriter(fileName);
                  BufferedWriter bw = new BufferedWriter(writer)) {
@@ -216,7 +219,8 @@ public class FileManager {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        outputFile=new File("src/main/resources/recentFileImage/"+operatingFile.getName()+".png");
+        outputFile = new File("cmmindmap/src/main/resources/codeminer/recentFilelmage/" + operatingFile.getName() + ".png");
+        outputFile = new File("src/main/resources/codeminer/recentFilelmage/" + operatingFile.getName() + ".png");
         saveOutputFile(image);
     }
 
