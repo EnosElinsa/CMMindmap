@@ -186,7 +186,7 @@ public class FileManager {
                 if (new File(line1).exists()) {
                     recentFileQueue.add(new File(line1));
                     //String line2 = new String("cmmindmap/src/main/resources/codeminer/recentFileImagee/" + recentFileQueue.peek().getName() + ".png");
-                    String line2 = new String("src/main/resources/codeminer/recentFileImagee/" + recentFileQueue.peek().getName() + ".png");
+                    String line2 = new String("src/main/resources/codeminer/recentFileImage/" + new File(line1).getName() + ".png");
                     System.out.println(line2);
                     try {
                         Image image = new Image(new FileInputStream(line2));
@@ -208,19 +208,19 @@ public class FileManager {
     public static void saveRecentFileQueue(WritableImage image) {
         //String fileName = "cmmindmap/src/main/resources/recentFileQueue";
         String fileName = "src/main/resources/codeminer/recentFileQueue";
-        if (!recentFileQueue.contains(operatingFile))
-            try (FileWriter writer = new FileWriter(fileName);
-                 BufferedWriter bw = new BufferedWriter(writer)) {
-                bw.write(operatingFile.toString() + "\n");
-                while (!recentFileQueue.isEmpty()) {
-                    if (recentFileQueue.peek() == operatingFile) recentFileQueue.remove();
-                    else bw.write(recentFileQueue.remove().toString() + "\n");
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+        System.out.println(operatingFile);
+        try (FileWriter writer = new FileWriter(fileName);
+             BufferedWriter bw = new BufferedWriter(writer)) {
+            bw.write(operatingFile.toString() + "\n");
+            while (!recentFileQueue.isEmpty()) {
+                if (recentFileQueue.peek() == operatingFile) recentFileQueue.remove();
+                else bw.write(recentFileQueue.remove().toString() + "\n");
             }
-        outputFile = new File("cmmindmap/src/main/resources/codeminer/recentFilelmage/" + operatingFile.getName() + ".png");
-        outputFile = new File("src/main/resources/codeminer/recentFilelmage/" + operatingFile.getName() + ".png");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //outputFile = new File("cmmindmap/src/main/resources/codeminer/recentFileImage/" + operatingFile.getName() + ".png");
+        outputFile = new File("src/main/resources/codeminer/recentFileImage/" + operatingFile.getName() + ".png");
         saveOutputFile(image);
     }
 
