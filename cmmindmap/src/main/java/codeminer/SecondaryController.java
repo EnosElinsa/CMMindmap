@@ -3,7 +3,6 @@ package codeminer;
 import codeminer.core.MNode;
 
 import java.util.Optional;
-import java.util.Stack;
 import java.io.IOException;
 
 import javafx.beans.property.BooleanProperty;
@@ -12,6 +11,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.*;
 import javafx.scene.image.WritableImage;
@@ -23,6 +23,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class SecondaryController {
 
@@ -135,7 +136,11 @@ public class SecondaryController {
     public void initialize() {
         PrimaryController.makeStageDraggable(vBox, null);
         initializeButtons(vBox);
-        initializeMenuButton();
+        try {
+            initializeMenuButton();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         initializeRootNode();
     }
 
@@ -439,7 +444,7 @@ public class SecondaryController {
     /**
      * 初始化菜单栏
      */
-    private void initializeMenuButton() {
+    private void initializeMenuButton() throws IOException {
         newMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN));
         newMenuItem.setOnAction(event -> {
             if (isModified && !isSaved) {

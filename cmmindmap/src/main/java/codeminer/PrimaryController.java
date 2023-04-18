@@ -2,6 +2,7 @@ package codeminer;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -106,8 +107,9 @@ public class PrimaryController {
 
     /**
      * 初始化Primary窗口
+     * @throws URISyntaxException
      */
-    public void initialize() {
+    public void initialize() throws URISyntaxException {
         initializeBrowseButton(anchorPane, browseButton);
         initializeExitButton(anchorPane, exitButton);
         makeStageDraggable(anchorPane, null);
@@ -127,7 +129,9 @@ public class PrimaryController {
             try {
                 FileManager.operatingFileChooser1();
                 FileManager.openLoadOperatingFile();
-                switchToSecondary();
+                if (FileManager.operatingFile != null) {
+                    switchToSecondary();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (NullPointerException e) {
@@ -204,8 +208,9 @@ public class PrimaryController {
 
     /**
      * 初始化11个最近文件按钮
+     * @throws URISyntaxException
      */
-    private void initializeRecentFile() {
+    private void initializeRecentFile() throws URISyntaxException {
         /*以下三个数组分别存放11个最近文件按钮、名称、按钮缩略图*/
         Button[] recentFileButton = new Button[]{
                 recentFileButton1,

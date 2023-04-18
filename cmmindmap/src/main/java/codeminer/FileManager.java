@@ -11,6 +11,8 @@ import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -139,6 +141,8 @@ public class FileManager {
                 return true;
             } catch (IOException e) {
                 e.printStackTrace();
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
             }
         }
         return false;
@@ -166,7 +170,7 @@ public class FileManager {
                 saveRecentFileQueue(image);
                 System.out.println("save as successful");
                 return true;
-            } catch (IOException e) {
+            } catch (IOException | URISyntaxException e) {
                 e.printStackTrace();
             }
         }
@@ -175,26 +179,19 @@ public class FileManager {
 
     /**
      * 打开程序时，加载最近文件队列
+     * @throws URISyntaxException
      */
-    public static void loadRecentFileQueue() {
-        //String fileName = "cmmindmap/src/main/resources/recentFileQueue";
-        String fileName = "src/main/resources/codeminer/recentFileQueue";
-        try (FileReader reader = new FileReader(fileName);
-             BufferedReader br = new BufferedReader(reader)) {
-            String line1;
-            while ((line1 = br.readLine()) != null) {
-                if (new File(line1).exists()) {
-                    recentFileQueue.add(new File(line1));
-                    //String line2 = new String("cmmindmap/src/main/resources/codeminer/recentFileImagee/" + recentFileQueue.peek().getName() + ".png");
-                    String line2 = new String("src/main/resources/codeminer/recentFileImage/" + new File(line1).getName() + ".png");
-                    System.out.println(line2);
-                    try {
-                        Image image = new Image(new FileInputStream(line2));
-                        recentFileImageQueue.add(image);
-                    } catch (FileNotFoundException e) {
-                        Image image = null;
-                        recentFileImageQueue.add(image);
-                    }
+    public static void loadRecentFileQueue() throws URISyntaxException {
+        System.out.println(Paths.get(App.class.getResource("recentFileQueue").toURI()).toString());
+        try (FileReader reader = new FileReader(Paths.get(App.class.getResource("recentFileQueue").toURI()).toString());
+            BufferedReader br = new BufferedReader(reader)) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                InputStream imageStream = App.class.getResourceAsStream("recentFileImage/" + new File(line).getName() + ".png");
+                if (new File(line).exists() && imageStream != null) {
+                    recentFileQueue.add(new File(line));
+                    Image image = new Image(imageStream);
+                    recentFileImageQueue.add(image);
                 }
             }
         } catch (IOException e) {
@@ -204,13 +201,12 @@ public class FileManager {
 
     /**
      * 关闭程序时，保存最近文件队列
+     * @throws URISyntaxException
      */
-    public static void saveRecentFileQueue(WritableImage image) {
-        //String fileName = "cmmindmap/src/main/resources/recentFileQueue";
-        String fileName = "src/main/resources/codeminer/recentFileQueue";
+    public static void saveRecentFileQueue(WritableImage image) throws URISyntaxException {
         System.out.println(operatingFile);
-        try (FileWriter writer = new FileWriter(fileName);
-             BufferedWriter bw = new BufferedWriter(writer)) {
+        try (FileWriter writer = new FileWriter(Paths.get(App.class.getResource("recentFileQueue").toURI()).toString());
+            BufferedWriter bw = new BufferedWriter(writer)) {
             bw.write(operatingFile.toString() + "\n");
             while (!recentFileQueue.isEmpty()) {
                 if (recentFileQueue.peek() == operatingFile) recentFileQueue.remove();
@@ -219,8 +215,7 @@ public class FileManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //outputFile = new File("cmmindmap/src/main/resources/codeminer/recentFileImage/" + operatingFile.getName() + ".png");
-        outputFile = new File("src/main/resources/codeminer/recentFileImage/" + operatingFile.getName() + ".png");
+        outputFile = new File(Paths.get(App.class.getResource("recentFileImage").toURI()).toString() + "/" + operatingFile.getName() + ".png");
         saveOutputFile(image);
     }
 
@@ -229,10 +224,10 @@ public class FileManager {
      */
     public static void saveOutputFile(WritableImage image) {
         BufferedImage bufferedImage = SwingFXUtils.fromFXImage(image, null);
-        File file = new File(outputFile.getPath());
         Thread thread = new Thread(() -> {
             try {
-                ImageIO.write(bufferedImage, "png", file);
+                ImageIO.scanForPlugins();
+                ImageIO.write(bufferedImage, "png", outputFile);
             } catch (IOException e) {
                 e.printStackTrace();
             }

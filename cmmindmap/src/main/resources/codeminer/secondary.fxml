@@ -73,7 +73,7 @@
                <graphic>
                   <ImageView fitHeight="36.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" x="5.0">
                      <image>
-                        <Image url="@codeminer/textures/menu.png" />
+                        <Image url="@textures/menu.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -90,7 +90,7 @@
                            <graphic>
                               <ImageView fitHeight="26.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@codeminer/textures/addDescendant.png" />
+                                    <Image url="@textures/addDescendant.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -111,7 +111,7 @@
                            <graphic>
                               <ImageView fitHeight="23.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@codeminer/textures/addSibling.png" />
+                                    <Image url="@textures/addSibling.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -132,7 +132,7 @@
                            <graphic>
                               <ImageView fitHeight="22.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@codeminer/textures/remove.png" />
+                                    <Image url="@textures/remove.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -158,7 +158,7 @@
                            <graphic>
                               <ImageView fitHeight="26.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@codeminer/textures/leftLayout.png" />
+                                    <Image url="@textures/leftLayout.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -179,7 +179,7 @@
                            <graphic>
                               <ImageView fitHeight="26.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@codeminer/textures/rightLayout.png" />
+                                    <Image url="@textures/rightLayout.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -200,7 +200,7 @@
                            <graphic>
                               <ImageView fitHeight="26.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@codeminer/textures/autoLayout.png" />
+                                    <Image url="@textures/autoLayout.png" />
                                  </image>
                               </ImageView>
                            </graphic>

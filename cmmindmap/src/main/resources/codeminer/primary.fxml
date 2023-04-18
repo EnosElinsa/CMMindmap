@@ -18,7 +18,7 @@
          <children>
             <ImageView fitHeight="17.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@codeminer/textures/cMmindmap.png" />
+                  <Image url="@textures/cMmindmap.png" />
                </image>
             </ImageView>
             <Label prefHeight="18.0" prefWidth="98.0" text="CM Mindmap" textFill="WHITE">
