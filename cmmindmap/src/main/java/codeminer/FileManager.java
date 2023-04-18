@@ -88,6 +88,7 @@ public class FileManager {
      */
     public static void newLoadOperatingFile() {
         FileManager.operatingFile = null;
+        loadRecentFileQueue();
     }
 
     /**
@@ -114,7 +115,6 @@ public class FileManager {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-        //saveRecentFileQueue();
     }
 
     /**
@@ -179,12 +179,15 @@ public class FileManager {
 
     /**
      * 打开程序时，加载最近文件队列
+     *
      * @throws URISyntaxException
      */
-    public static void loadRecentFileQueue() throws URISyntaxException {
-        System.out.println(Paths.get(App.class.getResource("recentFileQueue").toURI()).toString());
-        try (FileReader reader = new FileReader(Paths.get(App.class.getResource("recentFileQueue").toURI()).toString());
-            BufferedReader br = new BufferedReader(reader)) {
+    public static void loadRecentFileQueue() {
+        //System.out.println(Paths.get(App.class.getResource("recentFileQueue").toURI()).toString());
+        try {
+            FileReader reader = new FileReader(Paths.get(App.class.getResource("recentFileQueue").toURI()).toString());
+
+            BufferedReader br = new BufferedReader(reader);
             String line;
             while ((line = br.readLine()) != null) {
                 InputStream imageStream = App.class.getResourceAsStream("recentFileImage/" + new File(line).getName() + ".png");
@@ -194,24 +197,33 @@ public class FileManager {
                     recentFileImageQueue.add(image);
                 }
             }
+            br.close();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
         }
+
     }
 
     /**
      * 关闭程序时，保存最近文件队列
+     *
      * @throws URISyntaxException
      */
     public static void saveRecentFileQueue(WritableImage image) throws URISyntaxException {
+        System.out.println(Paths.get(App.class.getResource("recentFileQueue").toURI()).toString());
         System.out.println(operatingFile);
-        try (FileWriter writer = new FileWriter(Paths.get(App.class.getResource("recentFileQueue").toURI()).toString());
-            BufferedWriter bw = new BufferedWriter(writer)) {
-            bw.write(operatingFile.toString() + "\n");
+        try {
+            FileWriter writer = new FileWriter(Paths.get(App.class.getResource("recentFileQueue").toURI()).toString());
+            BufferedWriter bw = new BufferedWriter(writer);
+            bw.write(operatingFile + "\n");
+            System.out.println(recentFileQueue);
             while (!recentFileQueue.isEmpty()) {
                 if (recentFileQueue.peek() == operatingFile) recentFileQueue.remove();
                 else bw.write(recentFileQueue.remove().toString() + "\n");
             }
+            bw.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

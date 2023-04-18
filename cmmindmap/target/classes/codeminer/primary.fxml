@@ -97,7 +97,7 @@
                         <Insets />
                      </VBox.margin>
                      <graphic>
-                        <ImageView fx:id="recentFileButtonImage2" fitHeight="53.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0">
+                        <ImageView fx:id="recentFileButtonImage2" fitHeight="52.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0">
                            <viewport>
                               <Rectangle2D />
                            </viewport>
@@ -124,7 +124,7 @@
                         <Insets />
                      </VBox.margin>
                      <graphic>
-                        <ImageView fx:id="recentFileButtonImage3" fitHeight="53.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0">
+                        <ImageView fx:id="recentFileButtonImage3" fitHeight="52.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0">
                            <viewport>
                               <Rectangle2D />
                            </viewport>
@@ -151,7 +151,7 @@
                         <Insets />
                      </VBox.margin>
                      <graphic>
-                        <ImageView fx:id="recentFileButtonImage4" fitHeight="53.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0">
+                        <ImageView fx:id="recentFileButtonImage4" fitHeight="52.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0">
                            <viewport>
                               <Rectangle2D />
                            </viewport>
@@ -178,7 +178,7 @@
                         <Insets />
                      </VBox.margin>
                      <graphic>
-                        <ImageView fx:id="recentFileButtonImage5" fitHeight="53.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0">
+                        <ImageView fx:id="recentFileButtonImage5" fitHeight="52.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0">
                            <viewport>
                               <Rectangle2D />
                            </viewport>
@@ -205,7 +205,7 @@
                         <Insets />
                      </VBox.margin>
                      <graphic>
-                        <ImageView fx:id="recentFileButtonImage6" fitHeight="53.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0">
+                        <ImageView fx:id="recentFileButtonImage6" fitHeight="52.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0">
                            <viewport>
                               <Rectangle2D />
                            </viewport>
@@ -232,7 +232,7 @@
                         <Insets />
                      </VBox.margin>
                      <graphic>
-                        <ImageView fx:id="recentFileButtonImage7" fitHeight="53.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0">
+                        <ImageView fx:id="recentFileButtonImage7" fitHeight="52.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0">
                            <viewport>
                               <Rectangle2D />
                            </viewport>
@@ -259,7 +259,7 @@
                         <Insets />
                      </VBox.margin>
                      <graphic>
-                        <ImageView fx:id="recentFileButtonImage8" fitHeight="53.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0">
+                        <ImageView fx:id="recentFileButtonImage8" fitHeight="52.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0">
                            <viewport>
                               <Rectangle2D />
                            </viewport>
@@ -286,7 +286,7 @@
                         <Insets />
                      </VBox.margin>
                      <graphic>
-                        <ImageView fx:id="recentFileButtonImage9" fitHeight="53.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0">
+                        <ImageView fx:id="recentFileButtonImage9" fitHeight="52.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0">
                            <viewport>
                               <Rectangle2D />
                            </viewport>
@@ -313,7 +313,7 @@
                         <Insets />
                      </VBox.margin>
                      <graphic>
-                        <ImageView fx:id="recentFileButtonImage10" fitHeight="53.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0">
+                        <ImageView fx:id="recentFileButtonImage10" fitHeight="52.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0">
                            <viewport>
                               <Rectangle2D />
                            </viewport>
@@ -340,7 +340,7 @@
                         <Insets />
                      </VBox.margin>
                      <graphic>
-                        <ImageView fx:id="recentFileButtonImage11" fitHeight="53.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0">
+                        <ImageView fx:id="recentFileButtonImage11" fitHeight="52.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0">
                            <viewport>
                               <Rectangle2D />
                            </viewport>
