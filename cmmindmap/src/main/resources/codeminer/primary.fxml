@@ -70,7 +70,7 @@
                         <Insets />
                      </VBox.margin>
                      <graphic>
-                        <ImageView fx:id="recentFileButtonImage1" fitHeight="52.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0">
+                        <ImageView fx:id="recentFileButtonImage1" fitHeight="53.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0">
                            <viewport>
                               <Rectangle2D />
                            </viewport>

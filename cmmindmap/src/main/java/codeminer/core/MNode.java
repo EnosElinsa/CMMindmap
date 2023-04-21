@@ -30,7 +30,7 @@ public class MNode extends TextField implements Serializable {
     /** 相邻节点间的水平间距 */
     public static final double HORIZONTAL_SPACING = 46.0;
     /** 文本域里一个字符占多个像素*/
-    public static final double PIXEL_PER_CHAR = 13.0;
+    public static final double PIXEL_PER_CHAR = 8.0;
     /** 节点的朝向向左 */
     public static final boolean LEFT  = false;
     /** 节点的朝向向右 */
@@ -296,6 +296,11 @@ public class MNode extends TextField implements Serializable {
         double leftMargin = rootNode.getLayoutX() - leftSubtreeWidth;
         if (leftMargin < 0) {
             anchorPane.setPrefWidth(anchorPane.getPrefWidth() + Math.abs(leftMargin) + PREF_WIDTH);
+            anchorPane.setPrefHeight(anchorPane.getPrefWidth() / PANE_RATIO);
+        }
+        double rightMargin = anchorPane.getPrefWidth() - (rootNode.getLayoutX() + PREF_WIDTH + rightSubtreeWidth);
+        if (rightMargin < 0) {
+            anchorPane.setPrefWidth(anchorPane.getPrefWidth() + Math.abs(rightMargin) * 2 + PREF_WIDTH);
             anchorPane.setPrefHeight(anchorPane.getPrefWidth() / PANE_RATIO);
         }
         rootNode.setLayoutX(anchorPane.getPrefWidth() / 2 - PREF_WIDTH / 2);
