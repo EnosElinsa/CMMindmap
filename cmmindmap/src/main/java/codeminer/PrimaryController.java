@@ -127,9 +127,9 @@ public class PrimaryController {
         });
         browseButton.setOnMouseClicked(event -> {
             try {
-                FileManager.operatingFileChooser1();
-                FileManager.openLoadOperatingFile();
-                if (FileManager.operatingFile != null) {
+                FileManager.getInstance().operatingFileChooser1();
+                FileManager.getInstance().openLoadOperatingFile();
+                if (FileManager.getInstance().getOperatingFile() != null) {
                     switchToSecondary();
                 }
             } catch (IOException e) {
@@ -196,7 +196,7 @@ public class PrimaryController {
         });
         newButton.setOnMouseClicked(event -> {
             try {
-                FileManager.newLoadOperatingFile();
+                FileManager.getInstance().newLoadOperatingFile();
                 switchToSecondary();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -251,10 +251,10 @@ public class PrimaryController {
         };
 
         /*从本地加载最近文件队列*/
-        FileManager.loadRecentFileQueue();
-        int recentFileQueueLength = FileManager.recentFileQueue.size();
-        File[] loadFileArray = FileManager.recentFileQueue.toArray(new File[recentFileQueueLength]);
-        Image[] loadFileImageArray = FileManager.recentFileImageQueue.toArray(new Image[recentFileQueueLength]);
+        FileManager.getInstance().loadRecentFileQueue();
+        int recentFileQueueLength = FileManager.getInstance().getRecentFileQueue().size();
+        File[] loadFileArray = FileManager.getInstance().getRecentFileQueue().toArray(new File[recentFileQueueLength]);
+        Image[] loadFileImageArray = FileManager.getInstance().getRecentFileImageQueue().toArray(new Image[recentFileQueueLength]);
 
         /*将最近文件按钮绑定文件并设置点击事件*/
         for (int i = 0; i < recentFileQueueLength && i < 11; i++) {
@@ -264,8 +264,8 @@ public class PrimaryController {
             int finalI = i;
             recentFileButton[i].setOnMouseClicked(event -> {
                 try {
-                    FileManager.operatingFile = loadFileArray[finalI];
-                    FileManager.openLoadOperatingFile();
+                    FileManager.getInstance().setOperatingFile(loadFileArray[finalI]);
+                    FileManager.getInstance().openLoadOperatingFile();
                     switchToSecondary();
                 } catch (IOException e) {
                     e.printStackTrace();

@@ -21,28 +21,39 @@ public class FileManager {
     /**
      * 正在操作的文件
      */
-    public static File operatingFile;
+    private File operatingFile;
 
     /**
      * 将要导出图片的文件
      */
-    public static File outputFile;
+    private File outputFile;
 
     /**
      * 最近文件队列
      */
-    public static Queue<File> recentFileQueue = new LinkedList<>();
+    private Queue<File> recentFileQueue = new LinkedList<>();
 
     /**
      * 最近文件缩略图队列
      */
-    public static Queue<Image> recentFileImageQueue = new LinkedList<>();
+    private Queue<Image> recentFileImageQueue = new LinkedList<>();
+
+    private static FileManager fileManager;
+
+    private FileManager() {}
+
+    public static FileManager getInstance() {
+        if (fileManager == null) {
+            fileManager = new FileManager();
+        }
+        return fileManager;
+    }
 
 
     /**
      * 选择文件（打开）
      */
-    public static void operatingFileChooser1() {
+    public void operatingFileChooser1() {
         /*选择目标文件*/
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open a file");
@@ -56,7 +67,7 @@ public class FileManager {
     /**
      * 选择文件（保存）
      */
-    public static void operatingFileChooser2() {
+    public void operatingFileChooser2() {
         /*选择目标文件夹*/
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select a directory to save the file");
@@ -71,7 +82,7 @@ public class FileManager {
     /**
      * 选择文件（导出）
      */
-    public static void outPutFileChooser() {
+    public void outPutFileChooser() {
         /*选择目标文件夹*/
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Output a file");
@@ -86,15 +97,15 @@ public class FileManager {
     /**
      * 新建文件
      */
-    public static void newLoadOperatingFile() {
-        FileManager.operatingFile = null;
+    public void newLoadOperatingFile() {
+        operatingFile = null;
         loadRecentFileQueue();
     }
 
     /**
      * 打开文件
      */
-    public static void openLoadOperatingFile() {
+    public void openLoadOperatingFile() {
         /*将文件中对象实例化和并读取MNode类信息*/
         if (operatingFile == null) return;
         try {
@@ -120,7 +131,7 @@ public class FileManager {
     /**
      * 保存文件
      */
-    public static boolean saveOperatingFile(WritableImage image) {
+    public boolean saveOperatingFile(WritableImage image) {
         /*将新建思维导图另存为*/
         if (operatingFile == null) return saveAsOperatingFile(image);
             /*将已有思维导图保存*/
@@ -151,7 +162,7 @@ public class FileManager {
     /**
      * 另存为文件
      */
-    public static boolean saveAsOperatingFile(WritableImage image) {
+    public boolean saveAsOperatingFile(WritableImage image) {
         /*选择目标文件*/
         operatingFileChooser2();
         /*将实例化对象和MNode类信息存入文件*/
@@ -182,7 +193,7 @@ public class FileManager {
      *
      * @throws URISyntaxException
      */
-    public static void loadRecentFileQueue() {
+    public void loadRecentFileQueue() {
         //System.out.println(Paths.get(App.class.getResource("recentFileQueue").toURI()).toString());
         try {
             FileReader reader = new FileReader(Paths.get(App.class.getResource("recentFileQueue").toURI()).toString());
@@ -211,7 +222,7 @@ public class FileManager {
      *
      * @throws URISyntaxException
      */
-    public static void saveRecentFileQueue(WritableImage image) throws URISyntaxException {
+    public void saveRecentFileQueue(WritableImage image) throws URISyntaxException {
         System.out.println(Paths.get(App.class.getResource("recentFileQueue").toURI()).toString());
         System.out.println(operatingFile);
         try {
@@ -234,7 +245,7 @@ public class FileManager {
     /**
      * 导出图片
      */
-    public static void saveOutputFile(WritableImage image) {
+    public void saveOutputFile(WritableImage image) {
         BufferedImage bufferedImage = SwingFXUtils.fromFXImage(image, null);
         Thread thread = new Thread(() -> {
             try {
@@ -246,4 +257,46 @@ public class FileManager {
         });
         thread.start();
     }
+
+    public File getOperatingFile() {
+        return operatingFile;
+    }
+
+    public void setOperatingFile(File operatingFile) {
+        this.operatingFile = operatingFile;
+    }
+
+    public File getOutputFile() {
+        return outputFile;
+    }
+
+    public void setOutputFile(File outputFile) {
+        this.outputFile = outputFile;
+    }
+
+    public Queue<File> getRecentFileQueue() {
+        return recentFileQueue;
+    }
+
+    public void setRecentFileQueue(Queue<File> recentFileQueue) {
+        this.recentFileQueue = recentFileQueue;
+    }
+
+    public Queue<Image> getRecentFileImageQueue() {
+        return recentFileImageQueue;
+    }
+
+    public void setRecentFileImageQueue(Queue<Image> recentFileImageQueue) {
+        this.recentFileImageQueue = recentFileImageQueue;
+    }
+
+    public static FileManager getFileManager() {
+        return fileManager;
+    }
+
+    public static void setFileManager(FileManager fileManager) {
+        FileManager.fileManager = fileManager;
+    }
+
+    
 }

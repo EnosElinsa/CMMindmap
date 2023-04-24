@@ -143,7 +143,7 @@ public class SecondaryController {
     }
 
     public void initializeRootNode() {
-        if (FileManager.operatingFile == null) {
+        if (FileManager.getInstance().getOperatingFile() == null) {
             rootNode = new MNode("Topic", true);
             rootNode.setLayoutX(anchorPane.getPrefWidth() / 2 - MNode.PREF_WIDTH / 2);
             rootNode.setLayoutY(anchorPane.getPrefHeight() / 2 - MNode.PREF_HEIGHT / 2);
@@ -446,11 +446,11 @@ public class SecondaryController {
         newMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN));
         newMenuItem.setOnAction(event -> {
             if (isModified && !isSaved) {
-                FileManager.saveOperatingFile(anchorPane.snapshot(new SnapshotParameters(), null));
+                FileManager.getInstance().saveOperatingFile(anchorPane.snapshot(new SnapshotParameters(), null));
                 isSaved = true;
                 isModified = false;
             }
-            FileManager.newLoadOperatingFile();
+            FileManager.getInstance().newLoadOperatingFile();
             MNode.getRightSubtree().clear();
             MNode.getLeftSubtree().clear();
             anchorPane.getChildren().clear();
@@ -466,12 +466,12 @@ public class SecondaryController {
         openMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN));
         openMenuItem.setOnAction(event -> {
             if (isModified && !isSaved) {
-                FileManager.saveOperatingFile(anchorPane.snapshot(new SnapshotParameters(), null));
+                FileManager.getInstance().saveOperatingFile(anchorPane.snapshot(new SnapshotParameters(), null));
                 isSaved = true;
                 isModified = false;
             }
-            FileManager.operatingFileChooser1();
-            FileManager.openLoadOperatingFile();
+            FileManager.getInstance().operatingFileChooser1();
+            FileManager.getInstance().openLoadOperatingFile();
             rootNode.reload();
             treeView.getRoot().getChildren().clear();
             treeView.setRoot(rootNode.getTreeItem());
@@ -493,20 +493,20 @@ public class SecondaryController {
         saveMenuItem.setOnAction(event -> {
             System.out.println("saveMenuItem clicked");
             isSaved = true;
-            FileManager.saveOperatingFile(anchorPane.snapshot(new SnapshotParameters(), null));
+            FileManager.getInstance().saveOperatingFile(anchorPane.snapshot(new SnapshotParameters(), null));
         });
 
         saveAsMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.S, KeyCombination.ALT_DOWN, KeyCombination.CONTROL_DOWN));
         saveAsMenuItem.setOnAction(event -> {
             System.out.println("saveAsMenuItem clicked");
             isSaved = true;
-            FileManager.saveAsOperatingFile(anchorPane.snapshot(new SnapshotParameters(), null));
+            FileManager.getInstance().saveAsOperatingFile(anchorPane.snapshot(new SnapshotParameters(), null));
         });
 
         exportAsMenuItem.setOnAction(event -> {
             WritableImage image = anchorPane.snapshot(new SnapshotParameters(), null);
-            FileManager.outPutFileChooser();
-            FileManager.saveOutputFile(image);
+            FileManager.getInstance().outPutFileChooser();
+            FileManager.getInstance().saveOutputFile(image);
             System.out.println("exportAsMenuItem clicked");
         });
 
@@ -536,7 +536,7 @@ public class SecondaryController {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == buttonType1) {
-            if (FileManager.saveOperatingFile(anchorPane.snapshot(new SnapshotParameters(), null))) {
+            if (FileManager.getInstance().saveOperatingFile(anchorPane.snapshot(new SnapshotParameters(), null))) {
                 Stage stage = (Stage) root.getScene().getWindow();
                 stage.close();
             }

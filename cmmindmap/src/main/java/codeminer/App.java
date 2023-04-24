@@ -24,7 +24,6 @@ public class App extends Application {
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setTitle("CM MindMap");
         stage.getIcons().add(new Image(App.class.getResourceAsStream("textures/cMmindmap.png")));
-        ResizeHelper.addResizeListener(stage);
         stage.show();
     }
 

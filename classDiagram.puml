@@ -1,0 +1,220 @@
+@startuml
+class codeminer.FileManager {
++ {static} File operatingFile
++ {static} File outputFile
++ {static} Queue<File> recentFileQueue
++ {static} Queue<Image> recentFileImageQueue
++ {static} void operatingFileChooser1()
++ {static} void operatingFileChooser2()
++ {static} void outPutFileChooser()
++ {static} void newLoadOperatingFile()
++ {static} void openLoadOperatingFile()
++ {static} boolean saveOperatingFile(WritableImage)
++ {static} boolean saveAsOperatingFile(WritableImage)
++ {static} void loadRecentFileQueue()
++ {static} void saveRecentFileQueue(WritableImage)
++ {static} void saveOutputFile(WritableImage)
+}
+class codeminer.App {
+- {static} Scene scene
++ void start(Stage)
+~ {static} void setRoot(String)
++ {static} Parent loadFXML(String)
++ {static} void main(String[])
+}
+class codeminer.PrimaryController {
+- Button exitButton
+- Button browseButton
+- Button newButton
+- Button recentFileButton1
+- Button recentFileButton2
+- Button recentFileButton3
+- Button recentFileButton4
+- Button recentFileButton5
+- Button recentFileButton6
+- Button recentFileButton7
+- Button recentFileButton8
+- Button recentFileButton9
+- Button recentFileButton10
+- Button recentFileButton11
+- Label recentFileName1
+- Label recentFileName2
+- Label recentFileName3
+- Label recentFileName4
+- Label recentFileName5
+- Label recentFileName6
+- Label recentFileName7
+- Label recentFileName8
+- Label recentFileName9
+- Label recentFileName10
+- Label recentFileName11
+- ImageView recentFileButtonImage1
+- ImageView recentFileButtonImage2
+- ImageView recentFileButtonImage3
+- ImageView recentFileButtonImage4
+- ImageView recentFileButtonImage5
+- ImageView recentFileButtonImage6
+- ImageView recentFileButtonImage7
+- ImageView recentFileButtonImage8
+- ImageView recentFileButtonImage9
+- ImageView recentFileButtonImage10
+- ImageView recentFileButtonImage11
+- AnchorPane anchorPane
+- FlowPane flowPane
+- {static} void switchToSecondary()
++ void initialize()
++ {static} void initializeBrowseButton(Node,Button)
++ {static} void initializeExitButton(Node,Button)
++ {static} void makeStageDraggable(Node,Alert)
++ void initializeNewButton(FlowPane)
+- void initializeRecentFile()
+}
+class codeminer.core.MEdge {
++ void drawEdge(double,double,double,double)
+}
+class codeminer.SecondaryController {
+- VBox vBox
+- AnchorPane anchorPane
+- HBox menuHBox
+- ScrollPane scrollPane1
+- ScrollPane scrollPane2
+- TreeView<String> treeView
+- Button button1
+- Button button2
+- Button button3
+- MenuButton menuButton
+- Button addDescendantButton
+- Label addDescendantLabel
+- Button addSiblingButton
+- Label addSiblingLabel
+- Button removeButton
+- Label removeLabel
+- Button leftLayoutButton
+- Button rightLayoutButton
+- Button autoLayoutButton
+- Label leftStatusLabel
+- MenuButton zoomMenu
+- MenuItem newMenuItem
+- MenuItem openMenuItem
+- MenuItem undoMenuItem
+- MenuItem redoMenuItem
+- MenuItem saveMenuItem
+- MenuItem saveAsMenuItem
+- MenuItem exportAsMenuItem
+- MenuItem exitMenuItem
+- {static} MNode selectedNode
+- {static} MNode rootNode
+- {static} BooleanProperty hasNodeBeenSelected
+- {static} boolean isModified
+- {static} boolean isSaved
+- void switchToPrimary()
++ void initialize()
++ void initializeRootNode()
++ void initializeButtons(Node)
+- void initializeMenuButton()
+- void popSaveAlert(Node)
++ {static} MNode getSelectedNode()
++ {static} void setSelectedNode(MNode)
++ {static} MNode getRootNode()
++ {static} void setRootNode(MNode)
++ AnchorPane getAnchorPane()
++ void setAnchorPane(AnchorPane)
++ {static} BooleanProperty hasNodeBeenSelected()
++ {static} boolean isModified()
++ {static} void setModified(boolean)
++ {static} boolean isSaved()
++ {static} void setSaved(boolean)
+}
+class codeminer.core.MNode {
++ {static} double PREF_HEIGHT
++ {static} double PREF_WIDTH
++ {static} double VERTICAL_SPACING
++ {static} double HORIZONTAL_SPACING
++ {static} double PIXEL_PER_CHAR
++ {static} boolean LEFT
++ {static} boolean RIGHT
++ {static} double PANE_RATIO
++ {static} String DEFAULT_STYLE
++ {static} String HOVERING_STYLE
++ {static} String SELECTED_STYLE
+- {static} MNode rootNode
+- {static} double leftSubtreeHeight
+- {static} double leftSubtreeWidth
+- {static} double rightSubtreeHeight
+- {static} double rightSubtreeWidth
+- {static} ArrayList<MNode> leftSubtree
+- {static} ArrayList<MNode> rightSubtree
+- {static} AnchorPane anchorPane
+- double treeHeight
+- double treeWidth
+- double textFieldWidth
+- boolean orientation
+- boolean isRootNode
+- String nodeText
+- ArrayList<MNode> childNodes
+- MEdge edge
+- MNode parentNode
+- TreeItemString treeItem
+- BooleanProperty isSelected
+- void initializeNode()
+- void updateSize(MNode)
+- double updatePositionUtil(MNode,MNode,double)
+- void updateChildNodesPosition(MNode,boolean)
+- void updatePaneSizeAndRootNodePosition()
++ void update(MNode)
+- void deleteNodeFromPane(MNode)
+- void deleteNodeFromList(MNode)
++ void deleteNode(MNode)
+- {static} void reloadUtil(MNode,AnchorPane)
++ void reload()
++ ArrayList<MNode> getChildNodes()
++ void setChildNodes(ArrayList<MNode>)
++ MNode getParentNode()
++ void setParentNode(MNode)
++ {static} double getLeftSubtreeHeight()
++ {static} void setLeftSubtreeHeight(double)
++ {static} double getRightSubtreeHeight()
++ {static} void setRightSubtreeHeight(double)
++ {static} double getLeftSubtreeWidth()
++ {static} void setLeftSubtreeWidth(double)
++ {static} double getRightSubtreeWidth()
++ {static} void setRightSubtreeWidth(double)
++ {static} ArrayList<MNode> getLeftSubtree()
++ {static} void setLeftSubtree(ArrayList<MNode>)
++ {static} ArrayList<MNode> getRightSubtree()
++ {static} void setRightSubtree(ArrayList<MNode>)
++ double getTreeHeight()
++ void setTreeHeight(double)
++ double getTreeWidth()
++ void setTreeWidth(double)
++ double getTextFieldWidth()
++ void setTextFieldWidth(double)
++ boolean getOrientation()
++ void setOrientation(boolean)
++ boolean isRootNode()
++ void setRootNode(boolean)
++ BooleanProperty isSelected()
++ String getNodeText()
++ void setNodeText(String)
++ TreeItemString getTreeItem()
++ void setTreeItem(TreeItemString)
++ {static} MNode getRootNode()
++ {static} void setRootNode(MNode)
++ {static} AnchorPane getAnchorPane()
++ {static} void setAnchorPane(AnchorPane)
++ MEdge getEdge()
++ void setEdge(MEdge)
+}
+class codeminer.core.TreeItemString {
++ String toString()
+}
+
+
+javafx.application.Application <|-- codeminer.App
+java.io.Serializable <|.. codeminer.core.MEdge
+javafx.scene.shape.CubicCurve <|-- codeminer.core.MEdge
+java.io.Serializable <|.. codeminer.core.MNode
+javafx.scene.control.TextField <|-- codeminer.core.MNode
+java.io.Serializable <|.. codeminer.core.TreeItemString
+javafx.scene.control.TreeItem <|-- codeminer.core.TreeItemString
+@enduml
