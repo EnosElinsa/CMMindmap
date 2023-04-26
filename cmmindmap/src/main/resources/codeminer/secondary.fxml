@@ -281,7 +281,7 @@
       <Line endX="1125.0" opacity="0.86" startX="-100.0" stroke="#434545" />
     <HBox id="HBox" alignment="CENTER_LEFT" prefHeight="26.0" prefWidth="1229.0" spacing="5.0" VBox.vgrow="NEVER">
       <children>
-        <Label fx:id="leftStatusLabel" maxHeight="1.7976931348623157E308" maxWidth="-1.0" prefHeight="19.0" prefWidth="267.0" text="Left status" HBox.hgrow="ALWAYS">
+        <Label fx:id="leftStatusLabel" maxHeight="1.7976931348623157E308" maxWidth="-1.0" prefHeight="19.0" prefWidth="267.0" text="No Activity" HBox.hgrow="ALWAYS">
           <font>
             <Font size="11.0" fx:id="x3" />
           </font>

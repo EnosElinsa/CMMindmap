@@ -244,7 +244,7 @@ public class SecondaryController {
             }
             selectedNode = newNode;
             rootNode.update(rootNode);
-
+            leftStatusLabel.setText("Descendant node added");
         });
         addDescendantButton.setOnMouseExited(event -> {
             addDescendantButton.setStyle(previousStyle);
@@ -279,6 +279,7 @@ public class SecondaryController {
                 newNode.setOrientation(selectedNode.getOrientation());
             }
             rootNode.update(rootNode);
+            leftStatusLabel.setText("Sibling node added");
         });
         addSiblingButton.setOnMouseExited(event -> {
             addSiblingButton.setStyle(previousStyle);
@@ -314,6 +315,7 @@ public class SecondaryController {
             }
             selectedNode.isSelected().set(true);
             rootNode.update(rootNode);
+            leftStatusLabel.setText("Node removed");
         });
         removeButton.setOnMouseExited(event -> {
             removeButton.setStyle(previousStyle);

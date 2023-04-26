@@ -49,7 +49,6 @@ public class FileManager {
         return fileManager;
     }
 
-
     /**
      * 选择文件（打开）
      */
@@ -289,14 +288,4 @@ public class FileManager {
     public void setRecentFileImageQueue(Queue<Image> recentFileImageQueue) {
         this.recentFileImageQueue = recentFileImageQueue;
     }
-
-    public static FileManager getFileManager() {
-        return fileManager;
-    }
-
-    public static void setFileManager(FileManager fileManager) {
-        FileManager.fileManager = fileManager;
-    }
-
-    
 }

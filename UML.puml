@@ -1,19 +1,29 @@
 @startuml
 class codeminer.FileManager {
-+ {static} File operatingFile
-+ {static} File outputFile
-+ {static} Queue<File> recentFileQueue
-+ {static} Queue<Image> recentFileImageQueue
-+ {static} void operatingFileChooser1()
-+ {static} void operatingFileChooser2()
-+ {static} void outPutFileChooser()
-+ {static} void newLoadOperatingFile()
-+ {static} void openLoadOperatingFile()
-+ {static} boolean saveOperatingFile(WritableImage)
-+ {static} boolean saveAsOperatingFile(WritableImage)
-+ {static} void loadRecentFileQueue()
-+ {static} void saveRecentFileQueue(WritableImage)
-+ {static} void saveOutputFile(WritableImage)
+- File operatingFile
+- File outputFile
+- Queue<File> recentFileQueue
+- Queue<Image> recentFileImageQueue
+- {static} FileManager fileManager
++ {static} FileManager getInstance()
++ void operatingFileChooser1()
++ void operatingFileChooser2()
++ void outPutFileChooser()
++ void newLoadOperatingFile()
++ void openLoadOperatingFile()
++ boolean saveOperatingFile(WritableImage)
++ boolean saveAsOperatingFile(WritableImage)
++ void loadRecentFileQueue()
++ void saveRecentFileQueue(WritableImage)
++ void saveOutputFile(WritableImage)
++ File getOperatingFile()
++ void setOperatingFile(File)
++ File getOutputFile()
++ void setOutputFile(File)
++ Queue<File> getRecentFileQueue()
++ void setRecentFileQueue(Queue<File>)
++ Queue<Image> getRecentFileImageQueue()
++ void setRecentFileImageQueue(Queue<Image>)
 }
 class codeminer.App {
 - {static} Scene scene
