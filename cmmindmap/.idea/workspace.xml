@@ -4,7 +4,35 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b3b51b8a-570e-43f5-a21f-ecec4972aae8" name="变更" comment="" />
+    <list default="true" id="b3b51b8a-570e-43f5-a21f-ecec4972aae8" name="变更" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/codeminer/primary-default.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/codeminer/secondary-default.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/codeminer/textures/hideDescendant.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/codeminer/primary-default.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/codeminer/secondary-default.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/codeminer/textures/hideDescendant.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/codeminer/SecondaryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/codeminer/SecondaryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/codeminer/core/MNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/codeminer/core/MNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/codeminer/primary.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/codeminer/primary.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/codeminer/secondary.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/codeminer/secondary.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/codeminer/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/codeminer/App.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/codeminer/FileManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/codeminer/FileManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/codeminer/PrimaryController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/codeminer/PrimaryController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/codeminer/SecondaryController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/codeminer/SecondaryController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/codeminer/SecondaryController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/codeminer/SecondaryController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/codeminer/core/MEdge.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/codeminer/core/MEdge.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/codeminer/core/MNode$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/codeminer/core/MNode$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/codeminer/core/MNode$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/codeminer/core/MNode$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/codeminer/core/MNode.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/codeminer/core/MNode.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/codeminer/core/TreeItemString.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/codeminer/core/TreeItemString.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/codeminer/primary.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/codeminer/primary.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/codeminer/recentFileQueue" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/codeminer/recentFileQueue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/codeminer/secondary.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/codeminer/secondary.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/module-info.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,8 +41,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="FxmlFile" />
         <option value="Class" />
+        <option value="FxmlFile" />
       </list>
     </option>
   </component>
@@ -48,19 +76,20 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;last_directory_selection&quot;: &quot;D:/java/CMMindmap/cmmindmap/src/main/java/codeminer&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;项目&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/java作业/object one&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.javacompiler&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\CMMindmap\cmmindmap\src\main\resources\codeminer" />
+      <recent name="D:\CMMindmap\cmmindmap\src\main\resources\codeminer\textures" />
       <recent name="D:\java\CMMindmap\cmmindmap\src\main\resources\codeminer\textures" />
       <recent name="D:\java\CMMindmap\cmmindmap\src\main\resources\recentFileImage" />
       <recent name="D:\java\CMMindmap\cmmindmap\src\main\resources" />
-      <recent name="D:\java\CMMindmap\cmmindmap\src\main\java\codeminer" />
-      <recent name="D:\java\CMMindmap\cmmindmap\src\main\resources\codeminer" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="codeminer" />
@@ -82,7 +111,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="应用程序.App" />
+        <item itemvalue="Application.App" />
       </list>
     </recent_temporary>
   </component>

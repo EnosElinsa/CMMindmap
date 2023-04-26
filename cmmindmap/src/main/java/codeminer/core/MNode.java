@@ -1,8 +1,8 @@
 package codeminer.core;
 
+import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
-
 import codeminer.SecondaryController;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -12,6 +12,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+
 
 /**
  * 思维导图里的一个节�?(MNode / MindmapNode)
@@ -38,12 +39,15 @@ public class MNode extends TextField implements Serializable {
     public static final boolean RIGHT = true;
     public static final double PANE_RATIO = 1.83;
 
-    public static final String DEFAULT_STYLE  = "-fx-control-inner-background:#DCDBF2";
-    public static final String HOVERING_STYLE = "-fx-control-inner-background:#DCDBF2;"
+
+
+
+    public static final String DEFAULT_STYLE  = "-fx-control-inner-background:#DCDCDC;";
+    public static final String HOVERING_STYLE = "-fx-control-inner-background:#DCDCDC;"
                                                + "-fx-border-color: #96DEFF;"
                                                + "-fx-border-radius: 2px;"
                                                + "-fx-border-width: 3px";
-    public static final String SELECTED_STYLE = "-fx-control-inner-background:#DCDBF2;"
+    public static final String SELECTED_STYLE = "-fx-control-inner-background:#DCDCDC;"
                                                + "-fx-border-color: #2EBDFF;"   
                                                + "-fx-border-radius: 2px;"
                                                + "-fx-border-width: 3px";
@@ -65,11 +69,13 @@ public class MNode extends TextField implements Serializable {
     private static ArrayList<MNode> rightSubtree = new ArrayList<>();
     /** 根节点所在的面板 */
     private static AnchorPane anchorPane;
+
+
     
     /** 节点自身和其所有子树构成的树的高度 */
-    private double treeHeight = PREF_HEIGHT;
+    public double treeHeight = PREF_HEIGHT;
     /** 节点自身和其所有子树构成的树的宽度 */
-    private double treeWidth;
+    public double treeWidth;
     /** 节点的文本域的宽�?*/
     private double textFieldWidth = PREF_WIDTH;
     /** 一个节点在布局里的朝向 {@code LEFT} �?{@code RIGHT} */
@@ -84,12 +90,16 @@ public class MNode extends TextField implements Serializable {
     private MEdge edge = new MEdge();
     /** 父节�?*/
     private MNode parentNode;
+    /** 子节点**/
+    private  MNode childNode;
     /** 节点在大纲树视图里的视图 */
     private TreeItemString treeItem;
+
     /** 是否被选中 */
     private transient BooleanProperty isSelected = new SimpleBooleanProperty(false);
     
     public MNode(String nodeText, boolean isRootNode) {
+
         super(nodeText);
         super.setPrefHeight(PREF_HEIGHT);
         super.setPrefWidth(PREF_WIDTH);
@@ -102,16 +112,19 @@ public class MNode extends TextField implements Serializable {
         }
     }
 
+
     /**
      * 给节点初始化事件处理和样�?
      */
     private void initializeNode() {
+        Label NodeLable = new Label(nodeText);
         super.setPrefHeight(PREF_HEIGHT);
         super.setPrefWidth(textFieldWidth);
         super.setAlignment(Pos.CENTER);
         super.setText(nodeText);
         super.setEditable(false);
         super.setStyle(DEFAULT_STYLE);
+
 
         super.setOnMouseClicked(event -> {
             if (SecondaryController.getSelectedNode() != null) {
@@ -218,6 +231,10 @@ public class MNode extends TextField implements Serializable {
             }
             treeHeight += (node.getChildNodes().size() - 1) * VERTICAL_SPACING;
             node.setTreeHeight(Math.max(treeHeight, PREF_HEIGHT));
+            if(node.getTreeItem().isExpanded()==false){
+                node.setTreeWidth(PREF_WIDTH);
+                node.setTreeHeight(PREF_HEIGHT);
+            }
         }
     }
 
@@ -359,6 +376,43 @@ public class MNode extends TextField implements Serializable {
     }
 
     /**
+     * 从anchorPane上隐藏节点以及节点的子节点以及之间的�?
+     * @param node 要隐藏的节点
+     */
+    private void hideNodeFromPane(MNode node) {
+        if (node==null) {
+            return;
+        }
+        for (int index = 0; index < node.getChildNodes().size(); index++) {
+            hideNodeFromPane(node.getChildNodes().get(index));
+        }
+        for(int index=0;index<node.getChildNodes().size();index++){
+            anchorPane.getChildren().remove(node.getChildNodes().get(index));
+            anchorPane.getChildren().remove(node.getChildNodes().get(index).getEdge());
+        }
+
+    }
+
+    /**
+     * 在anchorPane上恢复被隐藏节点
+     * @param node 要恢复的节点
+     */
+    private void expandNodeFromPane(MNode node) {
+        if (node==null) {
+            return;
+        }
+        for (int index = 0; index < node.getChildNodes().size(); index++) {
+           anchorPane.getChildren().add(getChildNodes().get(index));
+           anchorPane.getChildren().add(getChildNodes().get(index).getEdge());
+
+        }
+
+
+    }
+
+
+
+    /**
      * 删除一个节�?
      * @param node 要删除的节点
      */
@@ -367,6 +421,53 @@ public class MNode extends TextField implements Serializable {
         deleteNodeFromPane(node);
         deleteNodeFromList(node);
     }
+
+    /**
+     * 隐藏一个节�?
+     * @param node 要隐藏的节点
+     */
+    public void hideNode(MNode node){
+        if(node==null) return;
+        hideNodeFromPane(node);
+        node.setTreeHeight(0);//隐藏子节点树高度
+        node.setTreeWidth(0);//隐藏子节点树的宽度
+    }
+    /**
+     * 更新隐藏后的整个树的宽度和高度属性
+     * @param root 根节点
+     */
+
+    public void updatehidenSize(MNode root) {
+        update(root);
+        updatePaneSizeAndRootNodePosition();
+        updateChildNodesPosition(root, LEFT);
+        updateChildNodesPosition(root, RIGHT);
+        SecondaryController.setModified(true);
+        SecondaryController.setSaved(false);
+    }
+
+    public void updateexpandSize(MNode root) {
+        update(root);
+        updatePaneSizeAndRootNodePosition();
+        updateChildNodesPosition(root, LEFT);
+        updateChildNodesPosition(root, RIGHT);
+        SecondaryController.setModified(true);
+        SecondaryController.setSaved(false);
+    }
+
+    /**
+     * 展开一个节�?
+     * @param node 要展开的节点
+     */
+    public void expandNode(MNode node){
+        if(node==null) return;
+        expandNodeFromPane(node);
+        node.setTreeHeight(node.getChildNode().treeHeight);//重置子节点树高度
+
+    }
+
+
+
 
     private static void reloadUtil(MNode node, AnchorPane anchorPane) {
         node.isSelected = new SimpleBooleanProperty(false);
@@ -381,7 +482,7 @@ public class MNode extends TextField implements Serializable {
 
     /**
      * 当保存后再被打开的树结构需要重新把节点和边添加到画布中
-     * @param treeView
+     * @param TreeView
      */
     public void reload() {
         anchorPane.getChildren().clear();
@@ -400,6 +501,7 @@ public class MNode extends TextField implements Serializable {
     public ArrayList<MNode> getChildNodes() {
         return childNodes;
     }
+    public MNode getChildNode(){return childNodes.get(0);}
 
     public void setChildNodes(ArrayList<MNode> childNodes) {
         this.childNodes = childNodes;
@@ -524,6 +626,7 @@ public class MNode extends TextField implements Serializable {
     public static MNode getRootNode() {
         return rootNode;
     }
+
 
     public static void setRootNode(MNode rootNode) {
         MNode.rootNode = rootNode;

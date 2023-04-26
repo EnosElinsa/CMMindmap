@@ -25,6 +25,10 @@ import javafx.stage.Stage;
 
 public class SecondaryController {
 
+    /** 一个节点的预设高度 */
+    public static final double PREF_HEIGHT    = 36.0;
+    /** 一个节点的预设宽度 */
+    public static final double PREF_WIDTH     = 81.0;
     @FXML
     private VBox vBox; // root
 
@@ -81,6 +85,9 @@ public class SecondaryController {
 
     @FXML
     private Button autoLayoutButton;
+
+    @FXML
+    private Button hideDescendantButton;
 
     @FXML
     private Label leftStatusLabel;
@@ -167,7 +174,7 @@ public class SecondaryController {
 
     public void initializeButtons(Node root) {
         String previousStyle = "-fx-background-color: #222425";
-        String mouseEnteredStyle = "-fx-background-color: #303132";
+        String mouseEnteredStyle = "-fx-background-color:#303132";
 
         menuButton.setOnMouseEntered(event -> {
             menuButton.setStyle(mouseEnteredStyle);
@@ -220,7 +227,6 @@ public class SecondaryController {
             newNode.setParentNode(selectedNode);
             newNode.isSelected().set(true);
             selectedNode.isSelected().set(false);
-
             anchorPane.getChildren().add(newNode);
             anchorPane.getChildren().add(newNode.getEdge());
             newNode.getParentNode().getTreeItem().getChildren().add(newNode.getTreeItem());
@@ -353,7 +359,6 @@ public class SecondaryController {
         });
         autoLayoutButton.setOnMouseClicked(event -> {
             autoLayoutButton.setStyle(previousStyle);
-
             while (MNode.getLeftSubtree().size() > MNode.getRightSubtree().size()) {
                 MNode.getRightSubtree().add(MNode.getLeftSubtree().get(MNode.getLeftSubtree().size() - 1));
                 MNode.getLeftSubtree().remove(MNode.getLeftSubtree().size() - 1);
@@ -367,6 +372,36 @@ public class SecondaryController {
         autoLayoutButton.setOnMouseExited(event -> {
             autoLayoutButton.setStyle(previousStyle);
         });
+
+
+        hideDescendantButton.setOnMouseEntered(event -> {
+            hideDescendantButton.setStyle(mouseEnteredStyle);
+        });
+        hideDescendantButton.setOnMouseClicked(event -> {
+            hideDescendantButton.setStyle(previousStyle);
+            if (selectedNode==null) {
+                leftStatusLabel.setText("The root  cannot be hidden.");
+                return;
+            }
+            else if(selectedNode.getTreeItem().isExpanded()==true){
+                selectedNode.getTreeItem().setExpanded(false);
+                selectedNode.hideNode(selectedNode);
+                selectedNode.isSelected().set(true);
+                rootNode.updatehidenSize(rootNode);
+
+            }else {
+                selectedNode.getTreeItem().setExpanded(true);
+                selectedNode.expandNode(selectedNode);
+                selectedNode.isSelected().set(true);
+                rootNode.updateexpandSize(rootNode);
+            }
+
+        });
+        hideDescendantButton.setOnMouseExited(event -> {
+            hideDescendantButton.setStyle(previousStyle);
+        });
+
+
 
         button1.setOnMouseEntered(event -> {
             button1.setStyle(mouseEnteredStyle);
@@ -563,6 +598,7 @@ public class SecondaryController {
     public static void setRootNode(MNode rootNode) {
         SecondaryController.rootNode = rootNode;
     }
+
 
     public AnchorPane getAnchorPane() {
         return anchorPane;

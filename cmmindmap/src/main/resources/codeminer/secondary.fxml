@@ -51,11 +51,11 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="vBox" prefHeight="817.0" prefWidth="1225.0" style="-fx-background-color: #222425;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codeminer.SecondaryController">
+<VBox fx:id="vBox" prefHeight="817.0" prefWidth="1225.0" stylesheets="@secondary-default.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codeminer.SecondaryController">
   <children>
       <HBox fx:id="menuHBox" alignment="CENTER_LEFT" prefHeight="33.0" prefWidth="1212.0" VBox.vgrow="NEVER">
          <children>
-            <MenuButton fx:id="menuButton" mnemonicParsing="false" prefHeight="53.0" prefWidth="42.0" style="-fx-background-color: #222425;">
+            <MenuButton fx:id="menuButton" mnemonicParsing="false" prefHeight="53.0" prefWidth="42.0">
               <items>
                 <MenuItem fx:id="newMenuItem" mnemonicParsing="false" text="New" />
                 <MenuItem fx:id="openMenuItem" mnemonicParsing="false" text="Open" />
@@ -82,11 +82,11 @@
                </HBox.margin>
             </MenuButton>
             <Pane prefHeight="53.0" prefWidth="406.0" HBox.hgrow="ALWAYS" />
-            <HBox alignment="CENTER" prefHeight="53.0" prefWidth="220.0" spacing="10.0">
+            <HBox alignment="CENTER" prefHeight="54.0" prefWidth="205.0" spacing="10.0">
                <children>
-                  <VBox alignment="CENTER" prefHeight="51.0" prefWidth="80.0">
+                  <VBox alignment="CENTER" prefHeight="51.0" prefWidth="80.0" stylesheets="@secondary-default.css">
                      <children>
-                        <Button fx:id="addDescendantButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="18.0" style="-fx-background-color: #222425;">
+                        <Button fx:id="addDescendantButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="18.0">
                            <graphic>
                               <ImageView fitHeight="26.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -95,7 +95,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Label fx:id="addDescendantLabel" alignment="CENTER" prefHeight="17.0" prefWidth="111.0" style="&#10;" text="Add Descendant" textAlignment="CENTER" textFill="WHITE" wrapText="false">
+                        <Label fx:id="addDescendantLabel" alignment="CENTER" prefHeight="17.0" prefWidth="111.0" text="Add Descendant" textAlignment="CENTER" textFill="WHITE" wrapText="false">
                            <font>
                               <Font name="Microsoft YaHei" size="10.0" fx:id="x11" />
                            </font>
@@ -105,9 +105,9 @@
                         <Insets bottom="3.0" />
                      </padding>
                   </VBox>
-                  <VBox alignment="CENTER" prefHeight="51.0" prefWidth="56.0" spacing="2.0">
+                  <VBox alignment="CENTER" prefHeight="51.0" prefWidth="56.0" spacing="2.0" stylesheets="@secondary-default.css">
                      <children>
-                        <Button fx:id="addSiblingButton" mnemonicParsing="false" prefHeight="31.0" prefWidth="24.0" style="-fx-background-color: #222425;">
+                        <Button fx:id="addSiblingButton" mnemonicParsing="false" prefHeight="31.0" prefWidth="24.0">
                            <graphic>
                               <ImageView fitHeight="23.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -116,7 +116,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Label fx:id="addSiblingLabel" alignment="CENTER" prefHeight="17.0" prefWidth="111.0" style="&#10;" text="Add Sibling" textAlignment="CENTER" textFill="WHITE" wrapText="false">
+                        <Label fx:id="addSiblingLabel" alignment="CENTER" prefHeight="17.0" prefWidth="111.0" text="Add Sibling" textAlignment="CENTER" textFill="WHITE" wrapText="false">
                            <font>
                               <Font name="Microsoft YaHei" size="10.0" fx:id="x111" />
                            </font>
@@ -128,7 +128,7 @@
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="53.0" prefWidth="42.0" spacing="2.0">
                      <children>
-                        <Button fx:id="removeButton" mnemonicParsing="false" prefHeight="29.0" prefWidth="31.0" style="-fx-background-color: #222425;">
+                        <Button fx:id="removeButton" mnemonicParsing="false" prefHeight="29.0" prefWidth="31.0">
                            <graphic>
                               <ImageView fitHeight="22.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -137,7 +137,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Label fx:id="removeLabel" alignment="CENTER" prefHeight="17.0" prefWidth="111.0" style="&#10;" text="Remove" textAlignment="CENTER" textFill="WHITE" wrapText="false">
+                        <Label fx:id="removeLabel" alignment="CENTER" prefHeight="17.0" prefWidth="111.0" text="Remove" textAlignment="CENTER" textFill="WHITE" wrapText="false">
                            <font>
                               <Font name="Microsoft YaHei" size="10.0" fx:id="x1111" />
                            </font>
@@ -149,12 +149,12 @@
                   </VBox>
                </children>
             </HBox>
-            <Pane prefHeight="53.0" prefWidth="187.0" HBox.hgrow="ALWAYS" />
-            <HBox alignment="TOP_RIGHT" prefHeight="51.0" prefWidth="204.0">
+            <Pane prefHeight="54.0" prefWidth="95.0" HBox.hgrow="ALWAYS" />
+            <HBox alignment="TOP_RIGHT" prefHeight="54.0" prefWidth="289.0">
                <children>
                   <VBox alignment="CENTER" prefHeight="50.0" prefWidth="84.0">
                      <children>
-                        <Button fx:id="leftLayoutButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="18.0" style="-fx-background-color: #222425;">
+                        <Button fx:id="leftLayoutButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="18.0">
                            <graphic>
                               <ImageView fitHeight="26.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -163,7 +163,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="111.0" style="&#10;" text="Left Layout" textAlignment="CENTER" textFill="WHITE" wrapText="false">
+                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="111.0" text="Left Layout" textAlignment="CENTER" textFill="WHITE" wrapText="false">
                            <font>
                               <Font name="Microsoft YaHei" size="10.0" fx:id="x112" />
                            </font>
@@ -175,7 +175,7 @@
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="50.0" prefWidth="84.0">
                      <children>
-                        <Button fx:id="rightLayoutButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="18.0" style="-fx-background-color: #222425;">
+                        <Button fx:id="rightLayoutButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="18.0">
                            <graphic>
                               <ImageView fitHeight="26.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -184,7 +184,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="111.0" style="&#10;" text="Right Layout" textAlignment="CENTER" textFill="WHITE" wrapText="false">
+                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="111.0" text="Right Layout" textAlignment="CENTER" textFill="WHITE" wrapText="false">
                            <font>
                               <Font name="Microsoft YaHei" size="10.0" fx:id="x1121" />
                            </font>
@@ -196,7 +196,7 @@
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="35.0" prefWidth="86.0">
                      <children>
-                        <Button fx:id="autoLayoutButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="18.0" style="-fx-background-color: #222425;">
+                        <Button fx:id="autoLayoutButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="18.0">
                            <graphic>
                               <ImageView fitHeight="26.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -205,7 +205,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="111.0" style="&#10;" text="Auto Layout" textAlignment="CENTER" textFill="WHITE" wrapText="false">
+                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="111.0" text="Auto Layout" textAlignment="CENTER" textFill="WHITE" wrapText="false">
                            <font>
                               <Font name="Microsoft YaHei" size="10.0" fx:id="x1122" />
                            </font>
@@ -215,24 +215,45 @@
                         <Insets bottom="3.0" />
                      </padding>
                   </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Button fx:id="hideDescendantButton" mnemonicParsing="false" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="Microsoft Himalaya" size="10.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="26.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@textures/hideDescendant.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Label prefHeight="18.0" prefWidth="93.0" text="Hide Descendant" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="Microsoft YaHei" size="10.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
                </children>
                <padding>
                   <Insets top="2.0" />
                </padding>
             </HBox>
-            <HBox alignment="TOP_RIGHT" prefHeight="49.0" prefWidth="154.0" spacing="3.0">
+            <HBox alignment="TOP_RIGHT" prefHeight="54.0" prefWidth="186.0" spacing="3.0">
                <children>
-                  <Button fx:id="button1" mnemonicParsing="false" prefHeight="47.0" prefWidth="53.0" style="-fx-background-color: #222425;" text="—" textFill="WHITE">
+                  <Button fx:id="button1" mnemonicParsing="false" prefHeight="47.0" prefWidth="53.0" text="—" textFill="WHITE">
                      <font>
                         <Font size="9.0" />
                      </font>
                   </Button>
-                  <Button fx:id="button2" mnemonicParsing="false" prefHeight="47.0" prefWidth="53.0" style="-fx-background-color: #222425;" text="◱" textFill="WHITE">
+                  <Button fx:id="button2" mnemonicParsing="false" prefHeight="47.0" prefWidth="53.0" text="◱" textFill="WHITE">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Button>
-                  <Button fx:id="button3" mnemonicParsing="false" prefHeight="47.0" prefWidth="53.0" style="-fx-background-color: #222425;" text="×" textFill="WHITE">
+                  <Button fx:id="button3" mnemonicParsing="false" prefHeight="47.0" prefWidth="53.0" text="×" textFill="WHITE">
                      <font>
                         <Font size="22.0" />
                      </font>
@@ -242,16 +263,17 @@
          </children>
       </HBox>
       <Line endX="1125.0" startX="-100.0" stroke="#434545" />
-    <SplitPane dividerPositions="0.15" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #222425;" VBox.vgrow="ALWAYS">
+    <SplitPane dividerPositions="0.15" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <items>
             <ScrollPane fx:id="scrollPane1" fitToHeight="true" fitToWidth="true" prefHeight="735.0" prefWidth="256.0">
                <content>
                   <TreeView fx:id="treeView" editable="true" prefHeight="735.0" prefWidth="234.0" />
                </content>
             </ScrollPane>
-        <ScrollPane fx:id="scrollPane2" fitToHeight="true" fitToWidth="true" hvalue="0.5" pannable="true" style="-fx-background-color: #ffffff;" vvalue="0.5">
+        <ScrollPane fx:id="scrollPane2" fitToHeight="true" fitToWidth="true" hvalue="0.5" pannable="true" vvalue="0.5">
           <content>
-            <AnchorPane id="Content" fx:id="anchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="864.0" prefWidth="1584.0" style="-fx-background-color: #ffffff;" />
+            <AnchorPane id="Content" fx:id="anchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="864.0" prefWidth="1584.0">
+                    </AnchorPane>
           </content>
         </ScrollPane>
       </items>
@@ -268,7 +290,7 @@
           </textFill>
         </Label>
         <Pane prefHeight="19.0" prefWidth="678.0" HBox.hgrow="ALWAYS" />
-            <MenuButton fx:id="zoomMenu" mnemonicParsing="false" prefHeight="23.0" prefWidth="68.0" style="-fx-background-color: #222425;" text="100%" textFill="WHITE">
+            <MenuButton fx:id="zoomMenu" mnemonicParsing="false" prefHeight="23.0" prefWidth="68.0" text="100%" textFill="WHITE">
               <items>
                 <MenuItem mnemonicParsing="false" text="400%" />
                   <MenuItem mnemonicParsing="false" text="300%" />

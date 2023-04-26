@@ -12,7 +12,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="557.0" prefWidth="809.0" style="-fx-background-color: #1D1F20;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codeminer.PrimaryController">
+<AnchorPane fx:id="anchorPane" prefHeight="557.0" prefWidth="809.0"  xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codeminer.PrimaryController" stylesheets="@primary-default.css">
+
    <children>
       <HBox layoutX="6.0" layoutY="6.0" prefHeight="19.0" prefWidth="118.0" spacing="3.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="656.0" AnchorPane.topAnchor="3.0">
          <children>
@@ -28,7 +29,7 @@
             </Label>
          </children>
       </HBox>
-      <Button fx:id="exitButton" layoutX="737.0" layoutY="-4.0" minWidth="47.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="66.0" style="-fx-background-color: #1D1F20;" text="×" textFill="WHITE">
+      <Button fx:id="exitButton" layoutX="737.0" layoutY="-4.0" minWidth="47.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="66.0"  text="×" textFill="WHITE">
          <font>
             <Font name="Microsoft YaHei Bold" size="21.0" />
          </font>
@@ -42,7 +43,7 @@
          <children>
             <VBox prefHeight="131.0" prefWidth="168.0" spacing="1.0">
                <children>
-                  <Button fx:id="newButton" mnemonicParsing="false" prefHeight="92.0" prefWidth="168.0" style="-fx-background-color: #343638;" text="+" textFill="#cccdce">
+                  <Button fx:id="newButton" mnemonicParsing="false" prefHeight="92.0" prefWidth="168.0"  text="+" textFill="#cccdce">
                      <font>
                         <Font size="40.0" />
                      </font>
@@ -62,7 +63,7 @@
             </VBox>
             <VBox prefHeight="134.0" prefWidth="168.0" spacing="1.0">
                <children>
-                  <Button fx:id="recentFileButton1" mnemonicParsing="false" prefHeight="92.0" prefWidth="168.0" style="-fx-background-color: #343638;" textFill="#cccdce">
+                  <Button fx:id="recentFileButton1" mnemonicParsing="false" prefHeight="92.0" prefWidth="168.0"  textFill="#cccdce">
                      <font>
                         <Font size="40.0" />
                      </font>
@@ -89,7 +90,7 @@
             </VBox>
             <VBox prefHeight="134.0" prefWidth="168.0" spacing="1.0">
                <children>
-                  <Button fx:id="recentFileButton2" mnemonicParsing="false" prefHeight="92.0" prefWidth="168.0" style="-fx-background-color: #343638;" textFill="#cccdce">
+                  <Button fx:id="recentFileButton2" mnemonicParsing="false" prefHeight="92.0" prefWidth="168.0"  textFill="#cccdce">
                      <font>
                         <Font size="40.0" />
                      </font>
@@ -116,7 +117,7 @@
             </VBox>
             <VBox prefHeight="134.0" prefWidth="168.0" spacing="1.0">
                <children>
-                  <Button fx:id="recentFileButton3" mnemonicParsing="false" prefHeight="92.0" prefWidth="168.0" style="-fx-background-color: #343638;" textFill="#cccdce">
+                  <Button fx:id="recentFileButton3" mnemonicParsing="false" prefHeight="92.0" prefWidth="168.0"  textFill="#cccdce">
                      <font>
                         <Font size="40.0" />
                      </font>
@@ -143,7 +144,7 @@
             </VBox>
             <VBox prefHeight="134.0" prefWidth="168.0" spacing="1.0">
                <children>
-                  <Button fx:id="recentFileButton4" mnemonicParsing="false" prefHeight="92.0" prefWidth="168.0" style="-fx-background-color: #343638;" textFill="#cccdce">
+                  <Button fx:id="recentFileButton4" mnemonicParsing="false" prefHeight="92.0" prefWidth="168.0"  textFill="#cccdce">
                      <font>
                         <Font size="40.0" />
                      </font>
@@ -170,7 +171,7 @@
             </VBox>
             <VBox prefHeight="134.0" prefWidth="168.0" spacing="1.0">
                <children>
-                  <Button fx:id="recentFileButton5" mnemonicParsing="false" prefHeight="92.0" prefWidth="168.0" style="-fx-background-color: #343638;" textFill="#cccdce">
+                  <Button fx:id="recentFileButton5" mnemonicParsing="false" prefHeight="92.0" prefWidth="168.0"  textFill="#cccdce">
                      <font>
                         <Font size="40.0" />
                      </font>
@@ -197,7 +198,7 @@
             </VBox>
             <VBox prefHeight="134.0" prefWidth="168.0" spacing="1.0">
                <children>
-                  <Button fx:id="recentFileButton6" mnemonicParsing="false" prefHeight="92.0" prefWidth="168.0" style="-fx-background-color: #343638;" textFill="#cccdce">
+                  <Button fx:id="recentFileButton6" mnemonicParsing="false" prefHeight="92.0" prefWidth="168.0"  textFill="#cccdce">
                      <font>
                         <Font size="40.0" />
                      </font>
@@ -224,7 +225,7 @@
             </VBox>
             <VBox prefHeight="134.0" prefWidth="168.0" spacing="1.0">
                <children>
-                  <Button fx:id="recentFileButton7" mnemonicParsing="false" prefHeight="92.0" prefWidth="168.0" style="-fx-background-color: #343638;" textFill="#cccdce">
+                  <Button fx:id="recentFileButton7" mnemonicParsing="false" prefHeight="92.0" prefWidth="168.0"  textFill="#cccdce">
                      <font>
                         <Font size="40.0" />
                      </font>
@@ -251,7 +252,7 @@
             </VBox>
             <VBox prefHeight="134.0" prefWidth="168.0" spacing="1.0">
                <children>
-                  <Button fx:id="recentFileButton8" mnemonicParsing="false" prefHeight="92.0" prefWidth="168.0" style="-fx-background-color: #343638;" textFill="#cccdce">
+                  <Button fx:id="recentFileButton8" mnemonicParsing="false" prefHeight="92.0" prefWidth="168.0"  textFill="#cccdce">
                      <font>
                         <Font size="40.0" />
                      </font>
@@ -278,7 +279,7 @@
             </VBox>
             <VBox prefHeight="134.0" prefWidth="168.0" spacing="1.0">
                <children>
-                  <Button fx:id="recentFileButton9" mnemonicParsing="false" prefHeight="92.0" prefWidth="168.0" style="-fx-background-color: #343638;" textFill="#cccdce">
+                  <Button fx:id="recentFileButton9" mnemonicParsing="false" prefHeight="92.0" prefWidth="168.0"  textFill="#cccdce">
                      <font>
                         <Font size="40.0" />
                      </font>
@@ -305,7 +306,7 @@
             </VBox>
             <VBox prefHeight="134.0" prefWidth="168.0" spacing="1.0">
                <children>
-                  <Button fx:id="recentFileButton10" mnemonicParsing="false" prefHeight="92.0" prefWidth="168.0" style="-fx-background-color: #343638;" textFill="#cccdce">
+                  <Button fx:id="recentFileButton10" mnemonicParsing="false" prefHeight="92.0" prefWidth="168.0"  textFill="#cccdce">
                      <font>
                         <Font size="40.0" />
                      </font>
@@ -332,7 +333,7 @@
             </VBox>
             <VBox prefHeight="134.0" prefWidth="168.0" spacing="1.0">
                <children>
-                  <Button fx:id="recentFileButton11" mnemonicParsing="false" prefHeight="92.0" prefWidth="168.0" style="-fx-background-color: #343638;" textFill="#cccdce">
+                  <Button fx:id="recentFileButton11" mnemonicParsing="false" prefHeight="92.0" prefWidth="168.0" textFill="#cccdce">
                      <font>
                         <Font size="40.0" />
                      </font>
@@ -359,7 +360,7 @@
             </VBox>
          </children>
       </FlowPane>
-      <Button fx:id="browseButton" layoutX="721.0" layoutY="508.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="66.0" style="-fx-background-color: #343638;" text="Browse" textFill="WHITE">
+      <Button fx:id="browseButton" layoutX="721.0" layoutY="508.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="66.0"  text="Browse" textFill="WHITE">
          <font>
             <Font name="Microsoft YaHei" size="12.0" />
          </font></Button>
